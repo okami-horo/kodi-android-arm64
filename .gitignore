@@ -19,7 +19,7 @@ Thumbs.db
 # Android artifacts
 *.apk
 *.aab
-*.ap_ 
+*.ap_
 *.dex
 *.idsig
 
@@ -40,9 +40,24 @@ keystore.properties
 /xbmc/res/mipmap-*/
 /xbmc/res/drawable/applaunch_screen.png
 /xbmc/res/drawable-xxxhdpi/applaunch_screen.png
+xbmc/res/values/colors.generated.xml
 
 # IDE noise
 /.settings/
 /.project
 /.classpath
 
+# Python caches (do not ignore real .py scripts globally)
+__pycache__/
+*.pyc
+
+# Local Gradle user home used by this repo
+/.gradle-user/
+
+# Android Studio captures and mappings
+captures/
+**/mapping/
+
+# Patch/merge leftovers
+*.orig
+*.rej
