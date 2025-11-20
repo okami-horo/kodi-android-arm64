@@ -1,0 +1,42 @@
+name: android-debug-apk
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Android cmdline-tools
+        run: |
+          set -e
+          SDK="$HOME/android-sdk"
+          mkdir -p "$SDK/cmdline-tools"
+          curl -sSL -o /tmp/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+          unzip -q /tmp/cmdline-tools.zip -d "$SDK/cmdline-tools"
+          mkdir -p "$SDK/cmdline-tools/latest"
+          rsync -a "$SDK/cmdline-tools/cmdline-tools/" "$SDK/cmdline-tools/latest/"
+          echo "ANDROID_SDK_ROOT=$SDK" >> $GITHUB_ENV
+          echo "ANDROID_HOME=$SDK" >> $GITHUB_ENV
+          yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$SDK" --install "platform-tools" "platforms;android-36" "build-tools;36.0.0"
+          yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$SDK" --licenses || true
+
+      - name: Build Debug APK
+        run: |
+          ./gradlew :xbmc:assembleDebug -x lint --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: xbmc-debug-apk
+          path: xbmc/build/outputs/apk/debug/xbmc-debug.apk

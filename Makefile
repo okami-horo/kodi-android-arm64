@@ -109,4 +109,3 @@ apk-clean:
 	rm -rf assets
 
 .PHONY: force libs assets python sharedapk res package
-

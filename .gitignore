@@ -30,12 +30,11 @@ Thumbs.db
 *.pem
 keystore.properties
 
-# NDK / Makefile outputs staged by this repo
-/assets/
-/xbmc/assets/
-/xbmc/lib/
+# NDK / Makefile outputs (keep source assets & libs tracked)
+# Do NOT ignore xbmc/assets or xbmc/lib so they can be versioned
 /xbmc/obj/
 /xbmc/java/
+# Generated resources from Make tasks
 # Generated resources from Make tasks
 /xbmc/res/mipmap-*/
 /xbmc/res/drawable/applaunch_screen.png
@@ -61,3 +60,6 @@ captures/
 # Patch/merge leftovers
 *.orig
 *.rej
+
+# Unstripped backup (do not commit)
+xbmc/lib/**/libkodi.unstripped.so
