@@ -1,0 +1,48 @@
+# General
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+/.vscode/
+/.idea/
+*.iml
+
+# Gradle/Android build
+/.gradle/
+/build/
+**/build/
+/local.properties
+/.cxx/
+/.externalNativeBuild/
+
+# Android artifacts
+*.apk
+*.aab
+*.ap_ 
+*.dex
+*.idsig
+
+# Signing/credentials (never commit secrets)
+*.keystore
+*.jks
+*.p12
+*.pem
+keystore.properties
+
+# NDK / Makefile outputs staged by this repo
+/assets/
+/xbmc/assets/
+/xbmc/lib/
+/xbmc/obj/
+/xbmc/java/
+# Generated resources from Make tasks
+/xbmc/res/mipmap-*/
+/xbmc/res/drawable/applaunch_screen.png
+/xbmc/res/drawable-xxxhdpi/applaunch_screen.png
+
+# IDE noise
+/.settings/
+/.project
+/.classpath
+

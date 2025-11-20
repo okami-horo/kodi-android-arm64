@@ -1,0 +1,71 @@
+apply plugin: 'com.android.application'
+
+android {
+    namespace = 'org.xbmc.kodi'
+    compileSdk = 36
+    ndkPath = "/workspace/xbmc/tools/depends/../../.android-sdk/ndk/28.2.13676358"
+    ndkVersion = "28.2.13676358"
+    defaultConfig {
+        applicationId = "org.xbmc.kodi"
+        minSdk = 24
+        targetSdk = 36
+        versionCode = 2190702
+        versionName = "22.0-ALPHA2"
+    }
+    signingConfigs {
+        release {
+            keyAlias = System.getenv("KODI_ANDROID_KEY_ALIAS")
+            keyPassword = System.getenv("KODI_ANDROID_KEY_PASSWORD")
+            storeFile = file(System.getenv("KODI_ANDROID_STORE_FILE"))
+            storePassword = System.getenv("KODI_ANDROID_STORE_PASSWORD")
+            enableV1Signing = true
+            enableV2Signing = true
+            enableV3Signing = true
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig = signingConfigs.release
+        }
+        relwithdebinfo {
+            signingConfig = signingConfigs.release
+        }
+        release {
+            signingConfig = signingConfigs.release
+        }
+    }
+    aaptOptions {
+        ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+    }
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['java']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['lib']
+        }
+    }
+    packagingOptions{
+      doNotStrip '**.setup'
+      jniLibs {
+          useLegacyPackaging = true
+      }
+    }
+}
+
+project.afterEvaluate {
+    preBuild.dependsOn
+}
+
+dependencies {
+    implementation 'androidx.core:core:1.16.0'
+    implementation 'androidx.tvprovider:tvprovider:1.1.0'
+    implementation 'com.google.code.gson:gson:2.13.1'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}

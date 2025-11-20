@@ -1,0 +1,20 @@
+package org.xbmc.kodi.interfaces;
+
+import android.net.ConnectivityManager;
+import android.net.Network;
+
+public class XBMCConnectivityManagerNetworkCallback extends ConnectivityManager.NetworkCallback
+{
+  native void _onAvailable(Network network);
+  native void _onLost(Network network);
+
+  @Override
+  public void onAvailable(Network network) {
+    _onAvailable(network);
+  }
+
+  @Override
+  public void onLost(Network network) {
+    _onLost(network);
+  }
+}
