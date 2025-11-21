@@ -1,10 +1,20 @@
 apply plugin: 'com.android.application'
 
+def keystoreEnvPath = System.getenv("KODI_ANDROID_STORE_FILE")
+def keystoreAlias = System.getenv("KODI_ANDROID_KEY_ALIAS")
+def keystorePassword = System.getenv("KODI_ANDROID_KEY_PASSWORD")
+def keystoreStorePassword = System.getenv("KODI_ANDROID_STORE_PASSWORD")
+def hasSigningEnv = [keystoreEnvPath, keystoreAlias, keystorePassword, keystoreStorePassword]
+        .every { it != null && !it.isEmpty() }
+def ndkHome = System.getenv("ANDROID_NDK_ROOT") ?: System.getenv("ANDROID_NDK_HOME")
+
 android {
     namespace = 'org.xbmc.kodi'
     compileSdk = 36
-    ndkPath = "/workspace/xbmc/tools/depends/../../.android-sdk/ndk/28.2.13676358"
     ndkVersion = "28.2.13676358"
+    if (ndkHome) {
+        ndkPath = ndkHome
+    }
     defaultConfig {
         applicationId = "org.xbmc.kodi"
         minSdk = 24
@@ -13,25 +23,33 @@ android {
         versionName = "22.0-ALPHA2"
     }
     signingConfigs {
-        release {
-            keyAlias = System.getenv("KODI_ANDROID_KEY_ALIAS")
-            keyPassword = System.getenv("KODI_ANDROID_KEY_PASSWORD")
-            storeFile = file(System.getenv("KODI_ANDROID_STORE_FILE"))
-            storePassword = System.getenv("KODI_ANDROID_STORE_PASSWORD")
-            enableV1Signing = true
-            enableV2Signing = true
-            enableV3Signing = true
+        if (hasSigningEnv) {
+            release {
+                keyAlias = keystoreAlias
+                keyPassword = keystorePassword
+                storeFile = file(keystoreEnvPath)
+                storePassword = keystoreStorePassword
+                enableV1Signing = true
+                enableV2Signing = true
+                enableV3Signing = true
+            }
         }
     }
     buildTypes {
         debug {
-            signingConfig = signingConfigs.release
+            if (hasSigningEnv) {
+                signingConfig = signingConfigs.release
+            }
         }
         relwithdebinfo {
-            signingConfig = signingConfigs.release
+            if (hasSigningEnv) {
+                signingConfig = signingConfigs.release
+            }
         }
         release {
-            signingConfig = signingConfigs.release
+            if (hasSigningEnv) {
+                signingConfig = signingConfigs.release
+            }
         }
     }
     aaptOptions {

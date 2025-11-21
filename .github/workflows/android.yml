@@ -31,6 +31,15 @@ jobs:
           yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$SDK" --install "platform-tools" "platforms;android-36" "build-tools;36.0.0"
           yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$SDK" --licenses || true
 
+      - name: Prepare signing (optional)
+        if: ${{ secrets.KODI_ANDROID_KEYSTORE_BASE64 != '' && secrets.KODI_ANDROID_KEY_ALIAS != '' && secrets.KODI_ANDROID_KEY_PASSWORD != '' && secrets.KODI_ANDROID_STORE_PASSWORD != '' }}
+        run: |
+          echo "${{ secrets.KODI_ANDROID_KEYSTORE_BASE64 }}" | base64 -d > /tmp/kodi-android.keystore
+          echo "KODI_ANDROID_STORE_FILE=/tmp/kodi-android.keystore" >> $GITHUB_ENV
+          echo "KODI_ANDROID_KEY_ALIAS=${{ secrets.KODI_ANDROID_KEY_ALIAS }}" >> $GITHUB_ENV
+          echo "KODI_ANDROID_KEY_PASSWORD=${{ secrets.KODI_ANDROID_KEY_PASSWORD }}" >> $GITHUB_ENV
+          echo "KODI_ANDROID_STORE_PASSWORD=${{ secrets.KODI_ANDROID_STORE_PASSWORD }}" >> $GITHUB_ENV
+
       - name: Build Debug APK
         run: |
           ./gradlew :xbmc:assembleDebug -x lint --no-daemon
