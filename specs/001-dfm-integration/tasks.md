@@ -19,12 +19,12 @@
 
 **Purpose**: 构建隔离与依赖接入（Upstream Fidelity 合规）
 
-- [ ] T001 在 `xbmc/build.gradle` 增加 flavor 维度 `features`，定义 productFlavors：`vanilla`（默认）与 `dfmExperimental`（实验）；注入 `BuildConfig.DANMAKU_ENABLED`
-- [ ] T002 在 `xbmc/build.gradle` 配置 `dfmExperimentalImplementation "com.github.ctiao:dfm:0.9.25"` 与 `mavenCentral()` 仓库
-- [ ] T003 [P] 创建源码与资源目录 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/` 与 `xbmc/src/dfmExperimental/res/`
-- [ ] T004 更新 `specs/001-dfm-integration/quickstart.md` 增加变体构建说明（`:xbmc:assembleDfmExperimentalDebug` 与 `:xbmc:assembleVanillaDebug`）
-- [ ] T005 [P] 在 `xbmc/build.gradle` 增加 Jacoco 覆盖率报告与 ≥80% 门槛（目标 `dfmExperimentalDebugUnitTest`）
-- [ ] T056 在 `xbmc/build.gradle` 配置 `dfmExperimentalDebugUnitTest` 源集映射（启用 `src/dfmExperimentalTest/java`）、测试任务与报告输出路径
+- [X] T001 在 `xbmc/build.gradle` 增加 flavor 维度 `features`，定义 productFlavors：`vanilla`（默认）与 `dfmExperimental`（实验）；注入 `BuildConfig.DANMAKU_ENABLED`
+- [X] T002 在 `xbmc/build.gradle` 配置 `dfmExperimentalImplementation "com.github.ctiao:dfm:0.9.25"` 与 `mavenCentral()` 仓库
+- [X] T003 [P] 创建源码与资源目录 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/` 与 `xbmc/src/dfmExperimental/res/`
+- [X] T004 更新 `specs/001-dfm-integration/quickstart.md` 增加变体构建说明（`:xbmc:assembleDfmExperimentalDebug` 与 `:xbmc:assembleVanillaDebug`）
+- [X] T005 [P] 在 `xbmc/build.gradle` 增加 Jacoco 覆盖率报告与 ≥80% 门槛（目标 `dfmExperimentalDebugUnitTest`）
+- [X] T056 在 `xbmc/build.gradle` 配置 `dfmExperimentalDebugUnitTest` 源集映射（启用 `src/dfmExperimentalTest/java`）、测试任务与报告输出路径
 
 ---
 
@@ -32,16 +32,16 @@
 
 **Purpose**: 基础模型与服务骨架（仅 dfmExperimental 变体）
 
-- [ ] T006 [P] 创建媒体键模型 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/model/MediaKey.java`
-- [ ] T007 [P] 创建轨道配置模型 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/model/DanmakuConfig.java`（作为 `DanmakuTrack` 的内嵌配置：样式/密度/过滤/时间偏移）
-- [ ] T008 [P] 创建弹幕条目模型 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/model/DanmakuItem.java`
-- [ ] T009 [P] 创建弹幕轨模型 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/model/DanmakuTrack.java`
-- [ ] T010 [P] 创建轨候选模型 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/model/TrackCandidate.java`
-- [ ] T011 创建首选项存储（SharedPreferences）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuPreferences.java`
-- [ ] T012 定义服务接口（与 contracts 映射）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuService.java`
-- [ ] T013 定义内部 API 适配层（契约方法存根）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/api/DanmakuApi.java`
-- [ ] T014 补充包级文档注释与错误类型 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/package-info.java`
- - [ ] T063 在 `specs/001-dfm-integration/contracts/` 增补最小“轨绑定（Track Binding）”契约草案与示例（JSON/接口说明），与 `DanmakuService`/`DanmakuApi` 对齐（对应 FR-020）
+- [X] T006 [P] 创建媒体键模型 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/model/MediaKey.java`
+- [X] T007 [P] 创建轨道配置模型 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/model/DanmakuConfig.java`（作为 `DanmakuTrack` 的内嵌配置：样式/密度/过滤/时间偏移）
+- [X] T008 [P] 创建弹幕条目模型 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/model/DanmakuItem.java`
+- [X] T009 [P] 创建弹幕轨模型 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/model/DanmakuTrack.java`
+- [X] T010 [P] 创建轨候选模型 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/model/TrackCandidate.java`
+- [X] T011 创建首选项存储（SharedPreferences）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuPreferences.java`
+- [X] T012 定义服务接口（与 contracts 映射）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuService.java`
+- [X] T013 定义内部 API 适配层（契约方法存根）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/api/DanmakuApi.java`
+- [X] T014 补充包级文档注释与错误类型 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/package-info.java`
+- [X] T063 在 `specs/001-dfm-integration/contracts/` 增补最小“轨绑定（Track Binding）”契约草案与示例（JSON/接口说明），与 `DanmakuService`/`DanmakuApi` 对齐（对应 FR-020）
 
 **Checkpoint**: 基础就绪，可开始用户故事开发
 
@@ -55,18 +55,18 @@
 
 ### Tests for User Story 1
 
-- [ ] T015 [P] [US1] 软时钟推算单测 `xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/clock/PlaybackClockTest.java`
-- [ ] T016 [P] [US1] XML→标准条目映射单测 `xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/source/local/BiliXmlParserTest.java`
+- [X] T015 [P] [US1] 软时钟推算单测 `xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/clock/PlaybackClockTest.java`
+- [X] T016 [P] [US1] XML→标准条目映射单测 `xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/source/local/BiliXmlParserTest.java`
 - [ ] T017 [P] [US1] 引擎状态与对齐（play/pause/seek/speed）单测 `xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/DanmakuEngineTest.java`
 - [ ] T018 [P] [US1] 阈值断言（SC-001/SC-002/SC-009、字幕独立性 SC-007）`xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/EngineThresholdsTest.java`
 - [ ] T065 [US1] 前后台与旋转恢复单测（生命周期 onPause/onResume 与 onConfigurationChanged）`xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/LifecycleRestoreTest.java`
 
 ### Implementation for User Story 1
 
-- [ ] T019 [P] [US1] 定义播放时钟接口 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/clock/PlaybackClock.java`
-- [ ] T020 [P] [US1] 基于 MediaSession 的时钟实现 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/clock/MediaSessionClock.java`
-- [ ] T021 [P] [US1] 兜底软时钟实现 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/clock/SoftClock.java`
-- [ ] T022 [P] [US1] B 站 XML 解析器 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/source/local/BiliXmlParser.java`
+- [X] T019 [P] [US1] 定义播放时钟接口 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/clock/PlaybackClock.java`
+- [X] T020 [P] [US1] 基于 MediaSession 的时钟实现 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/clock/MediaSessionClock.java`
+- [X] T021 [P] [US1] 兜底软时钟实现 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/clock/SoftClock.java`
+- [X] T022 [P] [US1] B 站 XML 解析器 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/source/local/BiliXmlParser.java`
 - [ ] T023 [P] [US1] 覆盖层视图（DFM）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuOverlayView.java`
 - [ ] T024 [US1] 弹幕引擎（装配/加载/注入/控制）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java`
 - [ ] T025 [US1] API：可见性/Seek/速度/状态 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/api/DanmakuApi.java`

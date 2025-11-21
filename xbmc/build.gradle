@@ -1,16 +1,36 @@
 apply plugin: 'com.android.application'
+apply plugin: 'jacoco'
+
+repositories {
+    google()
+    mavenCentral()
+}
 
 android {
     namespace = 'org.xbmc.kodi'
     compileSdk = 36
     // Use side-by-side NDK from Android SDK on CI/local; version pinned for reproducibility
     ndkVersion = "28.2.13676358"
+    flavorDimensions "features"
     defaultConfig {
         applicationId = "org.xbmc.kodi"
         minSdk = 24
         targetSdk = 36
         versionCode = 2190702
         versionName = "22.0-ALPHA2"
+    }
+    buildFeatures {
+        buildConfig = true
+    }
+    productFlavors {
+        vanilla {
+            dimension "features"
+            buildConfigField "boolean", "DANMAKU_ENABLED", "false"
+        }
+        dfmExperimental {
+            dimension "features"
+            buildConfigField "boolean", "DANMAKU_ENABLED", "true"
+        }
     }
     signingConfigs {
         release {
@@ -46,6 +66,14 @@ android {
             assets.srcDirs = ['assets']
             jniLibs.srcDirs = ['lib']
         }
+        dfmExperimental {
+            java.srcDirs += ['src/dfmExperimental/java']
+            res.srcDirs += ['src/dfmExperimental/res']
+        }
+        test {
+            java.srcDirs += ['src/dfmExperimentalTest/java']
+            res.srcDirs += ['src/dfmExperimentalTest/res']
+        }
     }
     // Keep legacy JNI packaging but exclude unstripped library from APK
     packagingOptions{
@@ -61,6 +89,17 @@ android {
         useLegacyPackaging = true
       }
     }
+
+    testOptions {
+        unitTests.all {
+            it.jacoco.includeNoLocationClasses = true
+            it.testLogging.events("passed", "skipped", "failed")
+            it.reports.junitXml.required = true
+            it.reports.html.required = true
+            it.reports.junitXml.outputLocation = file("$buildDir/test-results/${it.name}")
+            it.reports.html.outputLocation = file("$buildDir/reports/tests/${it.name}")
+        }
+    }
 }
 
 project.afterEvaluate {
@@ -71,10 +110,60 @@ dependencies {
     implementation 'androidx.core:core:1.16.0'
     implementation 'androidx.tvprovider:tvprovider:1.1.0'
     implementation 'com.google.code.gson:gson:2.13.1'
+    dfmExperimentalImplementation 'com.github.ctiao:dfm:0.9.25'
+    testImplementation 'junit:junit:4.13.2'
 }
 
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
+}
+
+jacoco {
+    toolVersion = "0.8.12"
+}
+
+def jacocoExcludes = [
+        '**/R.class',
+        '**/R$*.class',
+        '**/BuildConfig.*',
+        '**/Manifest*'
+]
+
+tasks.register("jacocoDfmExperimentalDebugUnitTestReport", JacocoReport) {
+    dependsOn tasks.named("testDfmExperimentalDebugUnitTest")
+    reports {
+        xml.required = true
+        html.required = true
+        html.outputLocation = layout.buildDirectory.dir("reports/jacoco/dfmExperimentalDebugUnitTest/html")
+        xml.outputLocation = layout.buildDirectory.file("reports/jacoco/dfmExperimentalDebugUnitTest/jacoco.xml")
+    }
+    classDirectories.setFrom(files(
+            fileTree(dir: "$buildDir/intermediates/javac/dfmExperimentalDebug/classes", exclude: jacocoExcludes),
+            fileTree(dir: "$buildDir/tmp/kotlin-classes/dfmExperimentalDebug", exclude: jacocoExcludes)
+    ))
+    sourceDirectories.setFrom(files("src", "java", "src/dfmExperimental/java"))
+    executionData.setFrom(file("$buildDir/jacoco/testDfmExperimentalDebugUnitTest.exec"))
+}
+
+tasks.register("jacocoDfmExperimentalDebugUnitTestCoverageVerification", JacocoCoverageVerification) {
+    dependsOn tasks.named("testDfmExperimentalDebugUnitTest")
+    classDirectories.setFrom(files(
+            fileTree(dir: "$buildDir/intermediates/javac/dfmExperimentalDebug/classes", exclude: jacocoExcludes),
+            fileTree(dir: "$buildDir/tmp/kotlin-classes/dfmExperimentalDebug", exclude: jacocoExcludes)
+    ))
+    sourceDirectories.setFrom(files("src", "java", "src/dfmExperimental/java"))
+    executionData.setFrom(file("$buildDir/jacoco/testDfmExperimentalDebugUnitTest.exec"))
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.8
+            }
+        }
+    }
+}
+
+tasks.named("check").configure {
+    dependsOn("jacocoDfmExperimentalDebugUnitTestCoverageVerification")
 }

@@ -7,7 +7,8 @@
 ## 构建
 ```bash
 cd /workspace/kodi-android-arm64
-./gradlew :xbmc:assembleDebug -x lint
+./gradlew :xbmc:assembleDfmExperimentalDebug -x lint   # 弹幕实验变体
+./gradlew :xbmc:assembleVanillaDebug -x lint           # 上游一致变体（默认）
 # 或
 make apk
 ```
