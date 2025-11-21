@@ -3,6 +3,7 @@ name: android-debug-apk
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -32,13 +33,19 @@ jobs:
           yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$SDK" --licenses || true
 
       - name: Prepare signing (optional)
-        if: ${{ secrets.KODI_ANDROID_KEYSTORE_BASE64 != '' && secrets.KODI_ANDROID_KEY_ALIAS != '' && secrets.KODI_ANDROID_KEY_PASSWORD != '' && secrets.KODI_ANDROID_STORE_PASSWORD != '' }}
         run: |
-          echo "${{ secrets.KODI_ANDROID_KEYSTORE_BASE64 }}" | base64 -d > /tmp/kodi-android.keystore
-          echo "KODI_ANDROID_STORE_FILE=/tmp/kodi-android.keystore" >> $GITHUB_ENV
-          echo "KODI_ANDROID_KEY_ALIAS=${{ secrets.KODI_ANDROID_KEY_ALIAS }}" >> $GITHUB_ENV
-          echo "KODI_ANDROID_KEY_PASSWORD=${{ secrets.KODI_ANDROID_KEY_PASSWORD }}" >> $GITHUB_ENV
-          echo "KODI_ANDROID_STORE_PASSWORD=${{ secrets.KODI_ANDROID_STORE_PASSWORD }}" >> $GITHUB_ENV
+          if [ -n "${{ secrets.KODI_ANDROID_KEYSTORE_BASE64 }}" ] && \
+             [ -n "${{ secrets.KODI_ANDROID_KEY_ALIAS }}" ] && \
+             [ -n "${{ secrets.KODI_ANDROID_KEY_PASSWORD }}" ] && \
+             [ -n "${{ secrets.KODI_ANDROID_STORE_PASSWORD }}" ]; then
+            echo "${{ secrets.KODI_ANDROID_KEYSTORE_BASE64 }}" | base64 -d > /tmp/kodi-android.keystore
+            echo "KODI_ANDROID_STORE_FILE=/tmp/kodi-android.keystore" >> $GITHUB_ENV
+            echo "KODI_ANDROID_KEY_ALIAS=${{ secrets.KODI_ANDROID_KEY_ALIAS }}" >> $GITHUB_ENV
+            echo "KODI_ANDROID_KEY_PASSWORD=${{ secrets.KODI_ANDROID_KEY_PASSWORD }}" >> $GITHUB_ENV
+            echo "KODI_ANDROID_STORE_PASSWORD=${{ secrets.KODI_ANDROID_STORE_PASSWORD }}" >> $GITHUB_ENV
+          else
+            echo "No signing secrets provided; building unsigned."
+          fi
 
       - name: Build Debug APK
         run: |
