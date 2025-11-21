@@ -8,7 +8,9 @@ description: "Task list template for feature implementation"
 **Input**: Design documents from `/specs/[###-feature-name]/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**Tests**: Include test tasks when the feature specification requests them OR
+when new Java/Kotlin logic is added, per the Constitution's Quality Gates
+(target ≥80% coverage for added code).
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
@@ -51,6 +53,8 @@ description: "Task list template for feature implementation"
 - [ ] T001 Create project structure per implementation plan
 - [ ] T002 Initialize [language] project with [framework] dependencies
 - [ ] T003 [P] Configure linting and formatting tools
+- [ ] T004 Document pinned toolchain (Java, AGP, SDK/NDK) and local
+      `GRADLE_USER_HOME` usage
 
 ---
 
@@ -68,6 +72,7 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T007 Create base models/entities that all stories depend on
 - [ ] T008 Configure error handling and logging infrastructure
 - [ ] T009 Setup environment configuration management
+- [ ] T010 Add Android Lint configuration and baseline (if applicable)
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -94,6 +99,9 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
 - [ ] T016 [US1] Add validation and error handling
 - [ ] T017 [US1] Add logging for user story 1 operations
+- [ ] T018 [US1] Run Android Lint and address findings for touched files
+- [ ] T019 [US1] If packaging is affected, build APK and perform install/run
+      verification on emulator/device
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 

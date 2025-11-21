@@ -31,7 +31,17 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- Upstream Fidelity: Does the plan avoid functional divergence from upstream?
+  Are all touched files mapped in `docs/UPSTREAM_ORIGINS.md` with rationale?
+- Reproducible Env: Are Java/AGP/SDK/NDK versions pinned as in AGENTS.md and
+  commands captured (including optional `GRADLE_USER_HOME=$(pwd)/.gradle-user`)?
+- Build Path: Is fast iteration using `:xbmc:assembleDebug -x lint` and full
+  packaging via `make apk` clearly identified where needed?
+- Security & Signing: No secrets introduced; debug signing uses
+  `KODI_ANDROID_*` envs; release signing uses CI secrets.
+- Quality Gates: Lint plan present; unit tests added for new logic (≥80%
+  coverage target for added code); install/run verification on device/emulator
+  is planned for packaging changes.
 
 ## Project Structure
 
