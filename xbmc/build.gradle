@@ -88,21 +88,38 @@ android {
       }
     }
 
+    // Toggle for enabling Jacoco on unit tests. Default: disabled for stability.
+    def enableJacocoForUnitTests = providers.gradleProperty("enableJacocoTest").map { it.toBoolean() }.orElse(false)
+
     testOptions {
         unitTests.all {
             it.jacoco.includeNoLocationClasses = true
+            // 默认关闭 Jacoco，如需覆盖率请使用 -PenableJacocoTest=true 打开
+            it.jacoco.enabled = enableJacocoForUnitTests.get()
             it.testLogging.events("passed", "skipped", "failed")
             it.reports.junitXml.required = true
             it.reports.html.required = true
             it.reports.junitXml.outputLocation = file("$buildDir/test-results/${it.name}")
             it.reports.html.outputLocation = file("$buildDir/reports/tests/${it.name}")
+            // 将 JVM 单测限定在 Robolectric 支持的最高 SDK（不影响 APK target/compileSdk）
+            it.systemProperty 'robolectric.enabledSdks', '34'
             // Force test worker JRE to Java 17 to avoid JDK 21 deserialization issues
             it.javaLauncher.set(javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(17) })
             // Open necessary JDK internals and avoid generating accessor classes
             it.jvmArgs('--add-opens=java.base/java.lang=ALL-UNNAMED',
+                    '--add-opens=java.base/java.lang.invoke=ALL-UNNAMED',
+                    '--add-opens=java.base/java.util=ALL-UNNAMED',
+                    '--add-opens=java.base/java.lang.reflect=ALL-UNNAMED',
+                    '--add-opens=java.base/java.io=ALL-UNNAMED',
                     '--add-opens=java.base/jdk.internal.reflect=ALL-UNNAMED',
-                    '--add-exports=java.base/jdk.internal.reflect=ALL-UNNAMED')
+                    '--add-exports=java.base/jdk.internal.reflect=ALL-UNNAMED',
+                    '--add-exports=java.base/jdk.internal.misc=ALL-UNNAMED',
+                    '--add-exports=java.base/sun.reflect.annotation=ALL-UNNAMED',
+                    '--add-exports=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED')
             it.systemProperty 'jdk.reflect.useDirectMethodHandle', 'true'
+            // Optional: help diagnose early worker deserialization issues
+            it.systemProperty 'java.io.serialization.extendedDebugInfo', 'true'
+            it.systemProperty 'java.io.serialization.debug', 'true'
         }
         // Needed for Robolectric to access merged resources when required
         unitTests.includeAndroidResources = true
@@ -179,8 +196,15 @@ tasks.named("check").configure {
 tasks.withType(Test).configureEach { t ->
     t.javaLauncher.set(javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(17) })
     t.jvmArgs('--add-opens=java.base/java.lang=ALL-UNNAMED',
+            '--add-opens=java.base/java.lang.invoke=ALL-UNNAMED',
+            '--add-opens=java.base/java.util=ALL-UNNAMED',
+            '--add-opens=java.base/java.lang.reflect=ALL-UNNAMED',
+            '--add-opens=java.base/java.io=ALL-UNNAMED',
             '--add-opens=java.base/jdk.internal.reflect=ALL-UNNAMED',
-            '--add-exports=java.base/jdk.internal.reflect=ALL-UNNAMED')
+            '--add-exports=java.base/jdk.internal.reflect=ALL-UNNAMED',
+            '--add-exports=java.base/jdk.internal.misc=ALL-UNNAMED',
+            '--add-exports=java.base/sun.reflect.annotation=ALL-UNNAMED',
+            '--add-exports=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED')
     t.systemProperty 'jdk.reflect.useDirectMethodHandle', 'true'
 }
 
@@ -188,11 +212,22 @@ tasks.withType(Test).configureEach { t ->
 tasks.matching { it.name == "testDfmExperimentalDebugUnitTest" }.configureEach { t ->
     if (t instanceof Test) {
         t.javaLauncher.set(javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(17) })
+        // 方案A：限制为单 worker，避免并发 Worker 在序列化阶段的干扰
+        t.maxParallelForks = 1
         t.doFirst {
             t.jvmArgs('--add-opens=java.base/java.lang=ALL-UNNAMED',
+                    '--add-opens=java.base/java.lang.invoke=ALL-UNNAMED',
+                    '--add-opens=java.base/java.util=ALL-UNNAMED',
+                    '--add-opens=java.base/java.lang.reflect=ALL-UNNAMED',
+                    '--add-opens=java.base/java.io=ALL-UNNAMED',
                     '--add-opens=java.base/jdk.internal.reflect=ALL-UNNAMED',
-                    '--add-exports=java.base/jdk.internal.reflect=ALL-UNNAMED')
+                    '--add-exports=java.base/jdk.internal.reflect=ALL-UNNAMED',
+                    '--add-exports=java.base/jdk.internal.misc=ALL-UNNAMED',
+                    '--add-exports=java.base/sun.reflect.annotation=ALL-UNNAMED',
+                    '--add-exports=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED')
             t.systemProperty 'jdk.reflect.useDirectMethodHandle', 'true'
+            t.systemProperty 'java.io.serialization.extendedDebugInfo', 'true'
+            t.systemProperty 'java.io.serialization.debug', 'true'
         }
     }
 }

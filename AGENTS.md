@@ -42,6 +42,23 @@ JAVA_TOOL_OPTIONS="--add-opens=java.base/java.lang=ALL-UNNAMED \
 - DFM 单测类需使用 `@RunWith(RobolectricTestRunner.class)`，以获得 Android 框架 shadow 与资源支持。
 - 如需覆盖率报告：`./gradlew :xbmc:jacocoDfmExperimentalDebugUnitTestReport`
 
+#### 2025-11 更新（已内建到构建脚本）
+- 构建脚本已为所有 JVM 单测自动注入必要 JVM 选项并固定 JDK 17 toolchain：一般情况下无需再手动设置 `JAVA_TOOL_OPTIONS`，仅确保使用 JDK 17 即可。
+- 为避免极端环境下 Gradle Test Worker 早期反序列化问题，默认关闭了单测 Jacoco；如需覆盖率，请追加参数 `-PenableJacocoTest=true`：
+  - `GRADLE_USER_HOME=$(pwd)/.gradle-user JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 ./gradlew -PenableJacocoTest=true :xbmc:jacocoDfmExperimentalDebugUnitTestReport`
+- Robolectric 4.12.2 最高支持到 API 34，而模块 `targetSdk=36`。为保证兼容，已做如下处理：
+  - 在所有 DFM 单测类上添加 `@Config(sdk = 34, manifest = Config.NONE)`；
+  - 在构建脚本中设置 `robolectric.enabledSdks=34`；
+  - 额外提供兜底文件：`xbmc/src/dfmExperimentalDebugUnitTest/resources/robolectric.properties`（内容 `sdk=34`）。
+- DFM 单测使用单 Worker 运行（`maxParallelForks=1`），减少并发序列化带来的不确定性。
+
+推荐运行命令（无需额外 `JAVA_TOOL_OPTIONS`）：
+```
+GRADLE_USER_HOME=$(pwd)/.gradle-user \
+JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 \
+./gradlew :xbmc:testDfmExperimentalDebugUnitTest --tests "org.xbmc.kodi.danmaku.*Test" -i --no-daemon
+```
+
 ## Commit & Pull Request Guidelines
 - Commits: imperative mood, small and focused. Conventional Commits encouraged (e.g., `feat(xbmc): add search intent` / `fix(build): align signing config`).
 - Branches: `type/short-topic` (e.g., `feat/media-session`). Reference issues in body (`Closes #123`).

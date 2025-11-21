@@ -70,8 +70,15 @@ public class DanmakuEngine implements DanmakuService {
      * Registers a prepared track and immediately selects it.
      */
     public void bindTrack(DanmakuTrack track, List<DanmakuItem> items, DanmakuConfig config) {
-        CachedTrack cached = new CachedTrack(track, new ArrayList<>(items), config == null ? DanmakuConfig.defaults() : config);
+        if (track == null) {
+            Log.w(TAG, "bindTrack ignored: track is null");
+            return;
+        }
+        List<DanmakuItem> safeItems = items == null ? Collections.emptyList() : new ArrayList<>(items);
+        DanmakuConfig resolvedConfig = config == null ? DanmakuConfig.defaults() : config;
+        CachedTrack cached = new CachedTrack(track, safeItems, resolvedConfig);
         trackCache.put(cacheKey(track.getMediaKey(), track.getId()), cached);
+        logDebug("bindTrack: " + track.getId() + " items=" + safeItems.size());
         selectTrack(track.getMediaKey(), track.getId());
     }
 
@@ -84,6 +91,7 @@ public class DanmakuEngine implements DanmakuService {
         }
         this.renderer = newRenderer;
         prepared = false;
+        logDebug("Renderer reattached; prepared state reset");
         if (activeTrack != null && !activeItems.isEmpty()) {
             prepareRenderer();
             applyPlaybackState(true);
@@ -92,7 +100,7 @@ public class DanmakuEngine implements DanmakuService {
 
     public void detachRenderer() {
         if (renderer != null) {
-            renderer.release();
+            safeRendererCall("release", renderer::release);
             prepared = false;
         }
     }
@@ -106,14 +114,14 @@ public class DanmakuEngine implements DanmakuService {
         }
         long effectivePos = clock.nowMs() + activeConfig.getOffsetMs();
         if (Math.abs(effectivePos - lastAppliedPositionMs) >= RESYNC_THRESHOLD_MS) {
-            renderer.seekTo(effectivePos);
+            safeRendererCall("seekTo", () -> renderer.seekTo(effectivePos));
             lastAppliedPositionMs = effectivePos;
         }
-        renderer.setSpeed(clock.getSpeed());
+        safeRendererCall("setSpeed", () -> renderer.setSpeed(clock.getSpeed()));
         if (clock.isPlaying()) {
-            renderer.play();
+            safeRendererCall("play", renderer::play);
         } else {
-            renderer.pause();
+            safeRendererCall("pause", renderer::pause);
         }
     }
 
@@ -132,6 +140,10 @@ public class DanmakuEngine implements DanmakuService {
 
     @Override
     public List<TrackCandidate> getTrackCandidates(MediaKey mediaKey) {
+        if (mediaKey == null) {
+            Log.w(TAG, "getTrackCandidates ignored: mediaKey is null");
+            return Collections.emptyList();
+        }
         List<TrackCandidate> result = new ArrayList<>();
         for (CachedTrack cached : trackCache.values()) {
             if (cached.track.getMediaKey().equals(mediaKey)) {
@@ -143,6 +155,14 @@ public class DanmakuEngine implements DanmakuService {
 
     @Override
     public void selectTrack(MediaKey mediaKey, String trackId) {
+        if (mediaKey == null) {
+            Log.w(TAG, "selectTrack ignored: mediaKey is null");
+            return;
+        }
+        if (trackId == null || trackId.isEmpty()) {
+            Log.w(TAG, "selectTrack ignored: trackId is empty");
+            return;
+        }
         CachedTrack cached = trackCache.get(cacheKey(mediaKey, trackId));
         if (cached == null) {
             // Lazy load from file if possible
@@ -156,6 +176,7 @@ public class DanmakuEngine implements DanmakuService {
         this.activeItems = cached.items;
         this.activeConfig = mergeConfig(cached.track, cached.config);
         prepared = false;
+        logDebug("Selected track " + trackId + " items=" + activeItems.size());
         prepareRenderer();
         applyPlaybackState(true);
         preferences.saveLastTrack(mediaKey, cached.track);
@@ -166,7 +187,7 @@ public class DanmakuEngine implements DanmakuService {
     public void setVisibility(boolean visible) {
         this.visible = visible;
         if (renderer != null) {
-            renderer.setVisible(visible);
+            safeRendererCall("setVisible", () -> renderer.setVisible(visible));
         }
     }
 
@@ -177,6 +198,7 @@ public class DanmakuEngine implements DanmakuService {
             preferences.saveConfig(activeTrack.getMediaKey(), activeConfig);
         }
         prepared = false;
+        logDebug("updateConfig applied; will re-prepare renderer");
         prepareRenderer();
         applyPlaybackState(true);
     }
@@ -186,7 +208,7 @@ public class DanmakuEngine implements DanmakuService {
         clock.seek(positionMs, realtimeNow.getAsLong());
         long effective = positionMs + activeConfig.getOffsetMs();
         if (renderer != null && renderer.isPrepared()) {
-            renderer.seekTo(effective);
+            safeRendererCall("seekTo", () -> renderer.seekTo(effective));
             lastAppliedPositionMs = effective;
         }
     }
@@ -195,7 +217,7 @@ public class DanmakuEngine implements DanmakuService {
     public void updateSpeed(float speed) {
         clock.anchor(clock.nowMs(), speed, realtimeNow.getAsLong(), clock.isPlaying());
         if (renderer != null && renderer.isPrepared()) {
-            renderer.setSpeed(speed);
+            safeRendererCall("setSpeed", () -> renderer.setSpeed(speed));
         }
     }
 
@@ -216,33 +238,45 @@ public class DanmakuEngine implements DanmakuService {
         if (!prepared) {
             prepareRenderer();
         }
-        renderer.setVisible(visible);
+        safeRendererCall("setVisible", () -> renderer.setVisible(visible));
         if (!renderer.isPrepared()) {
             return;
         }
         long effective = clock.nowMs() + activeConfig.getOffsetMs();
         if (forceSeek || Math.abs(effective - lastAppliedPositionMs) >= RESYNC_THRESHOLD_MS) {
-            renderer.seekTo(effective);
+            safeRendererCall("seekTo", () -> renderer.seekTo(effective));
             lastAppliedPositionMs = effective;
         }
-        renderer.setSpeed(clock.getSpeed());
+        safeRendererCall("setSpeed", () -> renderer.setSpeed(clock.getSpeed()));
         if (clock.isPlaying()) {
-            renderer.play();
+            safeRendererCall("play", renderer::play);
         } else {
-            renderer.pause();
+            safeRendererCall("pause", renderer::pause);
         }
     }
 
     private void prepareRenderer() {
         if (renderer == null || activeItems.isEmpty()) {
+            if (renderer == null) {
+                Log.w(TAG, "prepareRenderer skipped: renderer is null");
+            } else {
+                String trackId = activeTrack != null ? activeTrack.getId() : "unknown";
+                Log.w(TAG, "prepareRenderer skipped: no items for track " + trackId);
+            }
             return;
         }
-        renderer.prepare(activeItems, activeConfig);
-        prepared = renderer.isPrepared();
+        try {
+            renderer.prepare(activeItems, activeConfig);
+            prepared = renderer.isPrepared();
+        } catch (RuntimeException ex) {
+            prepared = false;
+            Log.e(TAG, "Renderer prepare failed", ex);
+            return;
+        }
         lastAppliedPositionMs = clock.nowMs() + activeConfig.getOffsetMs();
         if (prepared && visible) {
-            renderer.setVisible(true);
-            renderer.seekTo(lastAppliedPositionMs);
+            safeRendererCall("setVisible", () -> renderer.setVisible(true));
+            safeRendererCall("seekTo", () -> renderer.seekTo(lastAppliedPositionMs));
         }
     }
 
@@ -256,6 +290,7 @@ public class DanmakuEngine implements DanmakuService {
         try {
             File file = new File(trackId);
             if (!file.exists()) {
+                Log.w(TAG, "Track file missing for id=" + trackId);
                 return null;
             }
             List<DanmakuItem> items;
@@ -289,6 +324,21 @@ public class DanmakuEngine implements DanmakuService {
 
     private String cacheKey(MediaKey mediaKey, String trackId) {
         return mediaKey.serialize() + "#" + trackId;
+    }
+
+    private void safeRendererCall(String action, Runnable runnable) {
+        try {
+            runnable.run();
+        } catch (RuntimeException ex) {
+            prepared = false;
+            Log.e(TAG, "Renderer " + action + " failed", ex);
+        }
+    }
+
+    private void logDebug(String message) {
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, message);
+        }
     }
 
     private static final class CachedTrack {

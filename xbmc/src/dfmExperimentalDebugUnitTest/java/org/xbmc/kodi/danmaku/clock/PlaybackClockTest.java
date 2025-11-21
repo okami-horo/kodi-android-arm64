@@ -3,6 +3,7 @@ package org.xbmc.kodi.danmaku.clock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -11,6 +12,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk = 34, manifest = Config.NONE)
 public class PlaybackClockTest {
 
     @Test

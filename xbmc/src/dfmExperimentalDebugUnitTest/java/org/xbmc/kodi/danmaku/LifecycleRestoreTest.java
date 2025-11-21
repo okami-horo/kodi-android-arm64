@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 import org.robolectric.RuntimeEnvironment;
 import org.xbmc.kodi.danmaku.clock.SoftClock;
 import org.xbmc.kodi.danmaku.model.DanmakuConfig;
@@ -18,6 +19,7 @@ import java.util.Collections;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk = 34, manifest = Config.NONE)
 public class LifecycleRestoreTest {
 
     @Test

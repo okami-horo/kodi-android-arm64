@@ -6,6 +6,7 @@ import android.os.SystemClock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -13,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk = 34, manifest = Config.NONE)
 public class MediaSessionClockTest {
 
     @Test

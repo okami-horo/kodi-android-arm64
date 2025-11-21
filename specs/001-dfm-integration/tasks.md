@@ -70,11 +70,11 @@
 - [X] T022 [P] [US1] B 站 XML 解析器 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/source/local/BiliXmlParser.java`
 - [X] T023 [P] [US1] 覆盖层视图（DFM）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuOverlayView.java`
 - [X] T024 [US1] 弹幕引擎（装配/加载/注入/控制）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java`
-- [ ] T025 [US1] API：可见性/Seek/速度/状态 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/api/DanmakuApi.java`
+- [X] T025 [US1] API：可见性/Seek/速度/状态 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/api/DanmakuApi.java`
 - [X] T026 [P] [US1] 播放器事件桥接（MediaSession）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/bridge/PlayerEventBridge.java`
 - [X] T027 [US1] 视图挂载与层级（Z-Order）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/ui/OverlayMountController.java`
 - [X] T028 [US1] OSD 开关入口与动作接入 `xbmc/src/dfmExperimental/res/menu/menu_osd_danmaku.xml` 与 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/ui/OsdActions.java`
-- [ ] T029 [US1] 基本日志与错误处理 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java`
+- [X] T029 [US1] 基本日志与错误处理 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java`
 - [X] T054 [US1] 开发注入器与 Debug 入口 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/dev/DeveloperDanmakuInjector.java` 与调试菜单项，供无文件场景验证（FR-004）
 - [X] T055 [US1] 生命周期与旋转恢复处理（onPause/onResume/onConfigurationChanged）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/ui/OverlayMountController.java`
 - [ ] T030 [US1] Lint 修复（Alias of T062 质量闸门） `xbmc/build.gradle`
