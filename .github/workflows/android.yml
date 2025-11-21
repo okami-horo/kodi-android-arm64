@@ -37,9 +37,10 @@ jobs:
             "ndk;28.2.13676358"
           yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$SDK" --licenses || true
 
-      - name: Restore keystore from secrets (or generate debug keystore)
+      - name: Restore keystore from base64 secret
         env:
           ANDROID_KEYSTORE_B64: ${{ secrets.KODI_ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_SHA256: ${{ secrets.KODI_ANDROID_KEYSTORE_SHA256 }}
           KODI_ANDROID_STORE_PASSWORD: ${{ secrets.KODI_ANDROID_STORE_PASSWORD }}
           KODI_ANDROID_KEY_ALIAS: ${{ secrets.KODI_ANDROID_KEY_ALIAS }}
           KODI_ANDROID_KEY_PASSWORD: ${{ secrets.KODI_ANDROID_KEY_PASSWORD }}
@@ -47,33 +48,33 @@ jobs:
         run: |
           set -euo pipefail
           KS="$RUNNER_TEMP/android.keystore"
+          STORE_PASS="${KODI_ANDROID_STORE_PASSWORD:-android}"
+          KEY_ALIAS="${KODI_ANDROID_KEY_ALIAS:-androiddebugkey}"
+          KEY_PASS="${KODI_ANDROID_KEY_PASSWORD:-android}"
           if [ -n "${ANDROID_KEYSTORE_B64:-}" ]; then
-            # Try to decode secret content; be tolerant to formatting using --ignore-garbage
-            if printf '%s' "$ANDROID_KEYSTORE_B64" | base64 -d --ignore-garbage > "$KS" 2>/dev/null; then
-              echo "Using keystore from secrets"
-              :
-            else
-              echo "Warning: failed to decode KODI_ANDROID_KEYSTORE_BASE64, generating debug keystore instead" >&2
-              keytool -genkey -v -keystore "$KS" -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 \
-                -alias androiddebugkey -storepass android -keypass android \
-                -dname "CN=Android Debug,O=Android,C=US"
-              export KODI_ANDROID_STORE_PASSWORD=android
-              export KODI_ANDROID_KEY_ALIAS=androiddebugkey
-              export KODI_ANDROID_KEY_PASSWORD=android
+            # Robust decode: ignore potential whitespace/garbage
+            printf '%s' "$ANDROID_KEYSTORE_B64" | base64 -d --ignore-garbage > "$KS"
+            # Optional integrity check
+            if [ -n "${ANDROID_KEYSTORE_SHA256:-}" ]; then
+              calc=$(sha256sum "$KS" | awk '{print $1}')
+              if [ "$calc" != "$ANDROID_KEYSTORE_SHA256" ]; then
+                echo "Error: keystore SHA256 mismatch (expected $ANDROID_KEYSTORE_SHA256 got $calc)" >&2
+                exit 1
+              fi
             fi
           else
-            echo "KODI_ANDROID_KEYSTORE_BASE64 not set; generating debug keystore" >&2
-            keytool -genkey -v -keystore "$KS" -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 \
-              -alias androiddebugkey -storepass android -keypass android \
-              -dname "CN=Android Debug,O=Android,C=US"
-            export KODI_ANDROID_STORE_PASSWORD=android
-            export KODI_ANDROID_KEY_ALIAS=androiddebugkey
-            export KODI_ANDROID_KEY_PASSWORD=android
+            echo "KODI_ANDROID_KEYSTORE_BASE64 not set; generating debug keystore fallback"
+            keytool -genkeypair -keystore "$KS" -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 \
+              -alias "$KEY_ALIAS" -storepass "$STORE_PASS" -keypass "$KEY_PASS" \
+              -dname "CN=Android Debug,O=Android,C=US" >/dev/null 2>&1
           fi
+          # Validate keystore can be opened and alias exists (fail fast)
+          keytool -list -v -keystore "$KS" -storepass "$STORE_PASS" >/dev/null 2>&1 || {
+            echo "Error: keytool could not open keystore with provided password" >&2; exit 1; }
           echo "KODI_ANDROID_STORE_FILE=$KS" >> $GITHUB_ENV
-          echo "KODI_ANDROID_STORE_PASSWORD=${KODI_ANDROID_STORE_PASSWORD:-android}" >> $GITHUB_ENV
-          echo "KODI_ANDROID_KEY_ALIAS=${KODI_ANDROID_KEY_ALIAS:-androiddebugkey}" >> $GITHUB_ENV
-          echo "KODI_ANDROID_KEY_PASSWORD=${KODI_ANDROID_KEY_PASSWORD:-android}" >> $GITHUB_ENV
+          echo "KODI_ANDROID_STORE_PASSWORD=$STORE_PASS" >> $GITHUB_ENV
+          echo "KODI_ANDROID_KEY_ALIAS=$KEY_ALIAS" >> $GITHUB_ENV
+          echo "KODI_ANDROID_KEY_PASSWORD=$KEY_PASS" >> $GITHUB_ENV
 
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew

@@ -4,6 +4,7 @@ Thumbs.db
 *.log
 *.tmp
 *.swp
+/.tmp/
 /.vscode/
 /.idea/
 *.iml
