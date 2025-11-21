@@ -103,10 +103,10 @@ public class Splash extends Activity
           break;
         case CheckingPermissionsInfo:
           mSplash.mTextView.setText(getString(R.string.asking_permissions));
-          showInfoDialog(getString(R.string.notice_dialog, "Kodi"), CheckingPermissions);
+          mStateMachine.sendEmptyMessage(CheckingPermissions);
           break;
         case RecordAudioInfo:
-          showInfoDialog(getString(R.string.record_audio_dialog, "Kodi"), RecordAudioPermission);
+          mStateMachine.sendEmptyMessage(RecordAudioPermission);
           break;
         case RecordAudioPermission:
           requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO},
