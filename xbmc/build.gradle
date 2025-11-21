@@ -40,7 +40,8 @@ android {
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = ['java']
+            // Compile directly from canonical source tree; keep legacy generated path for compatibility
+            java.srcDirs = ['src', 'java']
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
             jniLibs.srcDirs = ['lib']
