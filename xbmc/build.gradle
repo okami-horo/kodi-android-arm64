@@ -46,10 +46,18 @@ android {
             jniLibs.srcDirs = ['lib']
         }
     }
+    // Keep legacy JNI packaging but exclude unstripped library from APK
     packagingOptions{
       doNotStrip '**.setup'
       jniLibs {
           useLegacyPackaging = true
+      }
+    }
+    packaging {
+      jniLibs {
+        // Do not include debug-symbol rich unstripped library in APK
+        excludes += ["**/libkodi.unstripped.so"]
+        useLegacyPackaging = true
       }
     }
 }

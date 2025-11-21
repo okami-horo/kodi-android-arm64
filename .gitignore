@@ -34,12 +34,11 @@ keystore.properties
 # Do NOT ignore xbmc/assets or xbmc/lib so they can be versioned
 /xbmc/obj/
 /xbmc/java/
-# Generated resources from Make tasks
-# Generated resources from Make tasks
-/xbmc/res/mipmap-*/
-/xbmc/res/drawable/applaunch_screen.png
-/xbmc/res/drawable-xxxhdpi/applaunch_screen.png
-xbmc/res/values/colors.generated.xml
+# Android app resources (track in VCS)
+# 说明：为保证 Gradle 直接构建可复现，这里不再忽略 mipmap 与颜色资源
+# 如需重新生成，可通过 Makefile 的 res 目标从 media/ 拷贝覆盖
+# （依然保留对构建产物与大体积调试符号文件的忽略）
+
 
 # IDE noise
 /.settings/
