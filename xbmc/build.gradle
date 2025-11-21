@@ -11,6 +11,7 @@ def ndkHome = System.getenv("ANDROID_NDK_ROOT") ?: System.getenv("ANDROID_NDK_HO
 android {
     namespace = 'org.xbmc.kodi'
     compileSdk = 36
+    buildToolsVersion = "36.0.0"
     ndkVersion = "28.2.13676358"
     if (ndkHome) {
         ndkPath = ndkHome

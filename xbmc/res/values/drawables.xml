@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="app_banner" type="drawable">@mipmap/banner</item>
+    <item name="app_icon" type="drawable">@mipmap/ic_launcher</item>
+    <item name="app_logo" type="drawable">@mipmap/banner</item>
+</resources>
