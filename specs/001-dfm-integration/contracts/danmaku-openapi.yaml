@@ -1,0 +1,144 @@
+# Internal Contracts: Danmaku APIs (OpenAPI 3.0)
+openapi: 3.0.3
+info:
+  title: Kodi Android Danmaku Internal API
+  version: 0.1.0
+  description: In-app contracts mapping user actions to service calls.
+servers:
+  - url: app://internal
+paths:
+  /danmaku/tracks:
+    get:
+      summary: List danmaku track candidates for a media
+      parameters:
+        - in: query
+          name: mediaKey
+          schema: { type: string }
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mediaKey: { type: string }
+                  candidates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TrackCandidate'
+  /danmaku/tracks/select:
+    post:
+      summary: Select active danmaku track for a media
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [mediaKey, trackId]
+              properties:
+                mediaKey: { type: string }
+                trackId: { type: string }
+      responses:
+        '204': { description: No Content }
+  /danmaku/visibility:
+    post:
+      summary: Toggle danmaku overlay visibility
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [visible]
+              properties:
+                visible: { type: boolean }
+      responses:
+        '204': { description: No Content }
+  /danmaku/settings:
+    post:
+      summary: Update danmaku configuration for active track
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DanmakuConfig'
+      responses:
+        '204': { description: No Content }
+  /danmaku/seek:
+    post:
+      summary: Seek danmaku engine to a media position
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [positionMs]
+              properties:
+                positionMs: { type: integer, format: int64 }
+      responses:
+        '204': { description: No Content }
+  /danmaku/speed:
+    post:
+      summary: Update playback speed for clock alignment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [speed]
+              properties:
+                speed: { type: number, format: float }
+      responses:
+        '204': { description: No Content }
+  /danmaku/status:
+    get:
+      summary: Get current danmaku engine status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  visible: { type: boolean }
+                  playing: { type: boolean }
+                  positionMs: { type: integer, format: int64 }
+                  speed: { type: number, format: float }
+components:
+  schemas:
+    TrackCandidate:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        mediaKey: { type: string }
+        sourceType: { type: string, enum: [LOCAL] }
+        filePath: { type: string }
+        score: { type: integer }
+        reason: { type: string }
+    DanmakuConfig:
+      type: object
+      properties:
+        textScaleSp: { type: number }
+        scrollSpeedFactor: { type: number }
+        alpha: { type: number, minimum: 0, maximum: 1 }
+        maxOnScreen: { type: integer }
+        maxLines: { type: integer }
+        keywordFilter:
+          type: array
+          items: { type: string }
+        typeEnabled:
+          type: object
+          properties:
+            scroll: { type: boolean }
+            top: { type: boolean }
+            bottom: { type: boolean }
+            positioned: { type: boolean }
+        offsetMs: { type: integer, format: int64 }

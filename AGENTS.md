@@ -78,3 +78,10 @@ Notes
 - Module config: `compileSdk=36`, `targetSdk=36`, `minSdk=24`; Java toolchain 17.
 - JNI libs are taken from `xbmc/lib/arm64-v8a/` (via `jniLibs.srcDirs = ['lib']`).
 - To avoid interference from a global `~/.gradle/init.gradle`, you can set a per-repo user home: `GRADLE_USER_HOME=$(pwd)/.gradle-user ./gradlew …`.
+
+## Active Technologies
+- Java 17（Android 工具链），AGP 8.11.1 + DanmakuFlameMaster `com.github.ctiao:dfm:0.9.25`；AndroidX (001-dfm-integration)
+- SharedPreferences（按 MediaKey 持久化轨与配置）；无数据库 (001-dfm-integration)
+
+## Recent Changes
+- 001-dfm-integration: Added Java 17（Android 工具链），AGP 8.11.1 + DanmakuFlameMaster `com.github.ctiao:dfm:0.9.25`；AndroidX
