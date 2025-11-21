@@ -6,12 +6,10 @@
 - Native/packaging: handled via `Makefile` targets; outputs APKs and bundles shared libs into `xbmc/lib/<ABI>/`.
 
 ## Build, Test, and Development Commands
-- Build APK (Makefile, includes assets/libs): `make apk` — runs clean, stages assets, and triggers Gradle assemble/sign.
-- Gradle build (module only): `./gradlew :xbmc:assembleDebug` — faster Java/Android build without native staging.
+- Build APK via Makefile: `make apk` — runs clean, stages assets, and triggers Gradle assemble/sign.
 - Lint: `./gradlew :xbmc:lint` — Android Lint report under `xbmc/build/reports/`.
 - Unit tests (if present): `./gradlew :xbmc:testDebugUnitTest`.
-- Install to device: `adb install -r xbmc/build/outputs/apk/debug/xbmc-debug.apk`.
-Notes: `make apk` expects Android SDK/NDK envs; see Makefile vars like `SDKROOT`, `TOOLCHAIN`, `PREFIX`, `DEPENDS_PATH`.
+Notes: `make apk` expects Android SDK/NDK envs; see Makefile vars like `SDKROOT`, `TOOLCHAIN`, `PREFIX`, `DEPENDS_PATH`. For module-only builds and install/run commands, see the Android Packaging Quick Guide below.
 
 ## Coding Style & Naming Conventions
 - Java: 4-space indent, UTF-8, max line ~120. Classes `UpperCamelCase`; methods/fields `lowerCamelCase`; constants `UPPER_SNAKE_CASE`.
@@ -33,3 +31,50 @@ Notes: `make apk` expects Android SDK/NDK envs; see Makefile vars like `SDKROOT`
 - Do not commit keystores or secrets. Use Makefile env vars (`KODI_ANDROID_*`) locally.
 - Validate APKs on a clean device/emulator; verify permissions declared in `xbmc/AndroidManifest.xml`.
 
+## Local Debug Signing Env (Safe to Document)
+The following environment variables configure debug signing for local and CI builds. They use the Android default debug keystore and are not production secrets:
+```
+export KODI_ANDROID_STORE_FILE="$HOME/.android/debug.keystore"
+export KODI_ANDROID_STORE_PASSWORD=android
+export KODI_ANDROID_KEY_ALIAS=androiddebugkey
+export KODI_ANDROID_KEY_PASSWORD=android
+```
+Notes:
+- These values are for Debug builds only. For Release builds, use a private signing key injected via GitHub Secrets.
+- The CI workflow restores/validates the keystore from Secrets. If Secrets are unavailable (e.g., from forks), it falls back to the local debug keystore behavior.
+
+## Android Packaging (arm64) — Quick Guide
+
+This repo ships a Gradle Android module (`xbmc/`) and a Makefile-based flow to stage assets/native libs. Use the module build for fast iteration, or `make apk` for full packaging.
+
+Prerequisites
+- Java 17 (Temurin recommended)
+- Android Gradle Plugin 8.11.1 (see root `build.gradle`)
+- Android SDK: platform `android-36`, build-tools `36.0.0` (optionally `35.0.0`)
+- NDK: `28.2.13676358` only if you build native code via `make apk` (module build uses prebundled `jniLibs` under `xbmc/lib/arm64-v8a/`)
+
+Signing (debug keystore)
+See "Local Debug Signing Env (Safe to Document)" for the canonical environment variables used by local and CI debug builds.
+
+Fast module build (no native staging)
+```
+./gradlew :xbmc:assembleDebug -x lint
+```
+Output: `xbmc/build/outputs/apk/debug/xbmc-debug.apk`
+
+Full packaging (stage assets + native libs)
+```
+make apk
+```
+Makefile expects SDK/NDK paths via envs such as `SDKROOT`, and native toolchain/depends via `TOOLCHAIN`, `PREFIX`, `DEPENDS_PATH`. The `package` target calls `./gradlew assemble$(BUILD_TYPE)` and copies the APK to `${CMAKE_SOURCE_DIR}/kodiapp-$(CPU)-$(BUILD_TYPE_LC).apk`.
+
+Install and run
+```
+adb install -r xbmc/build/outputs/apk/debug/xbmc-debug.apk
+adb shell monkey -p org.xbmc.kodi -c android.intent.category.LAUNCHER 1
+```
+
+Notes
+- Module config: `compileSdk=36`, `targetSdk=36`, `minSdk=24`; Java toolchain 17.
+- JNI libs are taken from `xbmc/lib/arm64-v8a/` (via `jniLibs.srcDirs = ['lib']`).
+- To avoid interference from a global `~/.gradle/init.gradle`, you can set a per-repo user home: `GRADLE_USER_HOME=$(pwd)/.gradle-user ./gradlew …`.

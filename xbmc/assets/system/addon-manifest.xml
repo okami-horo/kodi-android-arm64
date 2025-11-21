@@ -38,6 +38,7 @@
   <addon>metadata.tvshows.themoviedb.org.python</addon>
   <addon>repository.xbmc.org</addon>
   <addon>resource.images.weathericons.default</addon>
+  <addon>resource.language.zh_cn</addon>
   <addon>resource.language.en_gb</addon>
   <addon>resource.uisounds.kodi</addon>
   <addon>screensaver.xbmc.builtin.black</addon>
