@@ -1,6 +1,8 @@
 package org.xbmc.kodi.danmaku.source.local;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 import org.xbmc.kodi.danmaku.model.DanmakuItem;
 
 import java.io.ByteArrayInputStream;
@@ -11,6 +13,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+@RunWith(RobolectricTestRunner.class)
 public class BiliXmlParserTest {
 
     @Test

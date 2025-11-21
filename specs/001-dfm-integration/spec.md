@@ -19,6 +19,12 @@
 
 - 本功能以产品风味变体（productFlavor）`dfmExperimental` 提供，默认 `vanilla` 变体不包含相关功能代码与依赖，保持与上游一致（不发生功能分歧）。
 - 仅在 `dfmExperimental` 下构建与验证（如 `:xbmc:assembleDfmExperimentalDebug`）；默认构建与发布流程继续使用 `vanilla`。
+- 源集边界约束（防止测试/实验代码误入主编译）：
+  - 主源集仅指向 `xbmc/src/main/java`（及对应 `res`/`AndroidManifest.xml`），禁止新增平行 `xbmc/java/` 树或通配整棵 `src/`。
+  - `dfmExperimental` 源集仅指向 `xbmc/src/dfmExperimental/java` 与 `xbmc/src/dfmExperimental/res`；`main` 必须显式排除 `dfmExperimental/**` 与 `dfmExperimentalDebugUnitTest/**`。
+  - 变体专属单测仅使用 `xbmc/src/dfmExperimentalDebugUnitTest/java`，不得放在通用 `src/test` 或 `src/dfmExperimentalTest`。
+- Manifest/packaging 约束：遵循仓库配置 `android { packaging { jniLibs { useLegacyPackaging = true } } }`，并排除未裁剪符号库（`**/libkodi.unstripped.so`）以保持 APK 体积与合规。
+- 构建自检（提交前必跑）：`:xbmc:assembleDebug -x lint`、`:xbmc:assembleDfmExperimentalDebug -x lint`、`:xbmc:testDfmExperimentalDebugUnitTest`。
 
 ## User Scenarios & Testing *(mandatory)*
 

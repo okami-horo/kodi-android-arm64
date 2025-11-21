@@ -7,11 +7,18 @@
 ## 构建
 ```bash
 cd /workspace/kodi-android-arm64
+./gradlew :xbmc:assembleDebug -x lint                  # 主线构建（vanilla + flavor 聚合）
 ./gradlew :xbmc:assembleDfmExperimentalDebug -x lint   # 弹幕实验变体
 ./gradlew :xbmc:assembleVanillaDebug -x lint           # 上游一致变体（默认）
+./gradlew :xbmc:testDfmExperimentalDebugUnitTest       # 变体专属单测
 # 或
 make apk
 ```
+
+## 源集与目录约定
+- 主源集仅使用 `xbmc/src/main/java`（及对应 `res`/`AndroidManifest.xml`），禁止挂载平行 `xbmc/java/` 或整棵 `src/`。
+- `dfmExperimental` 专用代码与资源放在 `xbmc/src/dfmExperimental/java`、`xbmc/src/dfmExperimental/res`，主源集需显式排除 `dfmExperimental/**`。
+- 变体单测仅放在 `xbmc/src/dfmExperimentalDebugUnitTest/java`，不要使用 `src/test` 或 `src/dfmExperimentalTest` 路径，以避免被主编译拾取。
 
 ## 集成步骤（最小路径）
 1) Gradle 依赖（xbmc/build.gradle）：

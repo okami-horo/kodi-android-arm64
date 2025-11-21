@@ -33,3 +33,4 @@
 
 - 已根据“本阶段仅支持基于视频路径的本地弹幕匹配”调整范围；不包含在线数据源与插件化装配。
 - 所有校验项均通过，可进入规划阶段（/speckit.plan）。
+- 已补充源集边界与变体单测目录约束（main 仅编译 `src/main/java`；单测置于 `src/dfmExperimentalDebugUnitTest/java`）及构建预检命令，避免测试/实验代码被主编译拾取。

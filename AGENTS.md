@@ -21,6 +21,27 @@ Notes: `make apk` expects Android SDK/NDK envs; see Makefile vars like `SDKROOT`
 - Name tests mirroring classes: `MainTest.java`, method names `methodName_condition_expected()`.
 - Target ≥80% coverage for new logic; run `:xbmc:testDebugUnitTest` locally and fix lint warnings.
 
+### DFM 实验单测（稳定运行指南）
+在部分环境下（例如默认 `JAVA_HOME` 指向无效路径、或全局 `~/.gradle/init.gradle` 干扰），执行 `:xbmc:testDfmExperimentalDebugUnitTest` 可能在 Gradle Test Executor 启动时即崩溃（`NoClassDefFoundError: jdk/internal/reflect/GeneratedSerializationConstructorAccessor1`）。
+
+请使用以下“隔离 + 固定 JDK17 + 必要 JVM 选项”的命令运行，能稳定规避该问题：
+
+```
+GRADLE_USER_HOME=$(pwd)/.gradle-user \
+JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 \
+JAVA_TOOL_OPTIONS="--add-opens=java.base/java.lang=ALL-UNNAMED \
+  --add-opens=java.base/jdk.internal.reflect=ALL-UNNAMED \
+  --add-exports=java.base/jdk.internal.reflect=ALL-UNNAMED \
+  -Djdk.reflect.useDirectMethodHandle=true" \
+./gradlew :xbmc:testDfmExperimentalDebugUnitTest -i --no-daemon
+```
+
+说明与要求：
+- DFM 单测目录：`xbmc/src/dfmExperimentalDebugUnitTest/java/**`（仅 Debug 变体）
+- 本地 JVM 单测依赖 Robolectric：`org.robolectric:robolectric:4.12.2`
+- DFM 单测类需使用 `@RunWith(RobolectricTestRunner.class)`，以获得 Android 框架 shadow 与资源支持。
+- 如需覆盖率报告：`./gradlew :xbmc:jacocoDfmExperimentalDebugUnitTestReport`
+
 ## Commit & Pull Request Guidelines
 - Commits: imperative mood, small and focused. Conventional Commits encouraged (e.g., `feat(xbmc): add search intent` / `fix(build): align signing config`).
 - Branches: `type/short-topic` (e.g., `feat/media-session`). Reference issues in body (`Closes #123`).
@@ -85,3 +106,45 @@ Notes
 
 ## Recent Changes
 - 001-dfm-integration: Added Java 17（Android 工具链），AGP 8.11.1 + DanmakuFlameMaster `com.github.ctiao:dfm:0.9.25`；AndroidX
+
+## Strict Directory Layout (Spec Authors Read First)
+
+严禁“文件乱放”。以下布局为唯一有效放置规则，规范适用于 specs/ 与任何自动化任务生成的文件：
+
+- Module root: `xbmc/`
+  - Manifest: `xbmc/AndroidManifest.xml`
+  - Main sources: 仅使用 `xbmc/src/`
+    - 主代码（所有上游一致逻辑）放置于：
+      - `xbmc/src/channels/**`
+      - `xbmc/src/content/**`
+      - `xbmc/src/interfaces/**`
+      - `xbmc/src/model/**`
+      - `xbmc/src/util/**`
+      - 以及上述包下的 Java/Kotlin 源码（包名以 `org.xbmc.kodi` 开头）。
+    - 禁止：在 `xbmc/java/**` 下新增或复制任何源码（避免与 `xbmc/src/**` 重复编译导致 duplicate class）。主源码集只读取 `src`，不读取 `java`。
+  - Flavor: 仅在 `dfmExperimental` 变体下注入弹幕相关代码与资源
+    - 代码：`xbmc/src/dfmExperimental/java/**`
+    - 资源：`xbmc/src/dfmExperimental/res/**`
+    - 要求：任何弹幕功能相关类均不得放入主源码路径（`xbmc/src/**` 的非 flavor 子目录），否则会污染 vanilla 变体。
+  - Unit tests:
+    - 通用单元测试：`xbmc/src/test/java/**`
+    - `dfmExperimental` Debug 变体单测：`xbmc/src/dfmExperimentalDebugUnitTest/java/**`
+    - 禁止：将测试代码放入主源码集（例如 `xbmc/src/...` 非 `test/` 或 `*Test/` 目录）。主源码集明确排除了 `dfmExperimentalDebugUnitTest/**` 与 `dfmExperimental/**`（测试/实验代码不会被 vanilla 主编译拾取）。
+  - Resources: `xbmc/res/**`
+    - 资源文件采用 `lower_snake_case` 命名；XML 属性按 id → layout → appearance → behavior 顺序。
+  - Assets: `xbmc/assets/**`
+  - JNI libs: `xbmc/lib/arm64-v8a/**`
+    - 不要将未裁剪的 `libkodi.unstripped.so` 打进 APK，已在 Gradle 中排除。
+
+放置检查清单（提交前自查）：
+- 不在 `xbmc/java/**` 放任何新文件。
+- `dfmExperimental` 代码与资源仅在 `xbmc/src/dfmExperimental/**` 之下。
+ - `dfmExperimental` 单测仅在 `xbmc/src/dfmExperimentalDebugUnitTest/**` 之下。
+- 主源码集不包含任何 `*Test` 目录；如新增测试，仅放入 `test` 或 `dfmExperimentalTest`。
+- 新增 JNI 库仅放在 `xbmc/lib/<ABI>/`，且名称不与排除模式冲突。
+
+构建命令与验证：
+- Vanilla（上游一致）：`./gradlew :xbmc:assembleVanillaDebug -x lint`
+- DFM 实验变体：`./gradlew :xbmc:assembleDfmExperimentalDebug -x lint`
+- DFM 单测：`./gradlew :xbmc:testDfmExperimentalDebugUnitTest`
+- Jacoco 报告：`./gradlew :xbmc:jacocoDfmExperimentalDebugUnitTestReport`

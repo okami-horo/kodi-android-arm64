@@ -4,12 +4,15 @@ import android.media.session.PlaybackState;
 import android.os.SystemClock;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import java.util.concurrent.atomic.AtomicLong;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@RunWith(RobolectricTestRunner.class)
 public class MediaSessionClockTest {
 
     @Test

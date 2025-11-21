@@ -4,6 +4,7 @@
 **Prerequisites**: plan.md (required), spec.md (required), research.md, data-model.md, contracts/
 
 **Tests**: 新增 Java 逻辑须满足 ≥80% 覆盖（Constitution V）。
+**Source Sets**: 主源集仅编译 `src/main/java`；实验代码 `src/dfmExperimental/java`；变体单测仅用 `src/dfmExperimentalDebugUnitTest/java`（如仍在 `src/dfmExperimentalTest`，需迁移并更新构建映射）。
 
 **Organization**: 按用户故事分组；默认构建保持与上游一致，功能仅在 `dfmExperimental` 变体生效。
 
@@ -24,7 +25,7 @@
 - [X] T003 [P] 创建源码与资源目录 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/` 与 `xbmc/src/dfmExperimental/res/`
 - [X] T004 更新 `specs/001-dfm-integration/quickstart.md` 增加变体构建说明（`:xbmc:assembleDfmExperimentalDebug` 与 `:xbmc:assembleVanillaDebug`）
 - [X] T005 [P] 在 `xbmc/build.gradle` 增加 Jacoco 覆盖率报告与 ≥80% 门槛（目标 `dfmExperimentalDebugUnitTest`）
-- [X] T056 在 `xbmc/build.gradle` 配置 `dfmExperimentalDebugUnitTest` 源集映射（启用 `src/dfmExperimentalTest/java`）、测试任务与报告输出路径
+- [X] T056 在 `xbmc/build.gradle` 配置 `dfmExperimentalDebugUnitTest` 源集映射（单测目录 `src/dfmExperimentalDebugUnitTest/java`），并确保 `main` 排除 `dfmExperimental/**` 与 `dfmExperimentalDebugUnitTest/**`，测试任务与报告输出路径保持可查
 
 ---
 
@@ -55,11 +56,11 @@
 
 ### Tests for User Story 1
 
-- [X] T015 [P] [US1] 软时钟推算单测 `xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/clock/PlaybackClockTest.java`
-- [X] T016 [P] [US1] XML→标准条目映射单测 `xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/source/local/BiliXmlParserTest.java`
-- [ ] T017 [P] [US1] 引擎状态与对齐（play/pause/seek/speed）单测 `xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/DanmakuEngineTest.java`
-- [ ] T018 [P] [US1] 阈值断言（SC-001/SC-002/SC-009、字幕独立性 SC-007）`xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/EngineThresholdsTest.java`
-- [ ] T065 [US1] 前后台与旋转恢复单测（生命周期 onPause/onResume 与 onConfigurationChanged）`xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/LifecycleRestoreTest.java`
+- [X] T015 [P] [US1] 软时钟推算单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/clock/PlaybackClockTest.java`
+- [X] T016 [P] [US1] XML→标准条目映射单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/source/local/BiliXmlParserTest.java`
+- [ ] T017 [P] [US1] 引擎状态与对齐（play/pause/seek/speed）单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/DanmakuEngineTest.java`
+- [ ] T018 [P] [US1] 阈值断言（SC-001/SC-002/SC-009、字幕独立性 SC-007）`xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/EngineThresholdsTest.java`
+- [ ] T065 [US1] 前后台与旋转恢复单测（生命周期 onPause/onResume 与 onConfigurationChanged）`xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/LifecycleRestoreTest.java`
 
 ### Implementation for User Story 1
 
@@ -90,10 +91,10 @@
 
 ### Tests for User Story 2
 
-- [ ] T031 [P] [US2] 本地轨发现与评分单测 `xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/source/local/LocalTrackDiscoveryTest.java`
-- [ ] T032 [P] [US2] 切轨恢复同步（≤2s）单测 `xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/DanmakuEngineSwitchTrackTest.java`
-- [ ] T066 [US2] 手动选择后恢复同步（≤2s）单测 `xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/ManualSelectSyncTest.java`
-- [ ] T067 [US2] 解析失败/不可读文件错误路径与 UI 提示单测 `xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/ParserErrorFlowTest.java`
+- [ ] T031 [P] [US2] 本地轨发现与评分单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/source/local/LocalTrackDiscoveryTest.java`
+- [ ] T032 [P] [US2] 切轨恢复同步（≤2s）单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/DanmakuEngineSwitchTrackTest.java`
+- [ ] T066 [US2] 手动选择后恢复同步（≤2s）单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/ManualSelectSyncTest.java`
+- [ ] T067 [US2] 解析失败/不可读文件错误路径与 UI 提示单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/ParserErrorFlowTest.java`
 
 ### Implementation for User Story 2
 
@@ -119,7 +120,7 @@
 
 ### Tests for User Story 3
 
-- [ ] T040 [P] [US3] 设置应用与持久化单测 `xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/DanmakuSettingsTest.java`
+- [ ] T040 [P] [US3] 设置应用与持久化单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/DanmakuSettingsTest.java`
 
 ### Implementation for User Story 3
 
@@ -142,7 +143,7 @@
 
 - [ ] T048 [P] 在 `specs/001-dfm-integration/plan.md` 增补 Upstream Fidelity 合规清单（已更新，复核）
 - [ ] T049 [P] 引擎性能优化：预取窗口与限流 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java`
-- [ ] T050 [P] 关键路径单测补充（阈值与边界）`xbmc/src/dfmExperimentalTest/java/org/xbmc/kodi/danmaku/`
+- [ ] T050 [P] 关键路径单测补充（阈值与边界）`xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/`
 - [ ] T051 代码清理与日志分级 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/`
 - [ ] T052 按 quickstart 全流程验证（dfmExperimental 与 vanilla）`xbmc/build/outputs/apk/`
 - [ ] T053 可用性走查（SC-005）：更新 `specs/001-dfm-integration/quickstart.md` 加入入口路径截图与步骤，并在 PR 模板粘贴走查结论

@@ -61,7 +61,13 @@ android {
         main {
             manifest.srcFile 'AndroidManifest.xml'
             // Compile directly from canonical source tree; keep legacy generated path for compatibility
-            java.srcDirs = ['src', 'java']
+            java.srcDirs = ['src']
+            java {
+                // Exclude flavor-specific and test sources from main compilation
+                exclude 'dfmExperimental/**'
+                exclude 'dfmExperimentalTest/**'
+                exclude 'dfmExperimentalDebugUnitTest/**'
+            }
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
             jniLibs.srcDirs = ['lib']
@@ -70,17 +76,9 @@ android {
             java.srcDirs += ['src/dfmExperimental/java']
             res.srcDirs += ['src/dfmExperimental/res']
         }
-        test {
-            java.srcDirs += ['src/dfmExperimentalTest/java']
-            res.srcDirs += ['src/dfmExperimentalTest/res']
+        testDfmExperimentalDebug {
+            java.srcDirs += ['src/dfmExperimentalDebugUnitTest/java']
         }
-    }
-    // Keep legacy JNI packaging but exclude unstripped library from APK
-    packagingOptions{
-      doNotStrip '**.setup'
-      jniLibs {
-          useLegacyPackaging = true
-      }
     }
     packaging {
       jniLibs {
@@ -98,13 +96,20 @@ android {
             it.reports.html.required = true
             it.reports.junitXml.outputLocation = file("$buildDir/test-results/${it.name}")
             it.reports.html.outputLocation = file("$buildDir/reports/tests/${it.name}")
+            // Force test worker JRE to Java 17 to avoid JDK 21 deserialization issues
+            it.javaLauncher.set(javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(17) })
+            // Open necessary JDK internals and avoid generating accessor classes
+            it.jvmArgs('--add-opens=java.base/java.lang=ALL-UNNAMED',
+                    '--add-opens=java.base/jdk.internal.reflect=ALL-UNNAMED',
+                    '--add-exports=java.base/jdk.internal.reflect=ALL-UNNAMED')
+            it.systemProperty 'jdk.reflect.useDirectMethodHandle', 'true'
         }
+        // Needed for Robolectric to access merged resources when required
+        unitTests.includeAndroidResources = true
     }
 }
 
-project.afterEvaluate {
-    preBuild.dependsOn
-}
+// no-op: previously had an incomplete afterEvaluate hook
 
 dependencies {
     implementation 'androidx.core:core:1.16.0'
@@ -112,6 +117,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.13.1'
     dfmExperimentalImplementation 'com.github.ctiao:dfm:0.9.25'
     testImplementation 'junit:junit:4.13.2'
+    // Robolectric provides Android framework shadows for local JVM tests
+    testImplementation 'org.robolectric:robolectric:4.12.2'
 }
 
 java {
@@ -143,7 +150,7 @@ tasks.register("jacocoDfmExperimentalDebugUnitTestReport", JacocoReport) {
             fileTree(dir: "$buildDir/intermediates/javac/dfmExperimentalDebug/classes", exclude: jacocoExcludes),
             fileTree(dir: "$buildDir/tmp/kotlin-classes/dfmExperimentalDebug", exclude: jacocoExcludes)
     ))
-    sourceDirectories.setFrom(files("src", "java", "src/dfmExperimental/java"))
+    sourceDirectories.setFrom(files("src", "src/dfmExperimental/java"))
     executionData.setFrom(file("$buildDir/jacoco/testDfmExperimentalDebugUnitTest.exec"))
 }
 
@@ -153,7 +160,7 @@ tasks.register("jacocoDfmExperimentalDebugUnitTestCoverageVerification", JacocoC
             fileTree(dir: "$buildDir/intermediates/javac/dfmExperimentalDebug/classes", exclude: jacocoExcludes),
             fileTree(dir: "$buildDir/tmp/kotlin-classes/dfmExperimentalDebug", exclude: jacocoExcludes)
     ))
-    sourceDirectories.setFrom(files("src", "java", "src/dfmExperimental/java"))
+    sourceDirectories.setFrom(files("src", "src/dfmExperimental/java"))
     executionData.setFrom(file("$buildDir/jacoco/testDfmExperimentalDebugUnitTest.exec"))
     violationRules {
         rule {
@@ -166,4 +173,26 @@ tasks.register("jacocoDfmExperimentalDebugUnitTestCoverageVerification", JacocoC
 
 tasks.named("check").configure {
     dependsOn("jacocoDfmExperimentalDebugUnitTestCoverageVerification")
+}
+
+// Ensure all JVM test workers run on JDK 17 and have the right module opens
+tasks.withType(Test).configureEach { t ->
+    t.javaLauncher.set(javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(17) })
+    t.jvmArgs('--add-opens=java.base/java.lang=ALL-UNNAMED',
+            '--add-opens=java.base/jdk.internal.reflect=ALL-UNNAMED',
+            '--add-exports=java.base/jdk.internal.reflect=ALL-UNNAMED')
+    t.systemProperty 'jdk.reflect.useDirectMethodHandle', 'true'
+}
+
+// Fallback: explicitly target the Android unit test task by name
+tasks.matching { it.name == "testDfmExperimentalDebugUnitTest" }.configureEach { t ->
+    if (t instanceof Test) {
+        t.javaLauncher.set(javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(17) })
+        t.doFirst {
+            t.jvmArgs('--add-opens=java.base/java.lang=ALL-UNNAMED',
+                    '--add-opens=java.base/jdk.internal.reflect=ALL-UNNAMED',
+                    '--add-exports=java.base/jdk.internal.reflect=ALL-UNNAMED')
+            t.systemProperty 'jdk.reflect.useDirectMethodHandle', 'true'
+        }
+    }
 }

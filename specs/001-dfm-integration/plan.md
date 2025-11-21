@@ -43,8 +43,11 @@
   - `dfmExperimental`：仅在该变体下包含弹幕相关源码/资源与依赖，用于开发与验证
 - 依赖与源码组织：
   - 依赖坐标仅在 `dfmExperimentalImplementation` 生效：`com.github.ctiao:dfm:0.9.25`
-  - 源码与资源置于 `xbmc/src/dfmExperimental/` 下，默认变体不会编译/打包该代码
+  - 源代码约束：`main` 仅指向 `xbmc/src/main/java`（与 `res`/`AndroidManifest.xml`），显式排除 `dfmExperimental/**` 与 `dfmExperimentalDebugUnitTest/**`，禁止新增平行 `xbmc/java/` 或整棵通配。
+  - 变体源码专用目录：`dfmExperimental` 仅指向 `xbmc/src/dfmExperimental/java` 与 `xbmc/src/dfmExperimental/res`。
+  - 变体单测：仅使用 `xbmc/src/dfmExperimentalDebugUnitTest/java`；不得放入通用 `src/test` 或 `src/dfmExperimentalTest` 以避免被主编译拾取。
   - 提供 `BuildConfig.DANMAKU_ENABLED=true`（dfmExperimental）/`false`（vanilla）用于运行时保护
+  - Manifest/packaging：按仓库规范保持 `android { packaging { jniLibs { useLegacyPackaging = true } } }`，并排除未裁剪符号库（`**/libkodi.unstripped.so`）避免打入 APK。
 
 - OSD 接入策略（Upstream Fidelity 保障）：
   - 不修改上游 OSD 功能代码；dfmExperimental 仅通过变体专属资源与可插拔控制器（`OverlayMountController`、`OsdActions`）挂接入口；
@@ -52,7 +55,7 @@
   - 任何上游引用需在 `docs/UPSTREAM_ORIGINS.md` 记录来源与理由。
 
 - 测试源集与任务：
-  - 显式配置 `dfmExperimentalDebugUnitTest` 源集，使 `src/dfmExperimentalTest/java` 生效；
+  - 显式配置 `dfmExperimentalDebugUnitTest` 源集，使 `src/dfmExperimentalDebugUnitTest/java` 生效；杜绝使用 `src/test` 或 `src/dfmExperimentalTest`。
   - 关键 UT 包含：软时钟推算、XML→条目映射、切轨恢复、阈值断言、生命周期与旋转恢复。
 
 ## Constitution Check
@@ -61,7 +64,7 @@ GATE: 本计划在设计前后各自检视一次，以下为承诺与执行要�
 
 - Upstream Fidelity: 默认 `vanilla` 变体不改 Kodi so，且不包含弹幕相关代码/资源；弹幕功能仅在 `dfmExperimental` 变体中以增量方式提供。若引用上游文件，将在 `docs/UPSTREAM_ORIGINS.md` 记录来源与缘由。
 - Reproducible Env: 遵循 AGENTS.md 版本约束；提供可复制命令（含可选 `GRADLE_USER_HOME=$(pwd)/.gradle-user`）。
-- Build Path: 快速构建 `./gradlew :xbmc:assembleDebug -x lint`；打包 `make apk`。
+- Build Path: 快速构建 `./gradlew :xbmc:assembleDebug -x lint`、`:xbmc:assembleDfmExperimentalDebug -x lint`，变体单测 `./gradlew :xbmc:testDfmExperimentalDebugUnitTest`；打包 `make apk`。
 - Security & Signing: 仅使用 `KODI_ANDROID_*` 调试签名变量；Release 走 CI Secrets；不引入新权限。
 - Quality Gates: 新增 UT 覆盖时钟推算和 XML→DFM 转换；Lint 需通过；安装 APK + monkey 启动校验。
 
