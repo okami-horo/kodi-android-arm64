@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     namespace = 'org.xbmc.kodi'
     compileSdk = 36
-    ndkPath = "/workspace/xbmc/tools/depends/../../.android-sdk/ndk/28.2.13676358"
+    // Use side-by-side NDK from Android SDK on CI/local; version pinned for reproducibility
     ndkVersion = "28.2.13676358"
     defaultConfig {
         applicationId = "org.xbmc.kodi"
