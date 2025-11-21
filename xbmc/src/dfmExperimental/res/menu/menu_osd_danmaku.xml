@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_toggle_danmaku"
+        android:title="@string/danmaku_toggle" />
+    <item
+        android:id="@+id/action_select_danmaku_track"
+        android:title="@string/danmaku_select_track" />
+    <item
+        android:id="@+id/action_inject_danmaku"
+        android:title="@string/danmaku_inject_debug" />
+</menu>

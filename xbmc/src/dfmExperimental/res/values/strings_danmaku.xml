@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="danmaku_toggle">Toggle danmaku</string>
+    <string name="danmaku_select_track">Select danmaku track</string>
+    <string name="danmaku_inject_debug">Inject demo danmaku</string>
+</resources>
