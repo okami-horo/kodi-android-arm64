@@ -28,8 +28,39 @@ jobs:
           rsync -a "$SDK/cmdline-tools/cmdline-tools/" "$SDK/cmdline-tools/latest/"
           echo "ANDROID_SDK_ROOT=$SDK" >> $GITHUB_ENV
           echo "ANDROID_HOME=$SDK" >> $GITHUB_ENV
-          yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$SDK" --install "platform-tools" "platforms;android-36" "build-tools;36.0.0"
+          # Install required SDK components. Install both 35 and 36 build-tools to avoid on-the-fly downloads.
+          yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$SDK" --install \
+            "platform-tools" \
+            "platforms;android-36" \
+            "build-tools;36.0.0" \
+            "build-tools;35.0.0"
           yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$SDK" --licenses || true
+
+      - name: Restore keystore from secrets
+        env:
+          ANDROID_KEYSTORE_B64: ${{ secrets.KODI_ANDROID_KEYSTORE_BASE64 }}
+          KODI_ANDROID_STORE_PASSWORD: ${{ secrets.KODI_ANDROID_STORE_PASSWORD }}
+          KODI_ANDROID_KEY_ALIAS: ${{ secrets.KODI_ANDROID_KEY_ALIAS }}
+          KODI_ANDROID_KEY_PASSWORD: ${{ secrets.KODI_ANDROID_KEY_PASSWORD }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          KS="$RUNNER_TEMP/android.keystore"
+          if [ -z "${ANDROID_KEYSTORE_B64:-}" ]; then
+            echo "Secret KODI_ANDROID_KEYSTORE_BASE64 is not set" >&2
+            exit 1
+          fi
+          echo "$ANDROID_KEYSTORE_B64" | base64 -d > "$KS"
+          echo "KODI_ANDROID_STORE_FILE=$KS" >> $GITHUB_ENV
+          echo "KODI_ANDROID_STORE_PASSWORD=$KODI_ANDROID_STORE_PASSWORD" >> $GITHUB_ENV
+          echo "KODI_ANDROID_KEY_ALIAS=$KODI_ANDROID_KEY_ALIAS" >> $GITHUB_ENV
+          echo "KODI_ANDROID_KEY_PASSWORD=$KODI_ANDROID_KEY_PASSWORD" >> $GITHUB_ENV
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: Setup Gradle cache
+        uses: gradle/gradle-build-action@v3
 
       - name: Build Debug APK
         run: |
