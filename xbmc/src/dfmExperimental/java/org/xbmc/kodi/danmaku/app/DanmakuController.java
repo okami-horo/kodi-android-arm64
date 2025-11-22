@@ -37,6 +37,7 @@ import org.xbmc.kodi.danmaku.api.DanmakuApi;
 import org.xbmc.kodi.danmaku.bridge.PlayerEventBridge;
 import org.xbmc.kodi.danmaku.clock.MediaSessionClock;
 import org.xbmc.kodi.danmaku.dev.DeveloperDanmakuInjector;
+import org.xbmc.kodi.danmaku.ipc.DanmakuIpcServer;
 import org.xbmc.kodi.danmaku.model.DanmakuConfig;
 import org.xbmc.kodi.danmaku.model.MediaKey;
 import org.xbmc.kodi.danmaku.source.local.BiliXmlParser;
@@ -72,6 +73,7 @@ public final class DanmakuController implements TrackSelectionDialog.Listener, O
     private final SharedPreferences.OnSharedPreferenceChangeListener prefsListener;
     private final MediaSessionClock mediaClock = new MediaSessionClock();
     private final DanmakuEngine engine;
+    private final BiliXmlParser biliXmlParser;
     private final OverlayMountController overlayController;
     private final DanmakuApi api;
     private final ManualFilePicker manualFilePicker = new ManualFilePicker();
@@ -79,6 +81,7 @@ public final class DanmakuController implements TrackSelectionDialog.Listener, O
     private final DeveloperDanmakuInjector developerInjector;
     private final PlayerEventBridge playerBridge;
     private final OsdActions osdActions;
+    private final DanmakuIpcServer ipcServer;
 
     private ViewGroup container;
     private View controlsView;
@@ -108,17 +111,20 @@ public final class DanmakuController implements TrackSelectionDialog.Listener, O
         DanmakuSettingsStore.ensureDefaults(settingsPrefs);
         this.prefsListener = (prefs, key) -> applySettingsFromPreferences();
         DanmakuOverlayViewHolder overlayViewHolder = new DanmakuOverlayViewHolder(activity);
+        this.biliXmlParser = new BiliXmlParser();
         this.engine = new DanmakuEngine(
                 overlayViewHolder.view,
                 mediaClock,
                 preferences,
-                new BiliXmlParser());
+                biliXmlParser);
         this.overlayController = new OverlayMountController(activity, engine);
         this.api = new DanmakuApi(engine);
         this.trackDialog = new TrackSelectionDialog(activity, api, this);
         this.developerInjector = new DeveloperDanmakuInjector(engine);
         this.playerBridge = new PlayerEventBridge(mediaClock, engine);
         this.osdActions = new OsdActions(this);
+        this.ipcServer = new DanmakuIpcServer(activity.getApplicationContext(), engine, biliXmlParser, mainHandler);
+        ipcServer.start();
         settingsPrefs.registerOnSharedPreferenceChangeListener(prefsListener);
         applySettingsFromPreferences();
     }
@@ -147,6 +153,7 @@ public final class DanmakuController implements TrackSelectionDialog.Listener, O
         destroyed = true;
         overlayController.release();
         engine.detachRenderer();
+        ipcServer.close();
         ioExecutor.shutdownNow();
         settingsPrefs.unregisterOnSharedPreferenceChangeListener(prefsListener);
     }

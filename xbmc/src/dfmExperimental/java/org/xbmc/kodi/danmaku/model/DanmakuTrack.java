@@ -7,7 +7,8 @@ import java.util.Objects;
  */
 public final class DanmakuTrack {
     public enum SourceType {
-        LOCAL
+        LOCAL,
+        REMOTE
     }
 
     private final String id;

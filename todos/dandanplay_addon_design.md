@@ -106,9 +106,21 @@ class Service(xbmc.Monitor):
 ### 传输通道
 - Android 侧在 dfmExperimental 变体内启动本地 HTTP Server（仅监听 `127.0.0.1`），默认端口 `11235`（可配置）。
 - 鉴权：
-  - 启动时 Android 侧在 `special://profile/addon_data/script.service.dandanplay/token` 写入一次性 Token；
+  - 启动时 Android 侧在 `special://profile/addon_data/script.service.dandanplay/ipc_token.json` 写入一次性 Token；
   - Python Add-on 读取该文件并在后续请求以 `Authorization: Bearer <token>` 头发送；
   - Token 仅限 127.0.0.1，进程内短时有效，应用切换视频/重启即轮换。
+
+### Token 文件
+- 实际输出路径（Android 解析后的真实路径）对应 `special://profile/addon_data/script.service.dandanplay/ipc_token.json`；
+- JSON 字段：
+  ```json
+  {
+    "port": 11235,
+    "token": "f5a1c6...",
+    "issuedAt": 1732262400000
+  }
+  ```
+- Add-on 启动时监测该文件，如端口或 token 变更需要重新建连；若文件缺失可轮询等待（DFM 控制器重新启动时会刷新）。
 
 ### HTTP 接口
 - `POST /v1/danmaku/load`
@@ -119,8 +131,12 @@ class Service(xbmc.Monitor):
       "episodeId": 12345,
       "title": "番名 S1E01",
       "duration": 1423.5,
-      "format": "bili-xml",        // 或 "dfm-json"
-      "payload": "<xml…>…</xml>",   // 大体量建议 gzip+base64
+      "mediaKey": "file:///sdcard/Movies/xxx.mp4|1234567|1699950000",
+      "trackId": "dandanplay:12345",          // 可选，不传则由 IPC Server 自动生成
+      "format": "bili-xml",
+      "payload": "<xml…>…</xml>",
+      "payloadPath": "/data/user/0/org.xbmc.kodi/files/.kodi/userdata/addon_data/script.service.dandanplay/cache/hash.xml",
+      "encoding": "plain",                    // 可选：plain/base64/gzip/gzip+base64
       "prefs": {
         "opacity": 0.8, "speed": 1.0, "fontScale": 1.0,
         "maxLines": 8, "maxOnScreen": 80,
@@ -133,9 +149,17 @@ class Service(xbmc.Monitor):
 - `POST /v1/danmaku/control`
   - 请求体：`{"action":"pause|resume|toggle|clear|seek|update_prefs", ...}`
   - 示例：`{"action":"update_prefs", "prefs": {"opacity": 0.6}}`
+- 控制动作目前支持：
+  - `pause`：暂停弹幕渲染；
+  - `resume`：恢复播放（可附带 `positionMs` 与 `speed`）；
+  - `seek`：`{"action":"seek","positionMs":1234}`；
+  - `set_visibility`：显隐弹幕；
+  - `set_speed`：单独调整播放速度；
+  - `update_prefs`：传入与 `prefs` 相同结构的配置增量。
 
 - `POST /v1/danmaku/unload`
   - 请求体：可空；卸载当前弹幕轨并释放资源
+  - 可附带 `mediaKey`/`trackId` 精确指明要移除的轨道；若省略则默认卸载当前活动轨。
 
 - `GET /v1/danmaku/status`
   - 响应：`{"loaded":true, "position": 123.4, "fps":60, "count": 13500}`
@@ -143,6 +167,7 @@ class Service(xbmc.Monitor):
 ### 性能与大对象传输
 - 优先 Bili-XML（压缩后）整包一次性下发；Android 侧解析入内存或流式解析。
 - 仅在极端大集数/超大弹幕量时采用分页/分批（可选扩展）。
+- 若 Add-on 已将弹幕缓存到本地，可传 `payloadPath`，避免重复上传；IPC Server 会直接打开该文件解析。
 
 ## Dandanplay API（Python 侧）
 - 与前述 Java 客户端保持等价的接口：`match/search/comment/related/extcomment/send`。

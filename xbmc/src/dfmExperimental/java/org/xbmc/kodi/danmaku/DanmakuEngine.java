@@ -309,6 +309,26 @@ public class DanmakuEngine implements DanmakuService {
         return activeTrack;
     }
 
+    public void removeTrack(MediaKey mediaKey, String trackId) {
+        if (mediaKey == null) {
+            return;
+        }
+        if (trackId != null && !trackId.isEmpty()) {
+            trackCache.remove(cacheKey(mediaKey, trackId));
+            if (activeTrack != null
+                    && mediaKey.equals(activeTrack.getMediaKey())
+                    && trackId.equals(activeTrack.getId())) {
+                clearActiveState();
+            }
+            return;
+        }
+        boolean removed = trackCache.entrySet().removeIf(entry ->
+                entry.getValue().track.getMediaKey().equals(mediaKey));
+        if (removed || (activeTrack != null && mediaKey.equals(activeTrack.getMediaKey()))) {
+            clearActiveState();
+        }
+    }
+
     @VisibleForTesting
     LoadError getLastError() {
         return lastError;
@@ -522,6 +542,19 @@ public class DanmakuEngine implements DanmakuService {
             }
         }
         return windowed;
+    }
+
+    private void clearActiveState() {
+        if (renderer != null) {
+            safeRendererCall("setVisible", () -> renderer.setVisible(false));
+            safeRendererCall("release", renderer::release);
+        }
+        activeTrack = null;
+        activeItems = Collections.emptyList();
+        prepared = false;
+        windowStartMs = 0L;
+        windowEndMs = Long.MAX_VALUE;
+        windowShiftPending = false;
     }
 
     private String cacheKey(MediaKey mediaKey, String trackId) {
