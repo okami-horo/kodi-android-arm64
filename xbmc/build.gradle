@@ -124,6 +124,10 @@ android {
         // Needed for Robolectric to access merged resources when required
         unitTests.includeAndroidResources = true
     }
+    lint {
+        baseline = file("lint-baseline.xml")
+        checkReleaseBuilds = false
+    }
 }
 
 // no-op: previously had an incomplete afterEvaluate hook

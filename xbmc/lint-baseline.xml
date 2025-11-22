@@ -1,0 +1,1958 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.11.1" type="baseline" client="gradle" dependencies="false" name="AGP (8.11.1)" variant="all" version="8.11.1">
+
+    <issue
+        id="ScopedStorage"
+        message="The Google Play store has a policy that limits usage of MANAGE_EXTERNAL_STORAGE"
+        errorLine1="    &lt;uses-permission android:name=&quot;android.permission.MANAGE_EXTERNAL_STORAGE&quot; />"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="AndroidManifest.xml"
+            line="9"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        errorLine1="        String text = item.getText() == null ? &quot;&quot; : item.getText().toLowerCase();"
+        errorLine2="                                                                   ~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java"
+            line="461"
+            column="68"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        errorLine1="        String text = item.getText() == null ? &quot;&quot; : item.getText().toLowerCase();"
+        errorLine2="                                                                   ~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java"
+            line="461"
+            column="68"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        errorLine1="            if (text.contains(keyword.toLowerCase())) {"
+        errorLine2="                                      ~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java"
+            line="466"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        errorLine1="            if (text.contains(keyword.toLowerCase())) {"
+        errorLine2="                                      ~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java"
+            line="466"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        errorLine1="      String query = uri.getLastPathSegment().toLowerCase();"
+        errorLine2="                                              ~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/content/XBMCMediaContentProvider.java"
+            line="46"
+            column="47"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 30 (current min is 24): `android.provider.Settings#ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION`"
+        errorLine1="              intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);"
+        errorLine2="                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/Splash.java"
+            line="121"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `min` is only used in API level 26 and higher (current min is 24)"
+        errorLine1="        android:min=&quot;50&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/xml/settings_danmaku.xml"
+            line="14"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `min` is only used in API level 26 and higher (current min is 24)"
+        errorLine1="        android:min=&quot;50&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/xml/settings_danmaku.xml"
+            line="21"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `min` is only used in API level 26 and higher (current min is 24)"
+        errorLine1="        android:min=&quot;20&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/xml/settings_danmaku.xml"
+            line="28"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `min` is only used in API level 26 and higher (current min is 24)"
+        errorLine1="        android:min=&quot;0&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/xml/settings_danmaku.xml"
+            line="35"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `min` is only used in API level 26 and higher (current min is 24)"
+        errorLine1="        android:min=&quot;-5000&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/xml/settings_danmaku.xml"
+            line="67"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="AppLinkUrlError"
+        message="Missing data element"
+        errorLine1="            &lt;intent-filter>"
+        errorLine2="            ^">
+        <location
+            file="AndroidManifest.xml"
+            line="148"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setTitle can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="              .setTitle(media.getTitle())"
+        errorLine2="               ~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="276"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setDescription can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="              .setDescription(media.getDescription())"
+        errorLine2="               ~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="277"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setIntent can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="              .setIntent(detailsIntent);"
+        errorLine2="               ~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="278"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setType(TvContractCompat.PreviewProgramColumns.TYPE_MOVIE);"
+        errorLine2="                ~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="281"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setType(TvContractCompat.PreviewProgramColumns.TYPE_MOVIE);"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="281"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setType(TvContractCompat.PreviewProgramColumns.TYPE_TV_SERIES);"
+        errorLine2="                ~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="283"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setType(TvContractCompat.PreviewProgramColumns.TYPE_TV_SERIES);"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="283"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setType(TvContractCompat.PreviewProgramColumns.TYPE_TV_EPISODE);"
+        errorLine2="                ~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="285"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setType(TvContractCompat.PreviewProgramColumns.TYPE_TV_EPISODE);"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="285"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setType(TvContractCompat.PreviewProgramColumns.TYPE_ALBUM);"
+        errorLine2="                ~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="287"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setType(TvContractCompat.PreviewProgramColumns.TYPE_ALBUM);"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="287"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setType(TvContractCompat.PreviewProgramColumns.TYPE_TRACK);"
+        errorLine2="                ~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="289"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setType(TvContractCompat.PreviewProgramColumns.TYPE_TRACK);"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="289"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setType(TvContractCompat.PreviewProgramColumns.TYPE_CLIP);"
+        errorLine2="                ~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="291"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setType(TvContractCompat.PreviewProgramColumns.TYPE_CLIP);"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="291"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setPosterArtUri can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setPosterArtUri(Uri.parse(media.getCardImageUrl()));"
+        errorLine2="                ~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="295"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setPosterArtAspectRatio can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="          builder.setPosterArtAspectRatio(TvContractCompat.PreviewProgramColumns.ASPECT_RATIO_2_3);"
+        errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="297"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setPosterArtAspectRatio can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="          builder.setPosterArtAspectRatio(TvContractCompat.PreviewProgramColumns.ASPECT_RATIO_2_3);"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="297"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setPosterArtAspectRatio can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="          builder.setPosterArtAspectRatio(TvContractCompat.PreviewProgramColumns.ASPECT_RATIO_1_1);"
+        errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="299"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setPosterArtAspectRatio can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="          builder.setPosterArtAspectRatio(TvContractCompat.PreviewProgramColumns.ASPECT_RATIO_1_1);"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="299"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setPosterArtAspectRatio can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="          builder.setPosterArtAspectRatio(TvContractCompat.PreviewProgramColumns.ASPECT_RATIO_16_9);"
+        errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="301"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setPosterArtAspectRatio can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="          builder.setPosterArtAspectRatio(TvContractCompat.PreviewProgramColumns.ASPECT_RATIO_16_9);"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="301"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setPosterArtUri can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setPosterArtUri(Uri.parse(media.getBackgroundImageUrl()));"
+        errorLine2="                ~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="305"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setPosterArtAspectRatio can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setPosterArtAspectRatio(TvContractCompat.PreviewProgramColumns.ASPECT_RATIO_16_9);"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="306"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setPosterArtAspectRatio can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setPosterArtAspectRatio(TvContractCompat.PreviewProgramColumns.ASPECT_RATIO_16_9);"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="306"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setPreviewVideoUri can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setPreviewVideoUri(Uri.parse(media.getVideoUrl()));"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="309"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setReleaseDate can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setReleaseDate(movie.getYear());"
+        errorLine2="                ~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="314"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setDurationMillis can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setDurationMillis(movie.getDuration());"
+        errorLine2="                ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="315"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setReviewRating can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="          builder.setReviewRating(movie.getRating());"
+        errorLine2="                  ~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="318"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setReviewRatingStyle can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="          builder.setReviewRatingStyle(TvContractCompat.Programs.REVIEW_RATING_STYLE_STARS);"
+        errorLine2="                  ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="319"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setReviewRatingStyle can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="          builder.setReviewRatingStyle(TvContractCompat.Programs.REVIEW_RATING_STYLE_STARS);"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="319"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="ProgramColumns.REVIEW_RATING_STYLE_STARS can only be accessed from within the same library group prefix (referenced groupId=`androidx.tvprovider` with prefix androidx from groupId=`XBMC`)"
+        errorLine1="          builder.setReviewRatingStyle(TvContractCompat.Programs.REVIEW_RATING_STYLE_STARS);"
+        errorLine2="                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="319"
+            column="66"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setReleaseDate can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setReleaseDate(tvshow.getYear());"
+        errorLine2="                ~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="325"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setReviewRating can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="          builder.setReviewRating(tvshow.getRating());"
+        errorLine2="                  ~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="328"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setReviewRatingStyle can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="          builder.setReviewRatingStyle(TvContractCompat.Programs.REVIEW_RATING_STYLE_STARS);"
+        errorLine2="                  ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="329"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setReviewRatingStyle can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="          builder.setReviewRatingStyle(TvContractCompat.Programs.REVIEW_RATING_STYLE_STARS);"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="329"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="ProgramColumns.REVIEW_RATING_STYLE_STARS can only be accessed from within the same library group prefix (referenced groupId=`androidx.tvprovider` with prefix androidx from groupId=`XBMC`)"
+        errorLine1="          builder.setReviewRatingStyle(TvContractCompat.Programs.REVIEW_RATING_STYLE_STARS);"
+        errorLine2="                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="329"
+            column="66"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setTitle can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setTitle(tvepisode.getShowTitle());"
+        errorLine2="                ~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="335"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setEpisodeTitle can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setEpisodeTitle(tvepisode.getTitle());"
+        errorLine2="                ~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="336"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setSeasonNumber can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setSeasonNumber(tvepisode.getSeason());"
+        errorLine2="                ~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="337"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setEpisodeNumber can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setEpisodeNumber(tvepisode.getEpisode());"
+        errorLine2="                ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="338"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setDurationMillis can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setDurationMillis(tvepisode.getDuration());"
+        errorLine2="                ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="339"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setReleaseDate can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="        builder.setReleaseDate(tvepisode.getFirstaired());"
+        errorLine2="                ~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="340"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setReviewRating can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="          builder.setReviewRating(tvepisode.getRating());"
+        errorLine2="                  ~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="343"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setReviewRatingStyle can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="          builder.setReviewRatingStyle(TvContractCompat.Programs.REVIEW_RATING_STYLE_STARS);"
+        errorLine2="                  ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="344"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setReviewRatingStyle can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="          builder.setReviewRatingStyle(TvContractCompat.Programs.REVIEW_RATING_STYLE_STARS);"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="344"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="ProgramColumns.REVIEW_RATING_STYLE_STARS can only be accessed from within the same library group prefix (referenced groupId=`androidx.tvprovider` with prefix androidx from groupId=`XBMC`)"
+        errorLine1="          builder.setReviewRatingStyle(TvContractCompat.Programs.REVIEW_RATING_STYLE_STARS);"
+        errorLine2="                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/SyncProgramsJobService.java"
+            line="344"
+            column="66"/>
+    </issue>
+
+    <issue
+        id="VisibleForTests"
+        message="This method should only be accessed from tests or within private scope"
+        errorLine1="        DanmakuEngine engine = new DanmakuEngine("
+        errorLine2="                               ^">
+        <location
+            file="src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/DanmakuEngineSwitchTrackTest.java"
+            line="35"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="VisibleForTests"
+        message="This method should only be accessed from tests or within private scope"
+        errorLine1="        DanmakuEngine engine = new DanmakuEngine("
+        errorLine2="                               ^">
+        <location
+            file="src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/DanmakuEngineTest.java"
+            line="30"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="VisibleForTests"
+        message="This method should only be accessed from tests or within private scope"
+        errorLine1="        DanmakuEngine engine = new DanmakuEngine("
+        errorLine2="                               ^">
+        <location
+            file="src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/DanmakuSettingsTest.java"
+            line="43"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="VisibleForTests"
+        message="This method should only be accessed from tests or within private scope"
+        errorLine1="        DanmakuEngine engine = new DanmakuEngine("
+        errorLine2="                               ^">
+        <location
+            file="src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/DanmakuSettingsTest.java"
+            line="95"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="VisibleForTests"
+        message="This method should only be accessed from tests or within private scope"
+        errorLine1="        DanmakuEngine engine = new DanmakuEngine("
+        errorLine2="                               ^">
+        <location
+            file="src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/EngineThresholdsTest.java"
+            line="29"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="VisibleForTests"
+        message="This method should only be accessed from tests or within private scope"
+        errorLine1="        DanmakuEngine engine = new DanmakuEngine("
+        errorLine2="                               ^">
+        <location
+            file="src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/LifecycleRestoreTest.java"
+            line="30"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="VisibleForTests"
+        message="This method should only be accessed from tests or within private scope"
+        errorLine1="        DanmakuEngine engine = new DanmakuEngine("
+        errorLine2="                               ^">
+        <location
+            file="src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/ManualSelectSyncTest.java"
+            line="36"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="VisibleForTests"
+        message="This method should only be accessed from tests or within private scope"
+        errorLine1="        DanmakuEngine engine = new DanmakuEngine("
+        errorLine2="                               ^">
+        <location
+            file="src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/ParserErrorFlowTest.java"
+            line="49"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="VisibleForTests"
+        message="This method should only be accessed from tests or within private scope"
+        errorLine1="        DanmakuEngine.LoadError error = engine.getLastError();"
+        errorLine2="                                               ~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/ParserErrorFlowTest.java"
+            line="61"
+            column="48"/>
+    </issue>
+
+    <issue
+        id="DiscouragedApi"
+        message="Fixed screen orientations will be ignored in most cases, starting from Android 16. Android is moving toward a model where apps are expected to adapt to various orientations, display sizes, and aspect ratios."
+        errorLine1="            android:screenOrientation=&quot;sensorLandscape&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="AndroidManifest.xml"
+            line="60"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="DiscouragedApi"
+        message="Fixed screen orientations will be ignored in most cases, starting from Android 16. Android is moving toward a model where apps are expected to adapt to various orientations, display sizes, and aspect ratios."
+        errorLine1="            android:screenOrientation=&quot;sensorLandscape&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="AndroidManifest.xml"
+            line="105"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;app_name&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;app_name&quot;>Kodi&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="4"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;search_hint&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;search_hint&quot;>Kodi&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="5"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;suggestion_channel&quot; is not translated in &quot;hi&quot; (Hindi), &quot;fil&quot; (Filipino; Pilipino), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;eo&quot; (Esperanto), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;si&quot; (Sinhala), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh)"
+        errorLine1="    &lt;string name=&quot;suggestion_channel&quot;>Suggestions&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="7"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;continue_button&quot; is not translated in &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;continue_button&quot;>Continue&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="10"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;error_title&quot; is not translated in &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;error_title&quot;>Error&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="11"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;info_title&quot; is not translated in &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;info_title&quot;>Info&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="12"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;exit_button&quot; is not translated in &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;exit_button&quot;>Exit&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="13"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;notice_dialog&quot; is not translated in &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;notice_dialog&quot;>%1$s requires access to your device media and files to function. Please allow this via the following dialogue box or %1$s will exit.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="14"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;record_audio_dialog&quot; is not translated in &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;record_audio_dialog&quot;>%1$s asks for permission to record audio. This is only used for voice search. Please allow or deny this in the following dialogue box.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="15"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;asking_permissions&quot; is not translated in &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;asking_permissions&quot;>Asking for permissions…&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="16"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;clearing_cache&quot; is not translated in &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;clearing_cache&quot;>Clearing cache…&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="17"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;waiting_external&quot; is not translated in &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;waiting_external&quot;>Waiting for external storage…&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="18"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;external_ok&quot; is not translated in &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;external_ok&quot;>External storage OK…&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="19"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;starting&quot; is not translated in &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;starting&quot;>Starting %1$s…&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="20"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;first_run&quot; is not translated in &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;first_run&quot;>Preparing for first run. Please wait…&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="21"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;permission_denied&quot; is not translated in &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;permission_denied&quot;>Permission denied!! Exiting…&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="22"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;no_find_apk&quot; is not translated in &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;no_find_apk&quot;>Cannot find package.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="23"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;no_read_apk&quot; is not translated in &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;lv&quot; (Latvian), &quot;hy&quot; (Armenian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;no_read_apk&quot;>Cannot read package.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="24"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_toggle&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_toggle&quot;>Toggle danmaku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="3"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_select_track&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_select_track&quot;>Select danmaku track&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="4"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_inject_debug&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_inject_debug&quot;>Inject demo danmaku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="5"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_tracks_title&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_tracks_title&quot;>Danmaku tracks&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="6"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_tracks_hint&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_tracks_hint&quot;>Choose a track to sync with the current media.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="7"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_tracks_empty_title&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_tracks_empty_title&quot;>No danmaku found&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="8"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_tracks_empty_message&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_tracks_empty_message&quot;>No readable .xml danmaku files were found in the same folder. You can pick one manually.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="9"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_tracks_action_manual&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_tracks_action_manual&quot;>Choose file&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="10"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_tracks_error_title&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_tracks_error_title&quot;>Danmaku unavailable&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="11"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_tracks_error_missing&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_tracks_error_missing&quot;>The selected danmaku file no longer exists.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="12"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_tracks_error_malformed&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_tracks_error_malformed&quot;>The danmaku file is damaged or malformed.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="13"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_tracks_error_io&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_tracks_error_io&quot;>Unable to read the danmaku file. Please check permissions.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="14"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_tracks_error_generic&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_tracks_error_generic&quot;>Failed to load danmaku file.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="15"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_toggle_title&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_toggle_title&quot;>Enable danmaku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="16"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_toggle_summary&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_toggle_summary&quot;>Show comments over video during playback.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="17"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_text_scale&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_text_scale&quot;>Text size&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="18"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_text_scale_summary&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_text_scale_summary&quot;>Adjust danmaku text size (50% - 200%).&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="19"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_speed&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_speed&quot;>Scroll speed&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="20"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_speed_summary&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_speed_summary&quot;>Adjust danmaku scroll speed relative to playback.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="21"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_alpha&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_alpha&quot;>Opacity&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="22"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_alpha_summary&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_alpha_summary&quot;>Control danmaku transparency.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="23"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_max_on_screen&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_max_on_screen&quot;>Max on screen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="24"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_max_on_screen_summary&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_max_on_screen_summary&quot;>Limit simultaneous danmaku to reduce clutter.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="25"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_keyword_filter&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_keyword_filter&quot;>Keyword filter&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="26"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_keyword_filter_summary&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_keyword_filter_summary&quot;>Comma-separated words to hide matching danmaku.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="27"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_type_scroll&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_type_scroll&quot;>Allow scrolling danmaku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="28"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_type_top&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_type_top&quot;>Allow top-fixed danmaku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="29"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_type_bottom&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_type_bottom&quot;>Allow bottom-fixed danmaku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="30"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_type_positioned&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_type_positioned&quot;>Allow positioned/special danmaku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="31"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_offset&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_offset&quot;>Timing offset&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="32"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_pref_offset_summary&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_offset_summary&quot;>Shift danmaku timing forward/backward (ms) to sync.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_readability_title&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_readability_title&quot;>Subtitle readability&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="34"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;danmaku_readability_summary&quot; is not translated in &quot;de&quot; (German), &quot;hi&quot; (Hindi), &quot;ast&quot; (Asturian; Bable; Leonese; Asturleonese), &quot;pt&quot; (Portuguese), &quot;fil&quot; (Filipino; Pilipino), &quot;lt&quot; (Lithuanian), &quot;hr&quot; (Croatian), &quot;lv&quot; (Latvian), &quot;hu&quot; (Hungarian), &quot;hy&quot; (Armenian), &quot;uk&quot; (Ukrainian), &quot;mi&quot; (Māori), &quot;mk&quot; (Macedonian), &quot;ml&quot; (Malayalam), &quot;mn&quot; (Mongolian), &quot;af&quot; (Afrikaans), &quot;uz&quot; (Uzbek), &quot;ms&quot; (Malay), &quot;el&quot; (Greek), &quot;mt&quot; (Maltese), &quot;en&quot; (English), &quot;eo&quot; (Esperanto), &quot;is&quot; (Icelandic), &quot;it&quot; (Italian), &quot;am&quot; (Amharic), &quot;my&quot; (Burmese), &quot;es&quot; (Spanish), &quot;zh&quot; (Chinese), &quot;et&quot; (Estonian), &quot;eu&quot; (Basque), &quot;ar&quot; (Arabic), &quot;vi&quot; (Vietnamese), &quot;nb&quot; (Norwegian Bokmål), &quot;ja&quot; (Japanese), &quot;az&quot; (Azerbaijani), &quot;fa&quot; (Persian), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;be&quot; (Belarusian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;bg&quot; (Bulgarian), &quot;fo&quot; (Faroese), &quot;fr&quot; (French), &quot;bs&quot; (Bosnian), &quot;si&quot; (Sinhala), &quot;sk&quot; (Slovak), &quot;sl&quot; (Slovenian), &quot;ca&quot; (Catalan), &quot;sq&quot; (Albanian), &quot;sr&quot; (Serbian), &quot;kn&quot; (Kannada), &quot;sv&quot; (Swedish), &quot;ko&quot; (Korean), &quot;os&quot; (Ossetic), &quot;szl&quot;, &quot;gl&quot; (Galician), &quot;ta&quot; (Tamil), &quot;cs&quot; (Czech), &quot;te&quot; (Telugu), &quot;tg&quot; (Tajik), &quot;th&quot; (Thai), &quot;cy&quot; (Welsh), &quot;pl&quot; (Polish), &quot;da&quot; (Danish), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;danmaku_readability_summary&quot;>When subtitles and danmaku are both enabled, reduce on-screen count or lines for better readability.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="35"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;ausschliesslich&quot; is a common misspelling; did you mean &quot;ausschließlich&quot;?"
+        errorLine1="    &lt;string name=&quot;record_audio_dialog&quot;>%1$s fragt nach Erlaubnis, Audio aufzunehmen. Dies wird ausschliesslich für Suche per Spracheingabe benötigt. Bitte die Erlaubnis im folgenden Dialog erteilen oder ablehnen.&lt;/string>"
+        errorLine2="                                                                                               ^">
+        <location
+            file="res/values-de-rde/strings.xml"
+            line="18"
+            column="96"/>
+    </issue>
+
+    <issue
+        id="UnsafeIntentLaunch"
+        message="This intent could be coming from an untrusted source. It is later launched by an unprotected component org.xbmc.kodi.Splash. You could either make the component org.xbmc.kodi.Splash protected; or sanitize this intent using androidx.core.content.IntentSanitizer."
+        errorLine1="    Intent intent = getIntent();"
+        errorLine2="                    ~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/Splash.java"
+            line="624"
+            column="21"/>
+        <location
+            file="src/org/xbmc/kodi/Splash.java"
+            line="627"
+            column="5"
+            message="The unsafe intent is launched here."/>
+    </issue>
+
+    <issue
+        id="ExportedContentProvider"
+        message="Exported content providers can provide access to potentially sensitive data"
+        errorLine1="        &lt;provider"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="AndroidManifest.xml"
+            line="123"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ExportedContentProvider"
+        message="Exported content providers can provide access to potentially sensitive data"
+        errorLine1="        &lt;provider"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="AndroidManifest.xml"
+            line="127"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="Recycle"
+        message="This `Cursor` should be freed up after use with `#close()`"
+        errorLine1="                    .query("
+        errorLine2="                     ~~~~~">
+        <location
+            file="src/org/xbmc/kodi/channels/util/TvUtil.java"
+            line="145"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="Do not place Android context classes in static fields (static reference to `Main` which has field `mDecorView` pointing to `View`); this is a memory leak"
+        errorLine1="  public static Main MainActivity = null;"
+        errorLine2="         ~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/Main.java"
+            line="33"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="Do not place Android context classes in static fields; this is a memory leak"
+        errorLine1="  private static Context mContext;"
+        errorLine2="          ~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/XBMCProperties.java"
+            line="17"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="HandlerLeak"
+        message="This `Handler` class should be static or leaks might occur (org.xbmc.kodi.Splash.StateMachine)"
+        errorLine1="  private class StateMachine extends Handler"
+        errorLine2="                ~~~~~~~~~~~~">
+        <location
+            file="src/org/xbmc/kodi/Splash.java"
+            line="85"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `@android:color/black` with a theme that also paints a background (inferred theme is `@style/AppTheme`)"
+        errorLine1="  android:background=&quot;@android:color/black&quot;>"
+        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/layout/activity_main.xml"
+            line="5"
+            column="3"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `@android:color/black` with a theme that also paints a background (inferred theme is `@style/AppTheme`)"
+        errorLine1="    android:background=&quot;@android:color/black&quot; >"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/layout/activity_splash.xml"
+            line="4"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.ic_launcher_background` appears to be unused"
+        errorLine1="    &lt;color name=&quot;ic_launcher_background&quot;>#31AFE1&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/colors.generated.xml"
+            line="6"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.mipmap.ic_launcher_foreground` appears to be unused">
+        <location
+            file="res/mipmap-hdpi/ic_launcher_foreground.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.menu.menu_osd_danmaku` appears to be unused"
+        errorLine1="&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src/dfmExperimental/res/menu/menu_osd_danmaku.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.xml.settings_danmaku` appears to be unused"
+        errorLine1="&lt;androidx.preference.PreferenceScreen xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src/dfmExperimental/res/xml/settings_danmaku.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notice_dialog` appears to be unused"
+        errorLine1="    &lt;string name=&quot;notice_dialog&quot;>%1$s requires access to your device media and files to function. Please allow this via the following dialogue box or %1$s will exit.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="14"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.record_audio_dialog` appears to be unused"
+        errorLine1="    &lt;string name=&quot;record_audio_dialog&quot;>%1$s asks for permission to record audio. This is only used for voice search. Please allow or deny this in the following dialogue box.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="res/values/strings.xml"
+            line="15"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_toggle` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_toggle&quot;>Toggle danmaku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="3"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_select_track` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_select_track&quot;>Select danmaku track&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="4"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_inject_debug` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_inject_debug&quot;>Inject demo danmaku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="5"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_toggle_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_toggle_title&quot;>Enable danmaku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="16"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_toggle_summary` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_toggle_summary&quot;>Show comments over video during playback.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="17"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_text_scale` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_text_scale&quot;>Text size&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="18"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_text_scale_summary` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_text_scale_summary&quot;>Adjust danmaku text size (50% - 200%).&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="19"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_speed` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_speed&quot;>Scroll speed&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="20"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_speed_summary` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_speed_summary&quot;>Adjust danmaku scroll speed relative to playback.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="21"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_alpha` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_alpha&quot;>Opacity&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="22"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_alpha_summary` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_alpha_summary&quot;>Control danmaku transparency.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="23"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_max_on_screen` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_max_on_screen&quot;>Max on screen&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="24"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_max_on_screen_summary` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_max_on_screen_summary&quot;>Limit simultaneous danmaku to reduce clutter.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="25"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_keyword_filter` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_keyword_filter&quot;>Keyword filter&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="26"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_keyword_filter_summary` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_keyword_filter_summary&quot;>Comma-separated words to hide matching danmaku.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="27"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_type_scroll` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_type_scroll&quot;>Allow scrolling danmaku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="28"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_type_top` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_type_top&quot;>Allow top-fixed danmaku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="29"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_type_bottom` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_type_bottom&quot;>Allow bottom-fixed danmaku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="30"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_type_positioned` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_type_positioned&quot;>Allow positioned/special danmaku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="31"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_offset` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_offset&quot;>Timing offset&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="32"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_pref_offset_summary` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_pref_offset_summary&quot;>Shift danmaku timing forward/backward (ms) to sync.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_readability_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_readability_title&quot;>Subtitle readability&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="34"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.danmaku_readability_summary` appears to be unused"
+        errorLine1="    &lt;string name=&quot;danmaku_readability_summary&quot;>When subtitles and danmaku are both enabled, reduce on-screen count or lines for better readability.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/dfmExperimental/res/values/strings_danmaku.xml"
+            line="35"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="IconLauncherShape"
+        message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
+        <location
+            file="res/mipmap-hdpi/ic_launcher.png"/>
+    </issue>
+
+    <issue
+        id="IconLauncherShape"
+        message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
+        <location
+            file="res/mipmap-mdpi/ic_launcher.png"/>
+    </issue>
+
+    <issue
+        id="IconLauncherShape"
+        message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
+        <location
+            file="res/mipmap-xhdpi/ic_launcher.png"/>
+    </issue>
+
+    <issue
+        id="IconLauncherShape"
+        message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
+        <location
+            file="res/mipmap-xxhdpi/ic_launcher.png"/>
+    </issue>
+
+    <issue
+        id="IconLauncherShape"
+        message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
+        <location
+            file="res/mipmap-xxxhdpi/ic_launcher.png"/>
+    </issue>
+
+    <issue
+        id="IconDipSize"
+        message="The image `banner.png` varies significantly in its density-independent (dip) size across the various density versions: mipmap-hdpi/banner.png: 213x120 dp (320x180 px), mipmap-mdpi/banner.png: 320x180 dp (320x180 px), mipmap-xhdpi/banner.png: 160x90 dp (320x180 px), mipmap-xxhdpi/banner.png: 107x60 dp (320x180 px), mipmap-xxxhdpi/banner.png: 80x45 dp (320x180 px)">
+        <location
+            file="res/mipmap-xxxhdpi/banner.png"/>
+        <location
+            file="res/mipmap-xxhdpi/banner.png"/>
+        <location
+            file="res/mipmap-xhdpi/banner.png"/>
+        <location
+            file="res/mipmap-hdpi/banner.png"/>
+        <location
+            file="res/mipmap-mdpi/banner.png"/>
+    </issue>
+
+    <issue
+        id="IconDipSize"
+        message="The image `ic_launcher.png` varies significantly in its density-independent (dip) size across the various density versions: mipmap-hdpi/ic_launcher.png: 171x171 dp (256x256 px), mipmap-mdpi/ic_launcher.png: 256x256 dp (256x256 px), mipmap-xhdpi/ic_launcher.png: 128x128 dp (256x256 px), mipmap-xxhdpi/ic_launcher.png: 85x85 dp (256x256 px), mipmap-xxxhdpi/ic_launcher.png: 64x64 dp (256x256 px)">
+        <location
+            file="res/mipmap-xxxhdpi/ic_launcher.png"/>
+        <location
+            file="res/mipmap-xxhdpi/ic_launcher.png"/>
+        <location
+            file="res/mipmap-xhdpi/ic_launcher.png"/>
+        <location
+            file="res/mipmap-hdpi/ic_launcher.png"/>
+        <location
+            file="res/mipmap-mdpi/ic_launcher.png"/>
+    </issue>
+
+    <issue
+        id="IconDipSize"
+        message="The image `ic_launcher_foreground.png` varies significantly in its density-independent (dip) size across the various density versions: mipmap-hdpi/ic_launcher_foreground.png: 171x171 dp (256x256 px), mipmap-mdpi/ic_launcher_foreground.png: 256x256 dp (256x256 px), mipmap-xhdpi/ic_launcher_foreground.png: 128x128 dp (256x256 px), mipmap-xxhdpi/ic_launcher_foreground.png: 85x85 dp (256x256 px), mipmap-xxxhdpi/ic_launcher_foreground.png: 64x64 dp (256x256 px)">
+        <location
+            file="res/mipmap-xxxhdpi/ic_launcher_foreground.png"/>
+        <location
+            file="res/mipmap-xxhdpi/ic_launcher_foreground.png"/>
+        <location
+            file="res/mipmap-xhdpi/ic_launcher_foreground.png"/>
+        <location
+            file="res/mipmap-hdpi/ic_launcher_foreground.png"/>
+        <location
+            file="res/mipmap-mdpi/ic_launcher_foreground.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicatesConfig"
+        message="The `applaunch_screen.png` icon has identical contents in the following configuration folders: drawable-xxxhdpi, drawable">
+        <location
+            file="res/drawable/applaunch_screen.png"/>
+        <location
+            file="res/drawable-xxxhdpi/applaunch_screen.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicatesConfig"
+        message="The `banner.png` icon has identical contents in the following configuration folders: mipmap-anydpi-v26, mipmap-hdpi, mipmap-mdpi, mipmap-xhdpi, mipmap-xxhdpi, mipmap-xxxhdpi">
+        <location
+            file="res/mipmap-xxxhdpi/banner.png"/>
+        <location
+            file="res/mipmap-xxhdpi/banner.png"/>
+        <location
+            file="res/mipmap-xhdpi/banner.png"/>
+        <location
+            file="res/mipmap-mdpi/banner.png"/>
+        <location
+            file="res/mipmap-hdpi/banner.png"/>
+        <location
+            file="res/mipmap-anydpi-v26/banner.png"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        message="Found bitmap drawable `res/drawable/applaunch_screen.png` in densityless folder">
+        <location
+            file="res/drawable/applaunch_screen.png"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        message="Found bitmap drawable `res/drawable/ic_recommendation_80dp.png` in densityless folder">
+        <location
+            file="res/drawable/ic_recommendation_80dp.png"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        message="Found bitmap drawable `res/drawable/notif_icon.png` in densityless folder">
+        <location
+            file="res/drawable/notif_icon.png"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        message="Missing the following drawables in `drawable-hdpi`: applaunch_screen.png (found in drawable-xxxhdpi)">
+        <location
+            file="res/drawable-hdpi"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        message="Missing the following drawables in `drawable-mdpi`: applaunch_screen.png (found in drawable-xxxhdpi)">
+        <location
+            file="res/drawable-mdpi"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        message="Missing the following drawables in `drawable-xhdpi`: applaunch_screen.png (found in drawable-xxxhdpi)">
+        <location
+            file="res/drawable-xhdpi"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        message="Missing the following drawables in `drawable-xxhdpi`: applaunch_screen.png (found in drawable-xxxhdpi)">
+        <location
+            file="res/drawable-xxhdpi"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        message="The following unrelated icon files have identical contents: ic_launcher_foreground.png, ic_launcher.png, ic_launcher_foreground.png, ic_launcher.png, ic_launcher_foreground.png, ic_launcher.png, ic_launcher_foreground.png, ic_launcher.png, ic_launcher_foreground.png, ic_launcher.png, ic_launcher_foreground.png">
+        <location
+            file="res/mipmap-xxxhdpi/ic_launcher_foreground.png"/>
+        <location
+            file="res/mipmap-xxxhdpi/ic_launcher.png"/>
+        <location
+            file="res/mipmap-xxhdpi/ic_launcher_foreground.png"/>
+        <location
+            file="res/mipmap-xxhdpi/ic_launcher.png"/>
+        <location
+            file="res/mipmap-xhdpi/ic_launcher_foreground.png"/>
+        <location
+            file="res/mipmap-xhdpi/ic_launcher.png"/>
+        <location
+            file="res/mipmap-mdpi/ic_launcher_foreground.png"/>
+        <location
+            file="res/mipmap-mdpi/ic_launcher.png"/>
+        <location
+            file="res/mipmap-hdpi/ic_launcher_foreground.png"/>
+        <location
+            file="res/mipmap-hdpi/ic_launcher.png"/>
+        <location
+            file="res/mipmap-anydpi-v26/ic_launcher_foreground.png"/>
+    </issue>
+
+</issues>

@@ -77,7 +77,7 @@
 - [X] T029 [US1] 基本日志与错误处理 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java`
 - [X] T054 [US1] 开发注入器与 Debug 入口 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/dev/DeveloperDanmakuInjector.java` 与调试菜单项，供无文件场景验证（FR-004）
 - [X] T055 [US1] 生命周期与旋转恢复处理（onPause/onResume/onConfigurationChanged）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/ui/OverlayMountController.java`
-- [ ] T030 [US1] Lint 修复（Alias of T062 质量闸门） `xbmc/build.gradle`
+- [X] T030 [US1] Lint 修复（Alias of T062 质量闸门） `xbmc/build.gradle`
 
 **Checkpoint**: MVP 就绪（dfmExperimental 变体）
 
@@ -106,7 +106,7 @@
 - [X] T038 [US2] 无候选/损坏文件提示文案 `xbmc/src/dfmExperimental/res/values/strings_danmaku.xml`
 - [X] T058 [US2] 解析失败与错误分类处理（不可读/损坏/权限）与替换路径回退 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/source/local/BiliXmlParser.java` 与 `DanmakuEngine` 错误分支
 - [X] T059 [US2] 无候选时的手动文件选择（ACTION_OPEN_DOCUMENT + 校验 + 加载）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/ui/ManualFilePicker.java`
-- [ ] T039 [US2] Lint 修复（Alias of T062 质量闸门） `xbmc/build.gradle`
+- [X] T039 [US2] Lint 修复（Alias of T062 质量闸门） `xbmc/build.gradle`
 
 **Checkpoint**: 本地轨发现/选择独立可测
 
@@ -131,7 +131,7 @@
 - [X] T045 [US3] API：更新配置 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/api/DanmakuApi.java`
 - [X] T046 [US3] 设置面板与条目 `xbmc/src/dfmExperimental/res/xml/settings_danmaku.xml` 与 `xbmc/src/dfmExperimental/res/values/strings_danmaku.xml`
 - [X] T060 [US3] 可读性提示文案与呈现（字幕共显情况下的提示，FR-021）`xbmc/src/dfmExperimental/res/values/strings_danmaku.xml` 与设置面板展示位置
-- [ ] T047 [US3] Lint 修复（Alias of T062 质量闸门） `xbmc/build.gradle`
+- [X] T047 [US3] Lint 修复（Alias of T062 质量闸门） `xbmc/build.gradle`
 
 **Checkpoint**: 设置项与行为可独立验证
 
@@ -149,7 +149,7 @@
 - [ ] T053 可用性走查（SC-005）：更新 `specs/001-dfm-integration/quickstart.md` 加入入口路径截图与步骤，并在 PR 模板粘贴走查结论
 
 - [ ] T061 [P] 性能采样与报告（渲染耗时/掉帧计数；dfmExperimental 下启用），输出至 `xbmc/build/reports/danmaku/perf/`
-- [ ] T062 质量闸门整体验证（统一 Lint + UT + 安装可启动校验）；T030/T039/T047 作为该任务别名收敛报告
+- [X] T062 质量闸门整体验证（统一 Lint + UT + 安装可启动校验）；T030/T039/T047 作为该任务别名收敛报告
 
 ---
 

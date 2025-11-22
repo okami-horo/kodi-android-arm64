@@ -514,11 +514,15 @@ public class Splash extends Activity
   private boolean CheckPermissions()
   {
     boolean retVal = false;
-    if (Build.VERSION.SDK_INT >= 33 || (Build.VERSION.SDK_INT >= 30 && !isAndroidTV()))
+    if (Build.VERSION.SDK_INT >= 30)
     {
-      if (Environment.isExternalStorageManager())
+      // Guard API 30+ call explicitly for Lint recognition
+      if (Build.VERSION.SDK_INT >= 33 || !isAndroidTV())
       {
-        retVal = true;
+        if (Environment.isExternalStorageManager())
+        {
+          retVal = true;
+        }
       }
     }
     else
@@ -560,9 +564,12 @@ public class Splash extends Activity
     super.onActivityResult(requestCode, resultCode, data);
     if (requestCode == PERMISSION_RESULT_CODE)
     {
-      if (Environment.isExternalStorageManager())
+      if (Build.VERSION.SDK_INT >= 30)
       {
-        mPermissionOK = true;
+        if (Environment.isExternalStorageManager())
+        {
+          mPermissionOK = true;
+        }
       }
       mStateMachine.sendEmptyMessage(RecordAudioInfo);
     }

@@ -18,7 +18,7 @@ import org.xbmc.kodi.danmaku.ui.ManualFilePicker;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
+import java.io.FileOutputStream;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RunWith(RobolectricTestRunner.class)
@@ -60,7 +60,9 @@ public class ManualSelectSyncTest {
 
     private void writeDanmaku(File file, String pAttr, String text) throws Exception {
         String xml = "<i><d p=\"" + pAttr + "\">" + text + "</d></i>";
-        Files.write(file.toPath(), xml.getBytes(StandardCharsets.UTF_8));
+        try (FileOutputStream out = new FileOutputStream(file)) {
+            out.write(xml.getBytes(StandardCharsets.UTF_8));
+        }
     }
 
     private static final class FakeTime {
