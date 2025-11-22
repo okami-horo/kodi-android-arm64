@@ -5,6 +5,8 @@ import android.content.res.Configuration;
 import android.media.session.PlaybackState;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
@@ -35,6 +37,8 @@ final class DanmakuHooks {
     private final Method onVisibleBehindCanceled;
     private final Method onKeyDown;
     private final Method onActivityResult;
+    private final Method onCreateOptionsMenu;
+    private final Method onOptionsItemSelected;
 
     private DanmakuHooks(Object controller) throws NoSuchMethodException {
         this.controller = controller;
@@ -50,6 +54,8 @@ final class DanmakuHooks {
         onVisibleBehindCanceled = clazz.getMethod("onVisibleBehindCanceled");
         onKeyDown = clazz.getMethod("onKeyDown", int.class, KeyEvent.class);
         onActivityResult = clazz.getMethod("onActivityResult", int.class, int.class, Intent.class);
+        onCreateOptionsMenu = clazz.getMethod("onCreateOptionsMenu", Menu.class);
+        onOptionsItemSelected = clazz.getMethod("onOptionsItemSelected", MenuItem.class);
     }
 
     @Nullable
@@ -90,6 +96,22 @@ final class DanmakuHooks {
         if (hooks != null) {
             hooks.invoke(hooks.onVisibleBehindCanceled);
         }
+    }
+
+    static void onCreateOptionsMenu(Menu menu) {
+        DanmakuHooks hooks = instance;
+        if (hooks != null) {
+            hooks.invoke(hooks.onCreateOptionsMenu, menu);
+        }
+    }
+
+    static boolean onOptionsItemSelected(MenuItem item) {
+        DanmakuHooks hooks = instance;
+        if (hooks != null) {
+            Object result = hooks.invokeWithResult(hooks.onOptionsItemSelected, item);
+            return result instanceof Boolean && (Boolean) result;
+        }
+        return false;
     }
 
     void onActivityCreate(ViewGroup container) {

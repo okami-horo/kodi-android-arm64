@@ -20,6 +20,8 @@ import android.util.Log;
 import android.view.Choreographer;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 import android.widget.RelativeLayout;
@@ -351,6 +353,29 @@ public class Main extends NativeActivity implements Choreographer.FrameCallback
     if (mDanmakuHooks != null && mDanmakuHooks.onKeyDown(keyCode, event))
       return true;
     return super.onKeyDown(keyCode, event);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu)
+  {
+    if (BuildConfig.DANMAKU_ENABLED)
+    {
+      int menuId = getResources().getIdentifier("menu_osd_danmaku", "menu", getPackageName());
+      if (menuId != 0)
+      {
+        getMenuInflater().inflate(menuId, menu);
+        DanmakuHooks.onCreateOptionsMenu(menu);
+      }
+    }
+    return super.onCreateOptionsMenu(menu);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item)
+  {
+    if (DanmakuHooks.onOptionsItemSelected(item))
+      return true;
+    return super.onOptionsItemSelected(item);
   }
 
   @Override

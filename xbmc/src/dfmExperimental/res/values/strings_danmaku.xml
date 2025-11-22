@@ -37,7 +37,9 @@
     <string name="danmaku_button_toggle_cd">Toggle danmaku visibility</string>
     <string name="danmaku_button_tracks_cd">Choose danmaku track</string>
     <string name="danmaku_button_inject_cd">Inject demo danmaku</string>
+    <string name="danmaku_button_settings_cd">Open danmaku settings</string>
     <string name="danmaku_no_media_for_tracks">Start playback before selecting danmaku.</string>
     <string name="danmaku_manual_pick_success">Danmaku file loaded.</string>
     <string name="danmaku_manual_pick_failure">Unable to load danmaku file.</string>
+    <string name="danmaku_open_settings">Danmaku settings</string>
 </resources>

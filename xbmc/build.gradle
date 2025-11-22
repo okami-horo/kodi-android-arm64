@@ -145,6 +145,7 @@ configurations.all {
 
 dependencies {
     implementation 'androidx.core:core:1.16.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.tvprovider:tvprovider:1.1.0'
     implementation 'com.google.code.gson:gson:2.13.1'
     dfmExperimentalImplementation 'com.github.ctiao:dfm:0.9.25'

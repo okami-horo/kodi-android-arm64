@@ -3,38 +3,39 @@ package org.xbmc.kodi.danmaku.ui;
 import android.view.MenuItem;
 
 import org.xbmc.kodi.R;
-import org.xbmc.kodi.danmaku.DanmakuEngine;
-import org.xbmc.kodi.danmaku.DanmakuService;
-
 /**
  * Handles OSD menu actions related to danmaku.
  */
 public class OsdActions {
     public interface Listener {
+        void onToggleVisibility();
+
         void onSelectTrack();
 
         void onInjectSample();
+
+        void onOpenSettings();
     }
 
-    private final DanmakuEngine engine;
     private final Listener listener;
 
-    public OsdActions(DanmakuEngine engine, Listener listener) {
-        this.engine = engine;
+    public OsdActions(Listener listener) {
         this.listener = listener;
     }
 
     public boolean onMenuItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_toggle_danmaku) {
-            DanmakuService.DanmakuStatus status = engine.getStatus();
-            engine.setVisibility(!status.isVisible());
+            listener.onToggleVisibility();
             return true;
         } else if (id == R.id.action_select_danmaku_track) {
             listener.onSelectTrack();
             return true;
         } else if (id == R.id.action_inject_danmaku) {
             listener.onInjectSample();
+            return true;
+        } else if (id == R.id.action_open_danmaku_settings) {
+            listener.onOpenSettings();
             return true;
         }
         return false;

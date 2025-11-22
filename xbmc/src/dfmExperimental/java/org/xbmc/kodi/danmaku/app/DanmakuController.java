@@ -3,6 +3,7 @@ package org.xbmc.kodi.danmaku.app;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.session.PlaybackState;
 import android.net.Uri;
 import android.os.Handler;
@@ -12,6 +13,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -30,16 +33,17 @@ import org.xbmc.kodi.R;
 import org.xbmc.kodi.XBMCJsonRPC;
 import org.xbmc.kodi.danmaku.DanmakuEngine;
 import org.xbmc.kodi.danmaku.DanmakuPreferences;
-import org.xbmc.kodi.danmaku.DanmakuService;
 import org.xbmc.kodi.danmaku.api.DanmakuApi;
 import org.xbmc.kodi.danmaku.bridge.PlayerEventBridge;
 import org.xbmc.kodi.danmaku.clock.MediaSessionClock;
 import org.xbmc.kodi.danmaku.dev.DeveloperDanmakuInjector;
+import org.xbmc.kodi.danmaku.model.DanmakuConfig;
 import org.xbmc.kodi.danmaku.model.MediaKey;
 import org.xbmc.kodi.danmaku.source.local.BiliXmlParser;
 import org.xbmc.kodi.danmaku.ui.ManualFilePicker;
 import org.xbmc.kodi.danmaku.ui.OverlayMountController;
 import org.xbmc.kodi.danmaku.ui.TrackSelectionDialog;
+import org.xbmc.kodi.danmaku.ui.OsdActions;
 
 import java.io.File;
 import java.util.Locale;
@@ -50,7 +54,7 @@ import java.util.concurrent.Executors;
 /**
  * Manages the dfmExperimental overlay lifecycle and bridges player/MediaSession events.
  */
-public final class DanmakuController implements TrackSelectionDialog.Listener {
+public final class DanmakuController implements TrackSelectionDialog.Listener, OsdActions.Listener {
     private static final String TAG = "DanmakuController";
     private static final long MEDIA_REFRESH_INTERVAL_MS = 2_000L;
     private static final int REQUEST_MANUAL_FILE = 0xDA01;
@@ -64,6 +68,8 @@ public final class DanmakuController implements TrackSelectionDialog.Listener {
     private final ExecutorService ioExecutor = Executors.newSingleThreadExecutor();
     private final XBMCJsonRPC jsonRpc;
     private final DanmakuPreferences preferences;
+    private final SharedPreferences settingsPrefs;
+    private final SharedPreferences.OnSharedPreferenceChangeListener prefsListener;
     private final MediaSessionClock mediaClock = new MediaSessionClock();
     private final DanmakuEngine engine;
     private final OverlayMountController overlayController;
@@ -72,6 +78,7 @@ public final class DanmakuController implements TrackSelectionDialog.Listener {
     private final TrackSelectionDialog trackDialog;
     private final DeveloperDanmakuInjector developerInjector;
     private final PlayerEventBridge playerBridge;
+    private final OsdActions osdActions;
 
     private ViewGroup container;
     private View controlsView;
@@ -79,17 +86,27 @@ public final class DanmakuController implements TrackSelectionDialog.Listener {
     private ImageButton toggleButton;
     private ImageButton selectButton;
     private ImageButton injectButton;
+    private ImageButton settingsButton;
 
     @Nullable
     private MediaDescriptor activeMedia;
     private long lastMediaRefreshMs;
     private boolean scanInFlight;
     private boolean destroyed;
+    private boolean danmakuEnabled = true;
+    private Menu osdMenu;
+    private MenuItem toggleMenuItem;
+    private MenuItem selectMenuItem;
+    private MenuItem injectMenuItem;
+    private MenuItem settingsMenuItem;
 
     private DanmakuController(Main activity) {
         this.activity = activity;
         this.jsonRpc = new XBMCJsonRPC(activity.getApplicationContext());
         this.preferences = new DanmakuPreferences(activity);
+        this.settingsPrefs = DanmakuSettingsStore.prefs(activity);
+        DanmakuSettingsStore.ensureDefaults(settingsPrefs);
+        this.prefsListener = (prefs, key) -> applySettingsFromPreferences();
         DanmakuOverlayViewHolder overlayViewHolder = new DanmakuOverlayViewHolder(activity);
         this.engine = new DanmakuEngine(
                 overlayViewHolder.view,
@@ -101,6 +118,9 @@ public final class DanmakuController implements TrackSelectionDialog.Listener {
         this.trackDialog = new TrackSelectionDialog(activity, api, this);
         this.developerInjector = new DeveloperDanmakuInjector(engine);
         this.playerBridge = new PlayerEventBridge(mediaClock, engine);
+        this.osdActions = new OsdActions(this);
+        settingsPrefs.registerOnSharedPreferenceChangeListener(prefsListener);
+        applySettingsFromPreferences();
     }
 
     public static DanmakuController attach(Main activity) {
@@ -128,6 +148,7 @@ public final class DanmakuController implements TrackSelectionDialog.Listener {
         overlayController.release();
         engine.detachRenderer();
         ioExecutor.shutdownNow();
+        settingsPrefs.unregisterOnSharedPreferenceChangeListener(prefsListener);
     }
 
     public void onConfigurationChanged() {
@@ -202,6 +223,26 @@ public final class DanmakuController implements TrackSelectionDialog.Listener {
         startManualPicker();
     }
 
+    @Override
+    public void onToggleVisibility() {
+        toggleVisibility();
+    }
+
+    @Override
+    public void onSelectTrack() {
+        showTrackDialog();
+    }
+
+    @Override
+    public void onInjectSample() {
+        developerInjector.inject(activeMediaKeyOrFallback());
+    }
+
+    @Override
+    public void onOpenSettings() {
+        openSettings();
+    }
+
     private void attachControlsOverlay(ViewGroup videoContainer) {
         if (!(videoContainer instanceof RelativeLayout)) {
             Log.w(TAG, "Video container is not a RelativeLayout; danmaku controls may overlap");
@@ -215,9 +256,13 @@ public final class DanmakuController implements TrackSelectionDialog.Listener {
         toggleButton = controlsView.findViewById(R.id.button_toggle_danmaku);
         selectButton = controlsView.findViewById(R.id.button_select_danmaku);
         injectButton = controlsView.findViewById(R.id.button_inject_danmaku);
+        settingsButton = controlsView.findViewById(R.id.button_danmaku_settings);
         toggleButton.setOnClickListener(v -> toggleVisibility());
         selectButton.setOnClickListener(v -> showTrackDialog());
         injectButton.setOnClickListener(v -> developerInjector.inject(activeMediaKeyOrFallback()));
+        settingsButton.setOnClickListener(v -> openSettings());
+        selectButton.setEnabled(false);
+        updateToggleIcon(danmakuEnabled);
         controlsView.setVisibility(View.GONE);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
@@ -230,10 +275,32 @@ public final class DanmakuController implements TrackSelectionDialog.Listener {
         videoContainer.addView(controlsView, params);
     }
 
+    private void applySettingsFromPreferences() {
+        DanmakuConfig config = DanmakuSettingsStore.buildConfig(settingsPrefs);
+        preferences.saveDefaultConfig(config);
+        engine.updateConfig(config);
+        danmakuEnabled = settingsPrefs.getBoolean(DanmakuSettingsStore.KEY_ENABLED, true);
+        engine.setVisibility(danmakuEnabled);
+        updateToggleIcon(danmakuEnabled);
+    }
+
+    public void onCreateOptionsMenu(Menu menu) {
+        this.osdMenu = menu;
+        toggleMenuItem = menu.findItem(R.id.action_toggle_danmaku);
+        selectMenuItem = menu.findItem(R.id.action_select_danmaku_track);
+        injectMenuItem = menu.findItem(R.id.action_inject_danmaku);
+        settingsMenuItem = menu.findItem(R.id.action_open_danmaku_settings);
+        updateToggleIcon(danmakuEnabled);
+        updateMenuItemsForMedia();
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return osdActions.onMenuItemSelected(item);
+    }
+
     private void toggleVisibility() {
-        DanmakuService.DanmakuStatus status = engine.getStatus();
-        engine.setVisibility(!status.isVisible());
-        updateToggleIcon(!status.isVisible());
+        boolean newState = !settingsPrefs.getBoolean(DanmakuSettingsStore.KEY_ENABLED, true);
+        settingsPrefs.edit().putBoolean(DanmakuSettingsStore.KEY_ENABLED, newState).apply();
     }
 
     private void showTrackDialog() {
@@ -242,6 +309,10 @@ public final class DanmakuController implements TrackSelectionDialog.Listener {
             return;
         }
         trackDialog.show(activeMedia.mediaKey);
+    }
+
+    private void openSettings() {
+        DanmakuSettingsActivity.launch(activity);
     }
 
     private void startManualPicker() {
@@ -336,6 +407,7 @@ public final class DanmakuController implements TrackSelectionDialog.Listener {
             if (selectButton != null) {
                 selectButton.setEnabled(false);
             }
+            updateMenuItemsForMedia();
             return;
         }
         overlayController.ensureAttached(container, null);
@@ -344,8 +416,9 @@ public final class DanmakuController implements TrackSelectionDialog.Listener {
             selectButton.setEnabled(true);
         }
         updateMediaLabel(descriptor);
-        engine.setVisibility(true);
-        updateToggleIcon(true);
+        engine.setVisibility(danmakuEnabled);
+        updateToggleIcon(danmakuEnabled);
+        updateMenuItemsForMedia();
         engine.getTrackCandidates(descriptor.mediaKey);
     }
 
@@ -363,6 +436,22 @@ public final class DanmakuController implements TrackSelectionDialog.Listener {
         toggleButton.setImageResource(visible
                 ? android.R.drawable.ic_menu_view
                 : android.R.drawable.ic_menu_close_clear_cancel);
+        if (toggleMenuItem != null) {
+            toggleMenuItem.setChecked(visible);
+        }
+    }
+
+    private void updateMenuItemsForMedia() {
+        boolean hasMedia = activeMedia != null;
+        if (selectMenuItem != null) {
+            selectMenuItem.setEnabled(hasMedia);
+        }
+        if (injectMenuItem != null) {
+            injectMenuItem.setEnabled(true);
+        }
+        if (settingsMenuItem != null) {
+            settingsMenuItem.setEnabled(true);
+        }
     }
 
     private MediaKey activeMediaKeyOrFallback() {

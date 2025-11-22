@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_toggle_danmaku"
+        android:checkable="true"
         android:title="@string/danmaku_toggle" />
     <item
         android:id="@+id/action_select_danmaku_track"
@@ -9,4 +10,7 @@
     <item
         android:id="@+id/action_inject_danmaku"
         android:title="@string/danmaku_inject_debug" />
+    <item
+        android:id="@+id/action_open_danmaku_settings"
+        android:title="@string/danmaku_open_settings" />
 </menu>

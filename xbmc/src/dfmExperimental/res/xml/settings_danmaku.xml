@@ -5,7 +5,7 @@
         android:key="danmaku_enabled"
         android:title="@string/danmaku_pref_toggle_title"
         android:summary="@string/danmaku_pref_toggle_summary"
-        android:defaultValue="false" />
+        android:defaultValue="true" />
 
     <androidx.preference.SeekBarPreference
         android:key="danmaku_text_scale"
