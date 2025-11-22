@@ -88,7 +88,7 @@ android {
       }
     }
 
-    // Toggle for enabling Jacoco on unit tests. Default: disabled for stability.
+    // Toggle for enabling Jacoco on unit tests. Default: disabled（离线插桩将替代 agent 注入）。
     def enableJacocoForUnitTests = providers.gradleProperty("enableJacocoTest").map { it.toBoolean() }.orElse(false)
 
     testOptions {
@@ -136,6 +136,8 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     // Robolectric provides Android framework shadows for local JVM tests
     testImplementation 'org.robolectric:robolectric:4.12.2'
+    // JaCoCo runtime for离线插桩运行（避免以 agent 方式触发反射序列化问题）
+    testImplementation "org.jacoco:org.jacoco.agent:${jacoco.toolVersion}:runtime"
 }
 
 java {
@@ -211,6 +213,7 @@ tasks.withType(Test).configureEach { t ->
 // Fallback: explicitly target the Android unit test task by name
 tasks.matching { it.name == "testDfmExperimentalDebugUnitTest" }.configureEach { t ->
     if (t instanceof Test) {
+        // 该任务使用 JDK17（与主工具链一致）
         t.javaLauncher.set(javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(17) })
         // 方案A：限制为单 worker，避免并发 Worker 在序列化阶段的干扰
         t.maxParallelForks = 1
@@ -228,6 +231,39 @@ tasks.matching { it.name == "testDfmExperimentalDebugUnitTest" }.configureEach {
             t.systemProperty 'jdk.reflect.useDirectMethodHandle', 'true'
             t.systemProperty 'java.io.serialization.extendedDebugInfo', 'true'
             t.systemProperty 'java.io.serialization.debug', 'true'
+            // 注意：不在此处强改 allJvmArgs，避免触发属性冻结冲突
+        }
+        // 使用离线插桩：保持 Gradle Jacoco agent 关闭（通过全局 enableJacocoForUnitTests=false 已禁用）
+        // 将插桩后的 classes 置于 classpath 前面，并设置离线写入的 exec 位置
+        def classesDir = layout.buildDirectory.dir("intermediates/javac/dfmExperimentalDebug/compileDfmExperimentalDebugJavaWithJavac/classes").get().asFile
+        def instrumentedDir = layout.buildDirectory.dir("instrumented/dfmExperimentalDebug").get().asFile
+        t.dependsOn("instrumentDfmExperimentalDebug")
+        t.doFirst {
+            t.classpath = files(instrumentedDir) + t.classpath
+            t.systemProperty 'jacoco-agent.destfile', file("$buildDir/jacoco/testDfmExperimentalDebugUnitTest.exec").absolutePath
+        }
+    }
+}
+
+// 使用 JaCoCo Ant 进行离线插桩，避免以 JavaAgent 方式触发 JDK 反射/序列化问题
+configurations { jacocoAnt }
+dependencies { jacocoAnt "org.jacoco:org.jacoco.ant:${jacoco.toolVersion}" }
+
+tasks.register("instrumentDfmExperimentalDebug") {
+    dependsOn tasks.named("compileDfmExperimentalDebugJavaWithJavac")
+    doLast {
+        def classesDir = layout.buildDirectory.dir("intermediates/javac/dfmExperimentalDebug/compileDfmExperimentalDebugJavaWithJavac/classes").get().asFile
+        def instrumentedDir = layout.buildDirectory.dir("instrumented/dfmExperimentalDebug").get().asFile
+        instrumentedDir.deleteDir()
+        instrumentedDir.mkdirs()
+        ant.taskdef(resource: 'org/jacoco/ant/antlib.xml', uri: 'jacoco', classpath: configurations.jacocoAnt.asPath)
+        ant.'jacoco:instrument'(destdir: instrumentedDir) {
+            fileset(dir: classesDir) {
+                exclude(name: '**/R.class')
+                exclude(name: '**/R$*.class')
+                exclude(name: '**/BuildConfig.*')
+                exclude(name: '**/Manifest*')
+            }
         }
     }
 }

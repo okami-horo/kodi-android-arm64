@@ -12,6 +12,7 @@ import org.xbmc.kodi.danmaku.model.DanmakuTrack;
 import org.xbmc.kodi.danmaku.model.MediaKey;
 import org.xbmc.kodi.danmaku.model.TrackCandidate;
 import org.xbmc.kodi.danmaku.source.local.BiliXmlParser;
+import org.xbmc.kodi.danmaku.source.local.LocalTrackDiscovery;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,6 +36,7 @@ public class DanmakuEngine implements DanmakuService {
     private final DanmakuPreferences preferences;
     private final BiliXmlParser parser;
     private final LongSupplier realtimeNow;
+    private final LocalTrackDiscovery trackDiscovery;
 
     private final Map<String, CachedTrack> trackCache = new HashMap<>();
 
@@ -50,7 +52,7 @@ public class DanmakuEngine implements DanmakuService {
                          PlaybackClock clock,
                          DanmakuPreferences preferences,
                          BiliXmlParser parser) {
-        this(renderer, clock, preferences, parser, SystemClock::elapsedRealtime);
+        this(renderer, clock, preferences, parser, SystemClock::elapsedRealtime, new LocalTrackDiscovery());
     }
 
     @VisibleForTesting
@@ -59,11 +61,22 @@ public class DanmakuEngine implements DanmakuService {
                   DanmakuPreferences preferences,
                   BiliXmlParser parser,
                   LongSupplier realtimeNow) {
+        this(renderer, clock, preferences, parser, realtimeNow, new LocalTrackDiscovery());
+    }
+
+    @VisibleForTesting
+    DanmakuEngine(DanmakuRenderer renderer,
+                  PlaybackClock clock,
+                  DanmakuPreferences preferences,
+                  BiliXmlParser parser,
+                  LongSupplier realtimeNow,
+                  LocalTrackDiscovery trackDiscovery) {
         this.renderer = Objects.requireNonNull(renderer, "renderer");
         this.clock = Objects.requireNonNull(clock, "clock");
         this.preferences = Objects.requireNonNull(preferences, "preferences");
         this.parser = Objects.requireNonNull(parser, "parser");
         this.realtimeNow = Objects.requireNonNull(realtimeNow, "realtimeNow");
+        this.trackDiscovery = Objects.requireNonNull(trackDiscovery, "trackDiscovery");
     }
 
     /**
@@ -76,7 +89,7 @@ public class DanmakuEngine implements DanmakuService {
         }
         List<DanmakuItem> safeItems = items == null ? Collections.emptyList() : new ArrayList<>(items);
         DanmakuConfig resolvedConfig = config == null ? DanmakuConfig.defaults() : config;
-        CachedTrack cached = new CachedTrack(track, safeItems, resolvedConfig);
+        CachedTrack cached = new CachedTrack(track, safeItems, resolvedConfig, 100, "prebound");
         trackCache.put(cacheKey(track.getMediaKey(), track.getId()), cached);
         logDebug("bindTrack: " + track.getId() + " items=" + safeItems.size());
         selectTrack(track.getMediaKey(), track.getId());
@@ -144,17 +157,21 @@ public class DanmakuEngine implements DanmakuService {
             Log.w(TAG, "getTrackCandidates ignored: mediaKey is null");
             return Collections.emptyList();
         }
+        ensureCandidates(mediaKey);
         List<TrackCandidate> result = new ArrayList<>();
-        for (CachedTrack cached : trackCache.values()) {
-            if (cached.track.getMediaKey().equals(mediaKey)) {
-                result.add(toCandidate(cached.track));
-            }
-        }
+        trackCache.values().stream()
+                .filter(cached -> cached.track.getMediaKey().equals(mediaKey))
+                .sorted((a, b) -> Integer.compare(b.score, a.score))
+                .forEach(cached -> result.add(toCandidate(cached)));
         return result;
     }
 
     @Override
     public void selectTrack(MediaKey mediaKey, String trackId) {
+        selectTrackInternal(mediaKey, trackId, true);
+    }
+
+    private void selectTrackInternal(MediaKey mediaKey, String trackId, boolean callEnsure) {
         if (mediaKey == null) {
             Log.w(TAG, "selectTrack ignored: mediaKey is null");
             return;
@@ -162,6 +179,9 @@ public class DanmakuEngine implements DanmakuService {
         if (trackId == null || trackId.isEmpty()) {
             Log.w(TAG, "selectTrack ignored: trackId is empty");
             return;
+        }
+        if (callEnsure) {
+            ensureCandidates(mediaKey);
         }
         CachedTrack cached = trackCache.get(cacheKey(mediaKey, trackId));
         if (cached == null) {
@@ -171,6 +191,15 @@ public class DanmakuEngine implements DanmakuService {
                 Log.w(TAG, "No matching track for media " + mediaKey + " id=" + trackId);
                 return;
             }
+        }
+        if (cached.items.isEmpty()) {
+            CachedTrack parsed = parseTrackFromDisk(cached.track, cached.score, cached.reason);
+            if (parsed == null) {
+                Log.w(TAG, "Unable to parse track " + trackId);
+                return;
+            }
+            cached = parsed;
+            trackCache.put(cacheKey(mediaKey, trackId), cached);
         }
         this.activeTrack = cached.track;
         this.activeItems = cached.items;
@@ -231,6 +260,42 @@ public class DanmakuEngine implements DanmakuService {
         return activeTrack;
     }
 
+    private void ensureCandidates(MediaKey mediaKey) {
+        if (mediaKey == null) {
+            return;
+        }
+        boolean hasCached = trackCache.values().stream()
+                .anyMatch(cached -> cached.track.getMediaKey().equals(mediaKey));
+        if (hasCached) {
+            String lastTrackId = preferences.getLastTrackId(mediaKey);
+            if (lastTrackId != null && trackCache.containsKey(cacheKey(mediaKey, lastTrackId)) && !lastTrackId.equals(activeId())) {
+                selectTrackInternal(mediaKey, lastTrackId, false);
+            }
+            return;
+        }
+        List<TrackCandidate> discovered = trackDiscovery.discover(mediaKey);
+        for (TrackCandidate candidate : discovered) {
+            DanmakuTrack track = candidate.getTrack();
+            CachedTrack cached = new CachedTrack(track, Collections.emptyList(), track.getConfig(), candidate.getScore(), candidate.getReason());
+            trackCache.put(cacheKey(mediaKey, track.getId()), cached);
+        }
+        String lastTrackId = preferences.getLastTrackId(mediaKey);
+        if (lastTrackId != null && trackCache.containsKey(cacheKey(mediaKey, lastTrackId))) {
+            selectTrackInternal(mediaKey, lastTrackId, false);
+            return;
+        }
+        if (!discovered.isEmpty()) {
+            String best = discovered.get(0).getTrack().getId();
+            if (!best.equals(activeId())) {
+                selectTrackInternal(mediaKey, best, false);
+            }
+        }
+    }
+
+    private String activeId() {
+        return activeTrack == null ? null : activeTrack.getId();
+    }
+
     private void applyPlaybackState(boolean forceSeek) {
         if (renderer == null || activeTrack == null) {
             return;
@@ -280,6 +345,24 @@ public class DanmakuEngine implements DanmakuService {
         }
     }
 
+    private CachedTrack parseTrackFromDisk(DanmakuTrack track, int score, String reason) {
+        if (track == null) {
+            return null;
+        }
+        File file = new File(track.getFilePath());
+        if (!file.exists() || !file.canRead()) {
+            Log.w(TAG, "Track file missing or unreadable: " + track.getFilePath());
+            return null;
+        }
+        try (FileInputStream in = new FileInputStream(file)) {
+            List<DanmakuItem> items = parser.parse(in);
+            return new CachedTrack(track, items, track.getConfig(), score, reason);
+        } catch (IOException ex) {
+            Log.w(TAG, "Failed to parse danmaku file " + track.getFilePath(), ex);
+            return null;
+        }
+    }
+
     private CachedTrack loadFromFile(MediaKey mediaKey, String trackId) {
         for (CachedTrack cached : trackCache.values()) {
             if (cached.track.getMediaKey().equals(mediaKey) && cached.track.getId().equals(trackId)) {
@@ -293,12 +376,11 @@ public class DanmakuEngine implements DanmakuService {
                 Log.w(TAG, "Track file missing for id=" + trackId);
                 return null;
             }
-            List<DanmakuItem> items;
-            try (FileInputStream in = new FileInputStream(file)) {
-                items = parser.parse(in);
-            }
             DanmakuTrack track = new DanmakuTrack(trackId, file.getName(), DanmakuTrack.SourceType.LOCAL, file.getAbsolutePath(), DanmakuConfig.defaults(), mediaKey);
-            CachedTrack cached = new CachedTrack(track, items, track.getConfig());
+            CachedTrack cached = parseTrackFromDisk(track, 80, "file");
+            if (cached == null) {
+                return null;
+            }
             trackCache.put(cacheKey(mediaKey, trackId), cached);
             return cached;
         } catch (IOException ex) {
@@ -318,8 +400,9 @@ public class DanmakuEngine implements DanmakuService {
         return track.getConfig();
     }
 
-    private TrackCandidate toCandidate(DanmakuTrack track) {
-        return new TrackCandidate(track, 0, "cached");
+    private TrackCandidate toCandidate(CachedTrack cached) {
+        String reason = cached.reason == null ? "cached" : cached.reason;
+        return new TrackCandidate(cached.track, cached.score, reason);
     }
 
     private String cacheKey(MediaKey mediaKey, String trackId) {
@@ -345,11 +428,15 @@ public class DanmakuEngine implements DanmakuService {
         final DanmakuTrack track;
         final List<DanmakuItem> items;
         final DanmakuConfig config;
+        final int score;
+        final String reason;
 
-        CachedTrack(DanmakuTrack track, List<DanmakuItem> items, DanmakuConfig config) {
+        CachedTrack(DanmakuTrack track, List<DanmakuItem> items, DanmakuConfig config, int score, String reason) {
             this.track = track;
             this.items = items;
             this.config = config;
+            this.score = score;
+            this.reason = reason;
         }
     }
 }
