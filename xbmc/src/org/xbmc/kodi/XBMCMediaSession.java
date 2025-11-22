@@ -99,6 +99,7 @@ public class XBMCMediaSession
       Log.d(TAG, "XBMCMediaSession.onSeekTo: ");
       super.onSeekTo(pos);
       _onSeekRequested(pos);
+      DanmakuHooks.dispatchSeek(pos);
     }
 
     @Override
@@ -143,6 +144,7 @@ public class XBMCMediaSession
   private void updatePlaybackState(PlaybackState mystate)
   {
     mSession.setPlaybackState(mystate);
+    DanmakuHooks.dispatchPlaybackState(mystate);
   }
 
   private void updateMetadata(MediaMetadata myData)

@@ -7,6 +7,7 @@ import static android.content.pm.PackageManager.FEATURE_LEANBACK;
 import android.app.NativeActivity;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.hardware.input.InputManager;
 import android.media.AudioManager;
@@ -17,6 +18,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.Choreographer;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
@@ -32,6 +34,8 @@ public class Main extends NativeActivity implements Choreographer.FrameCallback
 
   public static Main MainActivity = null;
   public XBMCMainView mMainView = null;
+  private RelativeLayout mVideoLayout = null;
+  private DanmakuHooks mDanmakuHooks;
 
   private XBMCSettingsContentObserver mSettingsContentObserver;
   private XBMCInputDeviceListener mInputDeviceListener;
@@ -157,12 +161,15 @@ public class Main extends NativeActivity implements Choreographer.FrameCallback
     mDecorView.setBackground(null);
     getWindow().takeSurface(null);
     setContentView(R.layout.activity_main);
-    RelativeLayout videoLayout = findViewById(R.id.VideoLayout);
+    mVideoLayout = findViewById(R.id.VideoLayout);
 
     mMainView = new XBMCMainView(this);
     RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
     mMainView.setElevation(1);  // Always on Top
-    videoLayout.addView(mMainView, layoutParams);
+    mVideoLayout.addView(mMainView, layoutParams);
+    mDanmakuHooks = DanmakuHooks.attach(this);
+    if (mDanmakuHooks != null)
+      mDanmakuHooks.onActivityCreate(mVideoLayout);
 
     if (Build.VERSION.SDK_INT < 30)
     {
@@ -224,6 +231,8 @@ public class Main extends NativeActivity implements Choreographer.FrameCallback
   public void onResume()
   {
     super.onResume();
+    if (mDanmakuHooks != null)
+      mDanmakuHooks.onResume();
 
     if (Build.VERSION.SDK_INT >= 30)
     {
@@ -274,6 +283,8 @@ public class Main extends NativeActivity implements Choreographer.FrameCallback
   public void onPause()
   {
     super.onPause();
+    if (mDanmakuHooks != null)
+      mDanmakuHooks.onPause();
 
     if (getPackageManager().hasSystemFeature(FEATURE_LEANBACK)
         && Build.VERSION.SDK_INT >= VERSION_CODES.O
@@ -285,10 +296,20 @@ public class Main extends NativeActivity implements Choreographer.FrameCallback
   }
 
   @Override
+  public void onConfigurationChanged(Configuration newConfig)
+  {
+    super.onConfigurationChanged(newConfig);
+    if (mDanmakuHooks != null)
+      mDanmakuHooks.onConfigurationChanged(newConfig);
+  }
+
+  @Override
   public void onActivityResult(int requestCode, int resultCode,
                                Intent resultData)
   {
     super.onActivityResult(requestCode, resultCode, resultData);
+    if (mDanmakuHooks != null && mDanmakuHooks.onActivityResult(requestCode, resultCode, resultData))
+      return;
     _onActivityResult(requestCode, resultCode, resultData);
   }
 
@@ -304,6 +325,11 @@ public class Main extends NativeActivity implements Choreographer.FrameCallback
     getApplicationContext().getContentResolver().unregisterContentObserver(mSettingsContentObserver);
     super.onDestroy();
     mActivityRunning = false;
+    if (mDanmakuHooks != null)
+    {
+      mDanmakuHooks.onDestroy();
+      mDanmakuHooks = null;
+    }
   }
 
   public static boolean isActivityRunning() {
@@ -315,13 +341,24 @@ public class Main extends NativeActivity implements Choreographer.FrameCallback
   public void onVisibleBehindCanceled()
   {
     _onVisibleBehindCanceled();
+    DanmakuHooks.dispatchVisibleBehindCanceled();
     super.onVisibleBehindCanceled();
+  }
+
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event)
+  {
+    if (mDanmakuHooks != null && mDanmakuHooks.onKeyDown(keyCode, event))
+      return true;
+    return super.onKeyDown(keyCode, event);
   }
 
   @Override
   public void doFrame(long frameTimeNanos)
   {
     Choreographer.getInstance().postFrameCallback(this);
+    if (mDanmakuHooks != null)
+      mDanmakuHooks.onFrame();
     _doFrame(frameTimeNanos);
   }
 

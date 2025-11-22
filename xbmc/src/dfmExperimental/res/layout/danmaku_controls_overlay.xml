@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#66000000"
+    android:padding="8dp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/text_media_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="@string/danmaku_media_label_placeholder"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:paddingEnd="8dp" />
+
+    <ImageButton
+        android:id="@+id/button_toggle_danmaku"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/danmaku_button_toggle_cd"
+        android:padding="4dp"
+        android:src="@android:drawable/ic_menu_view"
+        android:tint="@android:color/white" />
+
+    <ImageButton
+        android:id="@+id/button_select_danmaku"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/danmaku_button_tracks_cd"
+        android:padding="4dp"
+        android:src="@android:drawable/ic_menu_manage"
+        android:tint="@android:color/white" />
+
+    <ImageButton
+        android:id="@+id/button_inject_danmaku"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/danmaku_button_inject_cd"
+        android:padding="4dp"
+        android:src="@android:drawable/ic_menu_upload"
+        android:tint="@android:color/white" />
+
+</LinearLayout>
