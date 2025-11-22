@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.service.dandanplay"
+       name="Dandanplay Danmaku Bridge"
+       version="0.1.0"
+       provider-name="Kodi DFM Team">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.service" start="startup" library="service.py"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Automatically fetch danmaku from Dandanplay and bind it to Kodi&#39;s danmaku engine.</summary>
+    <summary lang="zh_CN">自动从弹弹play获取弹幕并绑定到 Kodi 弹幕引擎。</summary>
+    <description lang="en_GB">Listens to playback events, matches the current video via the Dandanplay Open API, downloads the comments and pushes them to Kodi&#39;s danmaku IPC bridge.</description>
+    <description lang="zh_CN">后台监听播放事件，通过弹弹play 开放 API 匹配当前视频，下载弹幕并通过 IPC 推送到 Kodi 的弹幕桥接服务。</description>
+    <platform>all</platform>
+    <license>GPL-2.0-or-later</license>
+  </extension>
+</addon>

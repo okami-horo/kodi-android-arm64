@@ -1,0 +1,32 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: script.service.dandanplay\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#31000"
+msgid "Enable automatic danmaku binding"
+msgstr "Enable automatic danmaku binding"
+
+msgctxt "#31001"
+msgid "Fallback to keyword search when hash match fails"
+msgstr "Fallback to keyword search when hash match fails"
+
+msgctxt "#31004"
+msgid "Dandanplay AppId"
+msgstr "Dandanplay AppId"
+
+msgctxt "#31005"
+msgid "Dandanplay AppSecret"
+msgstr "Dandanplay AppSecret"
+
+msgctxt "#31002"
+msgid "Default danmaku offset (ms)"
+msgstr "Default danmaku offset (ms)"
+
+msgctxt "#31003"
+msgid "Dandanplay service"
+msgstr "Dandanplay service"
