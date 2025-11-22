@@ -11,6 +11,7 @@ import org.xbmc.kodi.danmaku.model.DanmakuItem;
 import org.xbmc.kodi.danmaku.model.DanmakuTrack;
 import org.xbmc.kodi.danmaku.model.MediaKey;
 import org.xbmc.kodi.danmaku.model.TrackCandidate;
+import org.xbmc.kodi.danmaku.perf.DanmakuPerformanceSampler;
 import org.xbmc.kodi.danmaku.source.local.BiliXmlParser;
 import org.xbmc.kodi.danmaku.source.local.LocalTrackDiscovery;
 
@@ -37,6 +38,8 @@ public class DanmakuEngine implements DanmakuService {
     private final BiliXmlParser parser;
     private final LongSupplier realtimeNow;
     private final LocalTrackDiscovery trackDiscovery;
+    private final WindowingConfig windowing;
+    private final DanmakuPerformanceSampler perfSampler;
 
     private final Map<String, CachedTrack> trackCache = new HashMap<>();
 
@@ -46,14 +49,18 @@ public class DanmakuEngine implements DanmakuService {
     private List<DanmakuItem> activeItems = Collections.emptyList();
     private boolean visible;
     private boolean prepared;
+    private boolean windowShiftPending;
     private long lastAppliedPositionMs;
     private LoadError lastError;
+    private long windowStartMs;
+    private long windowEndMs;
+    private long lastWindowPrepareRealtimeMs;
 
     public DanmakuEngine(DanmakuRenderer renderer,
                          PlaybackClock clock,
                          DanmakuPreferences preferences,
                          BiliXmlParser parser) {
-        this(renderer, clock, preferences, parser, SystemClock::elapsedRealtime, new LocalTrackDiscovery());
+        this(renderer, clock, preferences, parser, SystemClock::elapsedRealtime, new LocalTrackDiscovery(), WindowingConfig.defaultConfig(), DanmakuPerformanceSampler.createDefault(SystemClock::elapsedRealtime));
     }
 
     @VisibleForTesting
@@ -62,7 +69,7 @@ public class DanmakuEngine implements DanmakuService {
                   DanmakuPreferences preferences,
                   BiliXmlParser parser,
                   LongSupplier realtimeNow) {
-        this(renderer, clock, preferences, parser, realtimeNow, new LocalTrackDiscovery());
+        this(renderer, clock, preferences, parser, realtimeNow, new LocalTrackDiscovery(), WindowingConfig.defaultConfig(), DanmakuPerformanceSampler.noOp());
     }
 
     @VisibleForTesting
@@ -72,12 +79,29 @@ public class DanmakuEngine implements DanmakuService {
                   BiliXmlParser parser,
                   LongSupplier realtimeNow,
                   LocalTrackDiscovery trackDiscovery) {
+        this(renderer, clock, preferences, parser, realtimeNow, trackDiscovery, WindowingConfig.defaultConfig(), DanmakuPerformanceSampler.noOp());
+    }
+
+    @VisibleForTesting
+    DanmakuEngine(DanmakuRenderer renderer,
+                  PlaybackClock clock,
+                  DanmakuPreferences preferences,
+                  BiliXmlParser parser,
+                  LongSupplier realtimeNow,
+                  LocalTrackDiscovery trackDiscovery,
+                  WindowingConfig windowing,
+                  DanmakuPerformanceSampler perfSampler) {
         this.renderer = Objects.requireNonNull(renderer, "renderer");
         this.clock = Objects.requireNonNull(clock, "clock");
         this.preferences = Objects.requireNonNull(preferences, "preferences");
         this.parser = Objects.requireNonNull(parser, "parser");
         this.realtimeNow = Objects.requireNonNull(realtimeNow, "realtimeNow");
         this.trackDiscovery = Objects.requireNonNull(trackDiscovery, "trackDiscovery");
+        this.windowing = Objects.requireNonNull(windowing, "windowing");
+        this.perfSampler = Objects.requireNonNull(perfSampler, "perfSampler");
+        this.lastWindowPrepareRealtimeMs = realtimeNow.getAsLong();
+        this.windowStartMs = 0L;
+        this.windowEndMs = Long.MAX_VALUE;
     }
 
     /**
@@ -117,19 +141,32 @@ public class DanmakuEngine implements DanmakuService {
             safeRendererCall("release", renderer::release);
             prepared = false;
         }
+        perfSampler.flush();
     }
 
     /**
      * Tick should be called from playback/Choreographer to maintain alignment within threshold.
      */
     public void tick() {
-        if (!prepared || renderer == null || !renderer.isPrepared() || activeTrack == null) {
+        if (renderer == null || activeTrack == null) {
+            return;
+        }
+        if (activeItems.isEmpty()) {
+            return;
+        }
+        refreshWindow(clock.nowMs());
+        if (!prepared || !renderer.isPrepared()) {
+            prepareRenderer();
+        }
+        if (!prepared || !renderer.isPrepared()) {
             return;
         }
         long effectivePos = clock.nowMs() + activeConfig.getOffsetMs();
-        if (Math.abs(effectivePos - lastAppliedPositionMs) >= RESYNC_THRESHOLD_MS) {
+        long drift = Math.abs(effectivePos - lastAppliedPositionMs);
+        if (drift >= RESYNC_THRESHOLD_MS) {
             safeRendererCall("seekTo", () -> renderer.seekTo(effectivePos));
             lastAppliedPositionMs = effectivePos;
+            perfSampler.recordResync(drift);
         }
         safeRendererCall("setSpeed", () -> renderer.setSpeed(clock.getSpeed()));
         if (clock.isPlaying()) {
@@ -208,6 +245,9 @@ public class DanmakuEngine implements DanmakuService {
         this.activeItems = cached.items;
         this.activeConfig = mergeConfig(cached.track, cached.config);
         prepared = false;
+        windowShiftPending = false;
+        windowStartMs = 0L;
+        windowEndMs = Long.MAX_VALUE;
         logDebug("Selected track " + trackId + " items=" + activeItems.size());
         prepareRenderer();
         applyPlaybackState(true);
@@ -239,6 +279,12 @@ public class DanmakuEngine implements DanmakuService {
     public void seek(long positionMs) {
         clock.seek(positionMs, realtimeNow.getAsLong());
         long effective = positionMs + activeConfig.getOffsetMs();
+        if (!isWithinWindow(effective)) {
+            windowShiftPending = true;
+            prepared = false;
+            applyPlaybackState(true);
+            return;
+        }
         if (renderer != null && renderer.isPrepared()) {
             safeRendererCall("seekTo", () -> renderer.seekTo(effective));
             lastAppliedPositionMs = effective;
@@ -308,6 +354,7 @@ public class DanmakuEngine implements DanmakuService {
         if (renderer == null || activeTrack == null) {
             return;
         }
+        refreshWindow(clock.nowMs());
         if (!prepared) {
             prepareRenderer();
         }
@@ -316,9 +363,13 @@ public class DanmakuEngine implements DanmakuService {
             return;
         }
         long effective = clock.nowMs() + activeConfig.getOffsetMs();
-        if (forceSeek || Math.abs(effective - lastAppliedPositionMs) >= RESYNC_THRESHOLD_MS) {
+        long drift = Math.abs(effective - lastAppliedPositionMs);
+        if (forceSeek || drift >= RESYNC_THRESHOLD_MS) {
             safeRendererCall("seekTo", () -> renderer.seekTo(effective));
             lastAppliedPositionMs = effective;
+            if (!forceSeek) {
+                perfSampler.recordResync(drift);
+            }
         }
         safeRendererCall("setSpeed", () -> renderer.setSpeed(clock.getSpeed()));
         if (clock.isPlaying()) {
@@ -329,24 +380,33 @@ public class DanmakuEngine implements DanmakuService {
     }
 
     private void prepareRenderer() {
-        if (renderer == null || activeItems.isEmpty()) {
-            if (renderer == null) {
-                Log.w(TAG, "prepareRenderer skipped: renderer is null");
-            } else {
-                String trackId = activeTrack != null ? activeTrack.getId() : "unknown";
-                Log.w(TAG, "prepareRenderer skipped: no items for track " + trackId);
-            }
+        if (renderer == null) {
+            Log.w(TAG, "prepareRenderer skipped: renderer is null");
             return;
         }
+        if (activeItems.isEmpty()) {
+            logDebug("prepareRenderer skipped: no items for active track");
+            return;
+        }
+        WindowRange windowRange = computeWindow(clock.nowMs());
         List<DanmakuItem> filtered = applyFilters(activeItems, activeConfig);
+        List<DanmakuItem> windowed = applyWindow(filtered, activeConfig, windowRange);
+        long startPrepareRealtime = realtimeNow.getAsLong();
         try {
-            renderer.prepare(filtered, activeConfig);
+            renderer.prepare(windowed, activeConfig);
             prepared = renderer.isPrepared();
         } catch (RuntimeException ex) {
             prepared = false;
             Log.e(TAG, "Renderer prepare failed", ex);
             return;
         }
+        long durationMs = Math.max(0L, realtimeNow.getAsLong() - startPrepareRealtime);
+        perfSampler.recordPrepare(durationMs, filtered.size(), windowed.size());
+        perfSampler.recordWindow(windowRange.startMs, windowRange.endMs, windowed.size());
+        windowStartMs = windowRange.startMs;
+        windowEndMs = windowRange.endMs;
+        windowShiftPending = false;
+        lastWindowPrepareRealtimeMs = realtimeNow.getAsLong();
         lastAppliedPositionMs = clock.nowMs() + activeConfig.getOffsetMs();
         if (prepared && visible) {
             safeRendererCall("setVisible", () -> renderer.setVisible(true));
@@ -414,6 +474,54 @@ public class DanmakuEngine implements DanmakuService {
     private TrackCandidate toCandidate(CachedTrack cached) {
         String reason = cached.reason == null ? "cached" : cached.reason;
         return new TrackCandidate(cached.track, cached.score, reason);
+    }
+
+    private void refreshWindow(long positionMs) {
+        if (activeItems.isEmpty()) {
+            return;
+        }
+        boolean beforeWindow = positionMs < windowStartMs;
+        boolean afterWindow = positionMs > windowEndMs;
+        boolean nearStart = windowStartMs > 0 && positionMs < windowStartMs + windowing.guardMs;
+        boolean nearEnd = windowEndMs < Long.MAX_VALUE && positionMs > windowEndMs - windowing.guardMs;
+        boolean needsShift = beforeWindow || afterWindow || nearStart || nearEnd || windowShiftPending;
+        if (!needsShift) {
+            return;
+        }
+        long now = realtimeNow.getAsLong();
+        if (now - lastWindowPrepareRealtimeMs < windowing.reprepareThrottleMs) {
+            windowShiftPending = true;
+            perfSampler.recordThrottle("window");
+            logDebug("Window shift throttled at pos=" + positionMs);
+            return;
+        }
+        prepared = false;
+        windowShiftPending = false;
+        logDebug("Window shift scheduled at pos=" + positionMs + " currentWindow=[" + windowStartMs + "," + windowEndMs + "]");
+    }
+
+    private WindowRange computeWindow(long positionMs) {
+        long start = Math.max(0L, positionMs - windowing.behindMs);
+        long end = Math.max(start, positionMs + windowing.aheadMs);
+        return new WindowRange(start, end);
+    }
+
+    private boolean isWithinWindow(long effectivePositionMs) {
+        return effectivePositionMs >= windowStartMs && effectivePositionMs <= windowEndMs;
+    }
+
+    private List<DanmakuItem> applyWindow(List<DanmakuItem> items, DanmakuConfig config, WindowRange windowRange) {
+        if (items == null || items.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<DanmakuItem> windowed = new ArrayList<>();
+        for (DanmakuItem item : items) {
+            long effectiveTime = item.getTimeMs() + config.getOffsetMs();
+            if (effectiveTime >= windowRange.startMs && effectiveTime <= windowRange.endMs) {
+                windowed.add(item);
+            }
+        }
+        return windowed;
     }
 
     private String cacheKey(MediaKey mediaKey, String trackId) {
@@ -499,6 +607,34 @@ public class DanmakuEngine implements DanmakuService {
 
         public String getReason() {
             return reason;
+        }
+    }
+
+    static final class WindowRange {
+        final long startMs;
+        final long endMs;
+
+        WindowRange(long startMs, long endMs) {
+            this.startMs = startMs;
+            this.endMs = endMs;
+        }
+    }
+
+    public static final class WindowingConfig {
+        final long behindMs;
+        final long aheadMs;
+        final long guardMs;
+        final long reprepareThrottleMs;
+
+        public WindowingConfig(long behindMs, long aheadMs, long guardMs, long reprepareThrottleMs) {
+            this.behindMs = Math.max(0L, behindMs);
+            this.aheadMs = Math.max(0L, aheadMs);
+            this.guardMs = Math.max(0L, guardMs);
+            this.reprepareThrottleMs = Math.max(0L, reprepareThrottleMs);
+        }
+
+        public static WindowingConfig defaultConfig() {
+            return new WindowingConfig(60_000L, 60_000L, 5_000L, 1_000L);
         }
     }
 

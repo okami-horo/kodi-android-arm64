@@ -14,6 +14,8 @@ cd /workspace/kodi-android-arm64
 # 或
 make apk
 ```
+- dfmExperimental APK: `xbmc/build/outputs/apk/dfmExperimental/debug/xbmc-dfmExperimental-debug.apk`
+- vanilla APK: `xbmc/build/outputs/apk/vanilla/debug/xbmc-vanilla-debug.apk`
 
 ## 源集与目录约定
 - 主源集仅使用 `xbmc/src/main/java`（及对应 `res`/`AndroidManifest.xml`），禁止挂载平行 `xbmc/java/` 或整棵 `src/`。
@@ -40,6 +42,15 @@ make apk
 - 开启弹幕：首次 2s 内出现（SC-001）
 - Seek：2s 内恢复到新位置且偏差 ≤200ms（SC-002）
 - 切轨：2s 内恢复显示与同步（SC-008）
+
+## 可用性走查（SC-005）
+- 安装 dfmExperimental APK，播放本地视频。
+- 通过 OSD 路径 `OSD > 弹幕` 切换开关，长按或二级菜单进入“选择弹幕轨”；在设置路径 `设置 > 播放器 > 弹幕` 调整样式/密度/过滤。
+- 记录是否能在 1 次尝试内找到入口并完成设置；截取 OSD 与设置路径截图（可放入 `docs/screenshots/danmaku-entry.png`），在 PR 模板粘贴走查结论与截图链接。
+
+## 性能采样
+- dfmExperimental 变体默认输出采样报告：`xbmc/build/reports/danmaku/perf/last-run.json`（准备耗时、窗口刷新与限流计数）。
+- 重新验证前可清理该目录，运行播放或单测后检查最新报告；如目录不可写会自动降级为仅日志。
 
 ## 调试建议
 - 使用 `Choreographer` 帧回调驱动渲染；日志输出 `clock.nowMs()` 与 DFM 的当前时间做对比

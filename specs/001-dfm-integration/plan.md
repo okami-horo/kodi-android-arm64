@@ -68,6 +68,13 @@ GATE: 本计划在设计前后各自检视一次，以下为承诺与执行要�
 - Security & Signing: 仅使用 `KODI_ANDROID_*` 调试签名变量；Release 走 CI Secrets；不引入新权限。
 - Quality Gates: 新增 UT 覆盖时钟推算和 XML→DFM 转换；Lint 需通过；安装 APK + monkey 启动校验。
 
+## Upstream Fidelity Checklist
+- [X] `vanilla` 变体默认编译（BuildConfig.DANMAKU_ENABLED=false），排除 dfmExperimental 源/资源，保持上游行为一致。
+- [X] 弹幕依赖与 OSD/设置入口仅在 `dfmExperimental` 变体注册；未直接修改上游 OSD 代码路径。
+- [X] 打包仍排除 `**/libkodi.unstripped.so`，保留 legacy jniLibs packaging 与现有签名配置。
+- [X] Manifest 权限/组件未新增；`assembleVanillaDebug` 与 `assembleDfmExperimentalDebug` 均可生成可安装 APK。
+- [X] 如引用上游文件需在 `docs/UPSTREAM_ORIGINS.md` 记录（本次无新增引用）。
+
 ## Project Structure
 
 ### Documentation (this feature)

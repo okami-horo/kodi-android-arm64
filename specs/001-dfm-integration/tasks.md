@@ -141,14 +141,14 @@
 
 **Purpose**: 合规、性能与清理
 
-- [ ] T048 [P] 在 `specs/001-dfm-integration/plan.md` 增补 Upstream Fidelity 合规清单（已更新，复核）
-- [ ] T049 [P] 引擎性能优化：预取窗口与限流 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java`
-- [ ] T050 [P] 关键路径单测补充（阈值与边界）`xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/`
-- [ ] T051 代码清理与日志分级 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/`
-- [ ] T052 按 quickstart 全流程验证（dfmExperimental 与 vanilla）`xbmc/build/outputs/apk/`
-- [ ] T053 可用性走查（SC-005）：更新 `specs/001-dfm-integration/quickstart.md` 加入入口路径截图与步骤，并在 PR 模板粘贴走查结论
+- [X] T048 [P] 在 `specs/001-dfm-integration/plan.md` 增补 Upstream Fidelity 合规清单（已更新，复核）
+- [X] T049 [P] 引擎性能优化：预取窗口与限流 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java`
+- [X] T050 [P] 关键路径单测补充（阈值与边界）`xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/`
+- [X] T051 代码清理与日志分级 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/`
+- [X] T052 按 quickstart 全流程验证（dfmExperimental 与 vanilla）`xbmc/build/outputs/apk/`
+- [X] T053 可用性走查（SC-005）：更新 `specs/001-dfm-integration/quickstart.md` 加入入口路径截图与步骤，并在 PR 模板粘贴走查结论
 
-- [ ] T061 [P] 性能采样与报告（渲染耗时/掉帧计数；dfmExperimental 下启用），输出至 `xbmc/build/reports/danmaku/perf/`
+- [X] T061 [P] 性能采样与报告（渲染耗时/掉帧计数；dfmExperimental 下启用），输出至 `xbmc/build/reports/danmaku/perf/`
 - [X] T062 质量闸门整体验证（统一 Lint + UT + 安装可启动校验）；T030/T039/T047 作为该任务别名收敛报告
 
 ---

@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 
+def jacocoVersion = "0.8.12"
+def kotlinStdlibVersion = "1.8.22"
+
 repositories {
     google()
     mavenCentral()
@@ -130,6 +133,14 @@ android {
     }
 }
 
+configurations.all {
+    resolutionStrategy.force(
+            "org.jetbrains.kotlin:kotlin-stdlib:${kotlinStdlibVersion}",
+            "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlinStdlibVersion}",
+            "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinStdlibVersion}"
+    )
+}
+
 // no-op: previously had an incomplete afterEvaluate hook
 
 dependencies {
@@ -142,7 +153,7 @@ dependencies {
     // Robolectric provides Android framework shadows for local JVM tests
     testImplementation 'org.robolectric:robolectric:4.12.2'
     // JaCoCo runtime for离线插桩运行（避免以 agent 方式触发反射序列化问题）
-    testImplementation "org.jacoco:org.jacoco.agent:${jacoco.toolVersion}:runtime"
+    testImplementation "org.jacoco:org.jacoco.agent:${jacocoVersion}:runtime"
 }
 
 java {
@@ -152,7 +163,7 @@ java {
 }
 
 jacoco {
-    toolVersion = "0.8.12"
+    toolVersion = jacocoVersion
 }
 
 def jacocoExcludes = [
@@ -252,7 +263,7 @@ tasks.matching { it.name == "testDfmExperimentalDebugUnitTest" }.configureEach {
 
 // 使用 JaCoCo Ant 进行离线插桩，避免以 JavaAgent 方式触发 JDK 反射/序列化问题
 configurations { jacocoAnt }
-dependencies { jacocoAnt "org.jacoco:org.jacoco.ant:${jacoco.toolVersion}" }
+dependencies { jacocoAnt "org.jacoco:org.jacoco.ant:${jacocoVersion}" }
 
 tasks.register("instrumentDfmExperimentalDebug") {
     dependsOn tasks.named("compileDfmExperimentalDebugJavaWithJavac")
