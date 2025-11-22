@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="danmaku_enabled"
+        android:title="@string/danmaku_pref_toggle_title"
+        android:summary="@string/danmaku_pref_toggle_summary"
+        android:defaultValue="false" />
+
+    <androidx.preference.SeekBarPreference
+        android:key="danmaku_text_scale"
+        android:title="@string/danmaku_pref_text_scale"
+        android:summary="@string/danmaku_pref_text_scale_summary"
+        android:min="50"
+        android:max="200" />
+
+    <androidx.preference.SeekBarPreference
+        android:key="danmaku_speed"
+        android:title="@string/danmaku_pref_speed"
+        android:summary="@string/danmaku_pref_speed_summary"
+        android:min="50"
+        android:max="200" />
+
+    <androidx.preference.SeekBarPreference
+        android:key="danmaku_alpha"
+        android:title="@string/danmaku_pref_alpha"
+        android:summary="@string/danmaku_pref_alpha_summary"
+        android:min="20"
+        android:max="100" />
+
+    <androidx.preference.SeekBarPreference
+        android:key="danmaku_max_on_screen"
+        android:title="@string/danmaku_pref_max_on_screen"
+        android:summary="@string/danmaku_pref_max_on_screen_summary"
+        android:min="0"
+        android:max="200" />
+
+    <androidx.preference.EditTextPreference
+        android:key="danmaku_keyword_filter"
+        android:title="@string/danmaku_pref_keyword_filter"
+        android:summary="@string/danmaku_pref_keyword_filter_summary" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="danmaku_type_scroll"
+        android:title="@string/danmaku_pref_type_scroll"
+        android:defaultValue="true" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="danmaku_type_top"
+        android:title="@string/danmaku_pref_type_top"
+        android:defaultValue="true" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="danmaku_type_bottom"
+        android:title="@string/danmaku_pref_type_bottom"
+        android:defaultValue="true" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="danmaku_type_positioned"
+        android:title="@string/danmaku_pref_type_positioned"
+        android:defaultValue="true" />
+
+    <androidx.preference.SeekBarPreference
+        android:key="danmaku_offset"
+        android:title="@string/danmaku_pref_offset"
+        android:summary="@string/danmaku_pref_offset_summary"
+        android:min="-5000"
+        android:max="5000" />
+
+    <androidx.preference.Preference
+        android:key="danmaku_readability_hint"
+        android:title="@string/danmaku_readability_title"
+        android:summary="@string/danmaku_readability_summary" />
+
+</androidx.preference.PreferenceScreen>

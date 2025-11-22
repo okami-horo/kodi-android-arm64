@@ -20,6 +20,7 @@ public class DanmakuPreferences {
     private static final String PREF_NAME = "danmaku_prefs";
     private static final String KEY_LAST_TRACK_PREFIX = "last_track_";
     private static final String KEY_CONFIG_PREFIX = "config_";
+    private static final String KEY_DEFAULT_CONFIG = "config_default";
 
     private final SharedPreferences preferences;
     private final Gson gson;
@@ -51,6 +52,12 @@ public class DanmakuPreferences {
                 .apply();
     }
 
+    public void saveDefaultConfig(DanmakuConfig config) {
+        preferences.edit()
+                .putString(KEY_DEFAULT_CONFIG, gson.toJson(config))
+                .apply();
+    }
+
     @Nullable
     public DanmakuConfig getConfig(MediaKey mediaKey) {
         String raw = preferences.getString(configKey(mediaKey), null);
@@ -62,6 +69,20 @@ public class DanmakuPreferences {
         } catch (JsonSyntaxException ex) {
             // Corrupted entry, drop it to avoid blocking playback.
             preferences.edit().remove(configKey(mediaKey)).apply();
+            return null;
+        }
+    }
+
+    @Nullable
+    public DanmakuConfig getDefaultConfig() {
+        String raw = preferences.getString(KEY_DEFAULT_CONFIG, null);
+        if (raw == null || raw.isEmpty()) {
+            return null;
+        }
+        try {
+            return gson.fromJson(raw, DanmakuConfig.class);
+        } catch (JsonSyntaxException ex) {
+            preferences.edit().remove(KEY_DEFAULT_CONFIG).apply();
             return null;
         }
     }

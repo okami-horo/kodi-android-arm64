@@ -120,17 +120,17 @@
 
 ### Tests for User Story 3
 
-- [ ] T040 [P] [US3] 设置应用与持久化单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/DanmakuSettingsTest.java`
+- [X] T040 [P] [US3] 设置应用与持久化单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/DanmakuSettingsTest.java`
 
 ### Implementation for User Story 3
 
-- [ ] T041 [P] [US3] 偏好字段补充 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuPreferences.java`
-- [ ] T042 [US3] 引擎：样式与密度应用 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java`
-- [ ] T043 [US3] 引擎：关键字/类型过滤与同屏/行数限制 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java`
-- [ ] T044 [US3] 引擎：时间偏移应用（offsetMs）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java`
-- [ ] T045 [US3] API：更新配置 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/api/DanmakuApi.java`
-- [ ] T046 [US3] 设置面板与条目 `xbmc/src/dfmExperimental/res/xml/settings_danmaku.xml` 与 `xbmc/src/dfmExperimental/res/values/strings_danmaku.xml`
-- [ ] T060 [US3] 可读性提示文案与呈现（字幕共显情况下的提示，FR-021）`xbmc/src/dfmExperimental/res/values/strings_danmaku.xml` 与设置面板展示位置
+- [X] T041 [P] [US3] 偏好字段补充 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuPreferences.java`
+- [X] T042 [US3] 引擎：样式与密度应用 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java`
+- [X] T043 [US3] 引擎：关键字/类型过滤与同屏/行数限制 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java`
+- [X] T044 [US3] 引擎：时间偏移应用（offsetMs）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java`
+- [X] T045 [US3] API：更新配置 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/api/DanmakuApi.java`
+- [X] T046 [US3] 设置面板与条目 `xbmc/src/dfmExperimental/res/xml/settings_danmaku.xml` 与 `xbmc/src/dfmExperimental/res/values/strings_danmaku.xml`
+- [X] T060 [US3] 可读性提示文案与呈现（字幕共显情况下的提示，FR-021）`xbmc/src/dfmExperimental/res/values/strings_danmaku.xml` 与设置面板展示位置
 - [ ] T047 [US3] Lint 修复（Alias of T062 质量闸门） `xbmc/build.gradle`
 
 **Checkpoint**: 设置项与行为可独立验证

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!-- BEGIN_INCLUDE(manifest) -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.xbmc.kodi"
     android:installLocation="auto"
     android:versionCode="2190702"
     android:versionName="22.0-ALPHA2">

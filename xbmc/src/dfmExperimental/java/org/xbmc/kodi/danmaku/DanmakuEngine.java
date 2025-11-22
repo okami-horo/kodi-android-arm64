@@ -338,8 +338,9 @@ public class DanmakuEngine implements DanmakuService {
             }
             return;
         }
+        List<DanmakuItem> filtered = applyFilters(activeItems, activeConfig);
         try {
-            renderer.prepare(activeItems, activeConfig);
+            renderer.prepare(filtered, activeConfig);
             prepared = renderer.isPrepared();
         } catch (RuntimeException ex) {
             prepared = false;
@@ -380,30 +381,29 @@ public class DanmakuEngine implements DanmakuService {
             }
         }
         // Best-effort parse when caller already has track metadata
-        try {
-            File file = new File(trackId);
-            if (!file.exists()) {
-                Log.w(TAG, "Track file missing for id=" + trackId);
-                lastError = new LoadError(trackId, "missing");
-                return null;
-            }
-            DanmakuTrack track = new DanmakuTrack(trackId, file.getName(), DanmakuTrack.SourceType.LOCAL, file.getAbsolutePath(), DanmakuConfig.defaults(), mediaKey);
-            CachedTrack cached = parseTrackFromDisk(track, 80, "file");
-            if (cached == null) {
-                return null;
-            }
-            trackCache.put(cacheKey(mediaKey, trackId), cached);
-            return cached;
-        } catch (IOException ex) {
-            Log.w(TAG, "Failed to parse danmaku file for track " + trackId, ex);
+        File file = new File(trackId);
+        if (!file.exists()) {
+            Log.w(TAG, "Track file missing for id=" + trackId);
+            lastError = new LoadError(trackId, "missing");
             return null;
         }
+        DanmakuTrack track = new DanmakuTrack(trackId, file.getName(), DanmakuTrack.SourceType.LOCAL, file.getAbsolutePath(), DanmakuConfig.defaults(), mediaKey);
+        CachedTrack cached = parseTrackFromDisk(track, 80, "file");
+        if (cached == null) {
+            return null;
+        }
+        trackCache.put(cacheKey(mediaKey, trackId), cached);
+        return cached;
     }
 
     private DanmakuConfig mergeConfig(DanmakuTrack track, DanmakuConfig candidate) {
         DanmakuConfig saved = preferences.getConfig(track.getMediaKey());
         if (saved != null) {
             return saved;
+        }
+        DanmakuConfig defaultConfig = preferences.getDefaultConfig();
+        if (defaultConfig != null) {
+            return defaultConfig;
         }
         if (candidate != null) {
             return candidate;
@@ -435,7 +435,56 @@ public class DanmakuEngine implements DanmakuService {
         }
     }
 
-    static final class LoadError {
+    private List<DanmakuItem> applyFilters(List<DanmakuItem> items, DanmakuConfig config) {
+        if (items == null || items.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<String> keywords = config.getKeywordFilter();
+        DanmakuConfig.TypeEnabled enabled = config.getTypeEnabled();
+        List<DanmakuItem> filtered = new ArrayList<>();
+        for (DanmakuItem item : items) {
+            if (!isTypeAllowed(item, enabled)) {
+                continue;
+            }
+            if (matchesKeyword(item, keywords)) {
+                continue;
+            }
+            filtered.add(item);
+        }
+        return filtered;
+    }
+
+    private boolean matchesKeyword(DanmakuItem item, List<String> keywords) {
+        if (keywords == null || keywords.isEmpty()) {
+            return false;
+        }
+        String text = item.getText() == null ? "" : item.getText().toLowerCase();
+        for (String keyword : keywords) {
+            if (keyword == null || keyword.isEmpty()) {
+                continue;
+            }
+            if (text.contains(keyword.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isTypeAllowed(DanmakuItem item, DanmakuConfig.TypeEnabled enabled) {
+        switch (item.getType()) {
+            case TOP:
+                return enabled.isTop();
+            case BOTTOM:
+                return enabled.isBottom();
+            case POSITIONED:
+                return enabled.isPositioned();
+            case SCROLL:
+            default:
+                return enabled.isScroll();
+        }
+    }
+
+    public static final class LoadError {
         private final String path;
         private final String reason;
 

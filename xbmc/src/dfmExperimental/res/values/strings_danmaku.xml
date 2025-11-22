@@ -13,4 +13,24 @@
     <string name="danmaku_tracks_error_malformed">The danmaku file is damaged or malformed.</string>
     <string name="danmaku_tracks_error_io">Unable to read the danmaku file. Please check permissions.</string>
     <string name="danmaku_tracks_error_generic">Failed to load danmaku file.</string>
+    <string name="danmaku_pref_toggle_title">Enable danmaku</string>
+    <string name="danmaku_pref_toggle_summary">Show comments over video during playback.</string>
+    <string name="danmaku_pref_text_scale">Text size</string>
+    <string name="danmaku_pref_text_scale_summary">Adjust danmaku text size (50% - 200%).</string>
+    <string name="danmaku_pref_speed">Scroll speed</string>
+    <string name="danmaku_pref_speed_summary">Adjust danmaku scroll speed relative to playback.</string>
+    <string name="danmaku_pref_alpha">Opacity</string>
+    <string name="danmaku_pref_alpha_summary">Control danmaku transparency.</string>
+    <string name="danmaku_pref_max_on_screen">Max on screen</string>
+    <string name="danmaku_pref_max_on_screen_summary">Limit simultaneous danmaku to reduce clutter.</string>
+    <string name="danmaku_pref_keyword_filter">Keyword filter</string>
+    <string name="danmaku_pref_keyword_filter_summary">Comma-separated words to hide matching danmaku.</string>
+    <string name="danmaku_pref_type_scroll">Allow scrolling danmaku</string>
+    <string name="danmaku_pref_type_top">Allow top-fixed danmaku</string>
+    <string name="danmaku_pref_type_bottom">Allow bottom-fixed danmaku</string>
+    <string name="danmaku_pref_type_positioned">Allow positioned/special danmaku</string>
+    <string name="danmaku_pref_offset">Timing offset</string>
+    <string name="danmaku_pref_offset_summary">Shift danmaku timing forward/backward (ms) to sync.</string>
+    <string name="danmaku_readability_title">Subtitle readability</string>
+    <string name="danmaku_readability_summary">When subtitles and danmaku are both enabled, reduce on-screen count or lines for better readability.</string>
 </resources>
