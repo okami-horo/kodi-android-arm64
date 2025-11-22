@@ -93,8 +93,8 @@
 
 - [X] T031 [P] [US2] 本地轨发现与评分单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/source/local/LocalTrackDiscoveryTest.java`
 - [X] T032 [P] [US2] 切轨恢复同步（≤2s）单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/DanmakuEngineSwitchTrackTest.java`
-- [ ] T066 [US2] 手动选择后恢复同步（≤2s）单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/ManualSelectSyncTest.java`
-- [ ] T067 [US2] 解析失败/不可读文件错误路径与 UI 提示单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/ParserErrorFlowTest.java`
+- [X] T066 [US2] 手动选择后恢复同步（≤2s）单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/ManualSelectSyncTest.java`
+- [X] T067 [US2] 解析失败/不可读文件错误路径与 UI 提示单测 `xbmc/src/dfmExperimentalDebugUnitTest/java/org/xbmc/kodi/danmaku/ParserErrorFlowTest.java`
 
 ### Implementation for User Story 2
 
@@ -102,10 +102,10 @@
 - [X] T034 [US2] API：列举候选与选择当前轨 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/api/DanmakuApi.java`
 - [X] T035 [US2] 引擎：加载所选轨并恢复同步 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuEngine.java`
 - [X] T036 [US2] 偏好：按 MediaKey 记忆最近选择 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/DanmakuPreferences.java`
-- [ ] T037 [US2] 轨列表 UI 与布局 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/ui/TrackSelectionDialog.java` 与 `xbmc/src/dfmExperimental/res/layout/dialog_danmaku_tracks.xml`
-- [ ] T038 [US2] 无候选/损坏文件提示文案 `xbmc/src/dfmExperimental/res/values/strings_danmaku.xml`
-- [ ] T058 [US2] 解析失败与错误分类处理（不可读/损坏/权限）与替换路径回退 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/source/local/BiliXmlParser.java` 与 `DanmakuEngine` 错误分支
-- [ ] T059 [US2] 无候选时的手动文件选择（ACTION_OPEN_DOCUMENT + 校验 + 加载）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/ui/ManualFilePicker.java`
+- [X] T037 [US2] 轨列表 UI 与布局 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/ui/TrackSelectionDialog.java` 与 `xbmc/src/dfmExperimental/res/layout/dialog_danmaku_tracks.xml`
+- [X] T038 [US2] 无候选/损坏文件提示文案 `xbmc/src/dfmExperimental/res/values/strings_danmaku.xml`
+- [X] T058 [US2] 解析失败与错误分类处理（不可读/损坏/权限）与替换路径回退 `xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/source/local/BiliXmlParser.java` 与 `DanmakuEngine` 错误分支
+- [X] T059 [US2] 无候选时的手动文件选择（ACTION_OPEN_DOCUMENT + 校验 + 加载）`xbmc/src/dfmExperimental/java/org/xbmc/kodi/danmaku/ui/ManualFilePicker.java`
 - [ ] T039 [US2] Lint 修复（Alias of T062 质量闸门） `xbmc/build.gradle`
 
 **Checkpoint**: 本地轨发现/选择独立可测

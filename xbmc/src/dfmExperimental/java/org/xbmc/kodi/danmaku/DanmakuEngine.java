@@ -47,6 +47,7 @@ public class DanmakuEngine implements DanmakuService {
     private boolean visible;
     private boolean prepared;
     private long lastAppliedPositionMs;
+    private LoadError lastError;
 
     public DanmakuEngine(DanmakuRenderer renderer,
                          PlaybackClock clock,
@@ -180,6 +181,7 @@ public class DanmakuEngine implements DanmakuService {
             Log.w(TAG, "selectTrack ignored: trackId is empty");
             return;
         }
+        lastError = null;
         if (callEnsure) {
             ensureCandidates(mediaKey);
         }
@@ -195,6 +197,7 @@ public class DanmakuEngine implements DanmakuService {
         if (cached.items.isEmpty()) {
             CachedTrack parsed = parseTrackFromDisk(cached.track, cached.score, cached.reason);
             if (parsed == null) {
+                lastError = new LoadError(cached.track.getFilePath(), "parse_failed");
                 Log.w(TAG, "Unable to parse track " + trackId);
                 return;
             }
@@ -258,6 +261,11 @@ public class DanmakuEngine implements DanmakuService {
     @Override
     public DanmakuTrack getActiveTrack() {
         return activeTrack;
+    }
+
+    @VisibleForTesting
+    LoadError getLastError() {
+        return lastError;
     }
 
     private void ensureCandidates(MediaKey mediaKey) {
@@ -356,8 +364,10 @@ public class DanmakuEngine implements DanmakuService {
         }
         try (FileInputStream in = new FileInputStream(file)) {
             List<DanmakuItem> items = parser.parse(in);
+            lastError = null;
             return new CachedTrack(track, items, track.getConfig(), score, reason);
         } catch (IOException ex) {
+            lastError = new LoadError(track.getFilePath(), ex instanceof BiliXmlParser.ParseException ? ((BiliXmlParser.ParseException) ex).getReason().name() : "IO");
             Log.w(TAG, "Failed to parse danmaku file " + track.getFilePath(), ex);
             return null;
         }
@@ -374,6 +384,7 @@ public class DanmakuEngine implements DanmakuService {
             File file = new File(trackId);
             if (!file.exists()) {
                 Log.w(TAG, "Track file missing for id=" + trackId);
+                lastError = new LoadError(trackId, "missing");
                 return null;
             }
             DanmakuTrack track = new DanmakuTrack(trackId, file.getName(), DanmakuTrack.SourceType.LOCAL, file.getAbsolutePath(), DanmakuConfig.defaults(), mediaKey);
@@ -421,6 +432,24 @@ public class DanmakuEngine implements DanmakuService {
     private void logDebug(String message) {
         if (Log.isLoggable(TAG, Log.DEBUG)) {
             Log.d(TAG, message);
+        }
+    }
+
+    static final class LoadError {
+        private final String path;
+        private final String reason;
+
+        LoadError(String path, String reason) {
+            this.path = path;
+            this.reason = reason;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public String getReason() {
+            return reason;
         }
     }
 

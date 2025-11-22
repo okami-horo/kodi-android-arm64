@@ -3,4 +3,14 @@
     <string name="danmaku_toggle">Toggle danmaku</string>
     <string name="danmaku_select_track">Select danmaku track</string>
     <string name="danmaku_inject_debug">Inject demo danmaku</string>
+    <string name="danmaku_tracks_title">Danmaku tracks</string>
+    <string name="danmaku_tracks_hint">Choose a track to sync with the current media.</string>
+    <string name="danmaku_tracks_empty_title">No danmaku found</string>
+    <string name="danmaku_tracks_empty_message">No readable .xml danmaku files were found in the same folder. You can pick one manually.</string>
+    <string name="danmaku_tracks_action_manual">Choose file</string>
+    <string name="danmaku_tracks_error_title">Danmaku unavailable</string>
+    <string name="danmaku_tracks_error_missing">The selected danmaku file no longer exists.</string>
+    <string name="danmaku_tracks_error_malformed">The danmaku file is damaged or malformed.</string>
+    <string name="danmaku_tracks_error_io">Unable to read the danmaku file. Please check permissions.</string>
+    <string name="danmaku_tracks_error_generic">Failed to load danmaku file.</string>
 </resources>

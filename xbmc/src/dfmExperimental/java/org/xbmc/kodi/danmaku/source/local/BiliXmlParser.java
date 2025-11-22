@@ -17,6 +17,24 @@ import java.util.List;
  * Only core attributes are handled: time, mode, size, color.
  */
 public class BiliXmlParser {
+    public enum ErrorReason {
+        MALFORMED,
+        IO
+    }
+
+    public static final class ParseException extends IOException {
+        private final ErrorReason reason;
+
+        public ParseException(String message, ErrorReason reason, Throwable cause) {
+            super(message, cause);
+            this.reason = reason;
+        }
+
+        public ErrorReason getReason() {
+            return reason;
+        }
+    }
+
     public List<DanmakuItem> parse(InputStream inputStream) throws IOException {
         try {
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
@@ -39,7 +57,9 @@ public class BiliXmlParser {
             }
             return result;
         } catch (XmlPullParserException e) {
-            throw new IOException("Failed to parse Bili XML", e);
+            throw new ParseException("Failed to parse Bili XML", ErrorReason.MALFORMED, e);
+        } catch (IOException e) {
+            throw new ParseException("IO error while parsing Bili XML", ErrorReason.IO, e);
         }
     }
 
